@@ -1,10 +1,7 @@
 ECHO is on.
-/dokumentacija/*.aux
 /dokumentacija/*.lof
 /dokumentacija/*.log
 /dokumentacija/*.lot
 /dokumentacija/*.out
-/dokumentacija/*.pdf
 /dokumentacija/*.synctex.gz
 /dokumentacija/*.toc
-/dokumentacija/*.tex
