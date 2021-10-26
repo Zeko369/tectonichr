@@ -5,3 +5,4 @@ ECHO is on.
 /dokumentacija/*.out
 /dokumentacija/*.synctex.gz
 /dokumentacija/*.toc
+/dokumentacija/*.aux
