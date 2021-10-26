@@ -1,0 +1,14 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+}
+
+type Query {
+    users: [User!]!
+}
+
+type User {
+    email: String!
+    id: Int!
+}
