@@ -1,34 +1,39 @@
-\textbf{\textit{dio 1. revizije}}\\
+\chapter{Opis projektnog zadatka}
+		
 
-\textit{Ovaj se projekt bavi razvojem programske podrške za web aplikaciju "TectonicHR". 
-	Cilj aplikacije "TectonicHR" olakšano je prikupljanje podataka o intezitetu potresa te olakšani vizualni pristup informacijama. 
+
+{Ovaj se projekt bavi razvojem programske podrške za web aplikaciju "TectonicHR". 
+	Cilj aplikacije "TectonicHR" olakšano je prikupljanje podataka o intenzitetu potresa te olakšani vizualni pristup informacijama. 
 	Aplikacija je namijenjena znanstvenoj zajednici, ali i općoj populaciji. 
 	Znanstvenoj zajednici, seizmolozima, bit će olakšan pristup informacijama i njihovo prikupljanje.  
 	Opća populacija, građani, imat će mogućnost unosa novog potresa kojega su osjetili te pregled već zabilježenih potresa.   
-	Prilikom otvaranja aplikacije građanima se nudi izbor odabira zadnjeg potresa u vidu datuma i vremena potresa te pretraživanje starih potresa. 
-	Odabirom opcije "Stari potresi" pojavljuje se pregled preliminarne karte inteziteta potresa koja sadži interaktivnu kartu Hrvatske.
-	Karta se prikazuje i pri opciji dodavanja informacija za zadnji potres. 
-	Na karti je zvjezdicom označen epicentar te kružićem određene boje označen je intezitet potresa. (Hladnije plave nijanse označavaju slabiji intezitet, a tamnije crvene jači intezitet). 
-	Ispod karte nalazi se tablica s podacima o zadnjem i starijim potresima. (KOJIM PODACIMA, DOGOVORI) 
-	Ako se zadnji potres ne poklapa s opažanjima građana, preko opcije "Novi potres?" građanin može dodati novi potres koji je osjetio. 
+	Prilikom otvaranja aplikacije građanima se nude tri opcije. Prva opcija, „Aktualni potresi“, omogućava pregled aktualnih potresa te ispunjavanje upitnika za njih. Druga opcija, „Arhivirani potresi“, otvara stranicu koja prikazuje pregled preliminarne karte inteziteta potresa koja sadži interaktivnu kartu Hrvatske te popis arhiviranih potresa. 
+	Na karti je zvjezdicom označen epicentar te kružićem određene boje označen je intenzitet potresa. (Hladnije plave nijanse označavaju slabiji intezitet, a tamnije crvene jači intezitet). 
+	Ispod karte nalazi se tablica s podacima o zadnjem i starijim potresima. 
+	Ako se zadnji potres ne poklapa s opažanjima građana, preko treće opcije „Novi potres?" građanin može dodati novi potres koji je osjetio. 
 	Kada građanin odluči dodati novi potres, obavezan je popuniti i predati upitnik. 
 	Upitnik se sastoji od pitanja iz kojih znanstvenici mogu dobiti vrijedne informacije o tome kakvi su bili učinci potresa. 
-	Građani moraju navesti kada i gdje se potres osjetio, gdje se osoba nalazila u to vrijeme, email te gdje se osoba nalazila u to vrijeme. 
-	Nakon toga odgovara na pitanja o subjektivnom dojmu, kako je potres djelovao na osobu,  koliko se osjetilo. 
-	Također, postavljaju se pitanja i o nastaloj šteti (oštećenim dimnnjacima i krovovima, ispucalim zidovima, srušenim građevinama).}
+	Pitanja se odnose na to koliko se potres osjetio, koliku je štetu napravio na malim predmetima, kućama, zgradama i zemlji te kako su ljudi reagirali. 
+	Odgovori na ta pitanja pomažu pri računanju intenziteta potresa. 
+	Na početnoj stranici u gornjem desnom kutu nalazi se gumb za prijavu u sustav. Tu funkcionalnost koriste seizmolozi koji žele preuzeti podatke o potresu i odgovore građana.  Pri prijavi upisuju svoje ime, prezime, email, korisničko ime i lozinku. Znanstvenike u sustav mora registrirati administrator kako neovlaštena osoba ne bi mogla pristupiti svim podacima. Administrator se također mora prijaviti pri dolasku na stranicu kako bi imao sve ovlasti. \\
+	
+	}
+	
+	Program treba sam računati intenzitet potresa pomoću prethodno preuzetih upitnika. Upitnik treba automatski izračunati i proslijediti intenzitet potresa prema odgovorenim pitanjima. Vrijednost intenziteta na pojedinoj lokaciji odgovara srednjoj vrijednosti intenziteta svih upitnika ispunjenih za potres na istoj lokaciji. Mjesto epicentra aproksimira se koristeći lokacije jednakog intenziteta, a intenzitet potresa se u epicentru (predstavljen bojom) određuje koristeći \textit{Koevesligethyjevu jednadžbu}:
+\begin{equation}
+  I_{0} = I_{max} + 3\log\frac{r}{h} + 3\mu\alpha(r-h)
+\end{equation}
 
-\begin{packed_item}
-	\item \textit{potencijalna korist ovog projekta}
-	\item \textit{postojeća slična rješenja (istražiti i ukratko opisati razlike u odnosu na zadani zadatak). Dodajte slike koja predočavaju slična rješenja.}
-	\item \textit{skup korisnika koji bi mogao biti zainteresiran za ostvareno rješenje.}
-	\item \textit{mogućnost prilagodbe rješenja }
-	\item \textit{opseg projektnog zadatka}
-	\item \textit{moguće nadogradnje projektnog zadatka}
-\end{packed_item}
+\begin{itemize}                                                             
+    \item $I_{max}$ - procijenjeni intenzitet potresa na udaljenosti r od hipocentra
+    \item h = 10 km 
+    \item $\mu=0.4343$
+    \item $\alpha=0.005 km^{-1}$
+    
+\end{itemize} 
 
-\textit{Za pomoć pogledati reference navedene u poglavlju „Popis literature“, a po potrebi konzultirati sadržaj na internetu koji nudi dobre smjernice u tom pogledu.}
-\eject
 
+\section{Vrste korisnika}
 Postoje tri vrste korisnika, a to su:
 \begin{packed_item}
 	\item anonimni korisnik (građanin)
@@ -42,105 +47,30 @@ Postoje tri vrste korisnika, a to su:
 
 \underbar{Administrator} ima najveće ovlasti. Početna stranica izgleda mu isto kao i seizmologu, ali mu se na stranici profila ispod njegovih podataka nalaze i dva gumba, „Novi upitnici“ i „Nove prijave“. Klikom na „Novi upitnici“ pregledava ispunjene upitnike koje još nije svrstao u nijedan potres. Upitnike može pridijeliti nekom već imenovanom potresu ili može stvoriti, imenovati i potvrditi novi potres te ih pridijeliti tom novostvorenom potresu. Klikom na „Nove prijave“ prikazuje mu se popis osoba koje žele biti registrirane kao znanstvenici. Odabirom jedne ili više prijava može ih registrirati. S početne stranice može pristupiti stranici aktualnih potresa. Na toj stranici može odabrati jedan ili više potres te ih arhivirati. Na stranici arhiviranih potresa može pregledavati i izmjenjivati podatke o starim potresima te također, kao i seizmolog, preuzeti podatke .csv formatu.
 
-Sustav treba podržavati rad više korisnika u stvarnom vremenu.
+Sustav treba podržavati rad više korisnika u stvarnom vremenu.\\
 
 
 
-		\section{Primjeri u \LaTeX u}
-		
-		\textit{Ovo potpoglavlje izbrisati.}\\
+\section{Usporedba s već postojećim rješenjima}
 
-		U nastavku se nalaze različiti primjeri kako koristiti osnovne funkcionalnosti \LaTeX a koje su potrebne za izradu dokumentacije. Za dodatnu pomoć obratiti se asistentu na projektu ili potražiti upute na sljedećim web sjedištima:
-		\begin{itemize}
-			\item Upute za izradu diplomskog rada u \LaTeX u - \url{https://www.fer.unizg.hr/_download/repository/LaTeX-upute.pdf}
-			\item \LaTeX\ projekt - \url{https://www.latex-project.org/help/}
-			\item StackExchange za Tex - \url{https://tex.stackexchange.com/}\\
-		
-		\end{itemize} 	
+{Od sličnih aplikacija koje već postoje, najpoznatija je EMSC. Aplikaciju je razvila organizacija European Mediterranean Seismological Centre. 
+Početna stranica sastoji se od karte Europe i Mediterana. Na karti možete birati želite li pregledati potrese u zadnjih sat  vremena, 24 sata, 48 sati, tjedan dana ili dva tjedna. Osim karte Europe i Mediterana, postoji mogućnost otvaranja karte cijelog svijeta. 
+Ispod karte nalazi se tablica s informacijama o potresima koji su označeni na karti. Osim toga, stranica nudi funkcionalnosti ispunjavanja upitnika o doživljaju potresa i dodavanje slika koje prikazuju posljedice potresa. Postoji posebni odjeljak za seizmologe, kao i odjeljci namijenjeni projektima organizacije i publikaciji. Problem stranice je što je prilično neintuitivna za korištenje i zastarjelog dizajna. Nudi mnogo mogućnosti u raznim izbornicima te to stvara mogućnost nesnalaženja. Većinu građana koji posjećuju tu stranicu radi prijave potresa ili traženja informacija o potresu kojega su možda osjetili, zasigurno neće zanimati projekti EMSC-a ili publikacija.}
 
-
-		
-		\noindent \underbar{podcrtani tekst}, \textbf{podebljani tekst}, 	\textit{nagnuti tekst}\\
-		\noindent \normalsize primjer \large primjer \Large primjer \LARGE {primjer} \huge {primjer} \Huge primjer \normalsize
-				
-		\begin{packed_item}
-			
-			\item  primjer
-			\item  primjer
-			\item  primjer
-			\item[] \begin{packed_enum}
-				\item primjer
-				\item[] \begin{packed_enum}
-					\item[1.a] primjer
-					\item[b] primjer
-				\end{packed_enum}
-				\item primjer
-			\end{packed_enum}
-			
-		\end{packed_item}
-		
-		\noindent primjer url-a: \url{https://www.fer.unizg.hr/predmet/proinz/projekt}
-		
-		\noindent posebni znakovi: \# \$ \% \& \{ \} \_ 
-		$|$ $<$ $>$ 
-		\^{} 
-		\~{} 
-		$\backslash$ 
-		
-		
-		\begin{longtblr}[
-			label=none,
-			entry=none
-			]{
-				width = \textwidth,
-				colspec={|X[8,l]|X[8, l]|X[16, l]|}, 
-				rowhead = 1,
-			} %definicija širine tablice, širine stupaca, poravnanje i broja redaka naslova tablice
-			\hline \multicolumn{3}{|c|}{\textbf{naslov unutar tablice}}	 \\ \hline[3pt]
-			\SetCell{LightGreen}IDKorisnik & INT	&  	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  	\\ \hline
-			korisnickoIme	& VARCHAR &   	\\ \hline 
-			email & VARCHAR &   \\ \hline 
-			ime & VARCHAR	&  		\\ \hline 
-			\SetCell{LightBlue} primjer	& VARCHAR &   	\\ \hline 
-		\end{longtblr}
-		
-
-		\begin{longtblr}[
-				caption = {Naslov s referencom izvan tablice},
-				entry = {Short Caption},
-			]{
-				width = \textwidth, 
-				colspec = {|X[8,l]|X[8,l]|X[16,l]|}, 
-				rowhead = 1,
-			}
-			\hline
-			\SetCell{LightGreen}IDKorisnik & INT	&  	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  	\\ \hline
-			korisnickoIme	& VARCHAR &   	\\ \hline 
-			email & VARCHAR &   \\ \hline 
-			ime & VARCHAR	&  		\\ \hline 
-			\SetCell{LightBlue} primjer	& VARCHAR &   	\\ \hline 
-		\end{longtblr}
-	
-
-
-		
-		
-		%unos slike
-		\begin{figure}[H]
-			\includegraphics[scale=0.4]{slike/aktivnost.PNG} %veličina slike u odnosu na originalnu datoteku i pozicija slike
-			\centering
-			\caption{Primjer slike s potpisom}
-			\label{fig:promjene}
-		\end{figure}
-		
-		\begin{figure}[H]
-			\includegraphics[width=\textwidth]{slike/aktivnost.PNG} %veličina u odnosu na širinu linije
-			\caption{Primjer slike s potpisom 2}
+\begin{figure}[H]
+			\includegraphics[width=\textwidth]{slike/emsc1.PNG} %veličina u odnosu na širinu linije
+			\caption{Slika 2.2: početna stranica EMSC-a}
 			\label{fig:promjene2} %label mora biti drugaciji za svaku sliku
 		\end{figure}
+
+{Prednost aplikacije „TectonicHR“ bila bi preglednost i mogućnost lakšeg snalaženja na karti. 
+Mogućnost prijave seizmologa na stranicu omogućilo bi bolju prilagodbu stranice. Građanima pri korištenju ne bi smetali izbornici s mogućnostima koje oni ne bi koristili, već bi im se pregledno prikazivale funkcionalnosti dodavanja potresa i pregleda aktualnih i starijih potresa. }
+
+\\{Interes za korištenjem aplikacije imat će i građani i znanstvena zajednica. Potresi uvelike utječu na psihičko stanje ljudi. 
+Kada dođe do potresa, većina želi znati gdje je epicentar, koliko je magnitude potres bio, kakvu je štetu prouzročilo u ostalim dijelovima pogođenog područja… 
+Tako da bi ova jednostavna aplikacija ljudima pružila, za početak, osnovne informacije o doživljenom potresu te odgovor na neka od pitanja koja im se nameću nakon doživljenog potresa. 
+Osim toga, korist od aplikacije imaju i znanstvenici koji putem opažanja građana mogu doći do vrlo vrijednih informacija. }\\		
 		
-		Referenciranje slike \ref{fig:promjene2} u tekstu.
-		
-		\eject
+\eject
 		
 	
