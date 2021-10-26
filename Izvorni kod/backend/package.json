@@ -1,0 +1,35 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Fran Zekan",
+  "license": "MIT",
+  "scripts": {
+    "dev": "ts-node-dev ./src/main.ts",
+    "start": "ts-node ./src/main.ts",
+    "typeorm": "ts-node ./node_modules/.bin/typeorm",
+    "db:generate": "yarn typeorm migration:generate -n",
+    "db:drop": "yarn typeorm schema:drop",
+    "db:seed": "ts-node ./db/generator/index.ts",
+    "db:migrate": "yarn typeorm migration:run",
+    "db:reset": "yarn db:drop && yarn db:migrate && yarn db:seed"
+  },
+  "dependencies": {
+    "apollo-server-express": "^3.4.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "graphql": "^15.6.1",
+    "pg": "^8.7.1",
+    "reflect-metadata": "^0.1.13",
+    "type-graphql": "^1.1.1",
+    "typeorm": "^0.2.38"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.4",
+    "dotenv": "^10.0.0",
+    "ts-node": "^10.4.0",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.4.4",
+    "zeko369-tsconfig": "^2.1.1"
+  }
+}
