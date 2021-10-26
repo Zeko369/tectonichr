@@ -2,6 +2,11 @@
 
 schema {
     query: Query
+    mutation: Mutation
+}
+
+type Mutation {
+    createUser(data: CreateUserInput!): User!
 }
 
 type Query {
@@ -11,4 +16,9 @@ type Query {
 type User {
     email: String!
     id: Int!
+}
+
+input CreateUserInput {
+    email: String!
+    password: String!
 }
