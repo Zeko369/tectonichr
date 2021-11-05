@@ -11,19 +11,25 @@
 	Opća populacija, građani, imat će mogućnost unosa novog potresa kojega su osjetili te pregled već zabilježenih potresa.  
 	
 	
-	Prilikom otvaranja aplikacije građanima se nude tri opcije. Prva opcija, „Aktualni potresi“, omogućava pregled aktualnih potresa te ispunjavanje upitnika za njih. Druga opcija, „Arhivirani potresi“, otvara stranicu koja prikazuje pregled preliminarne karte inteziteta potresa koja sadži interaktivnu kartu Hrvatske te popis arhiviranih potresa. 
+	Prilikom otvaranja aplikacije građanima se nude tri opcije te se pokazuje preliminarna karta Hrvatske na kojoj su označeni aktualni i arhivirani potresi. Boje oznaka potresa različite su za ove dvije kategorije potresa.
+	Prva opcija, „Aktualni potresi“, omogućava pregled aktualnih potresa te ispunjavanje upitnika za njih. 
+	Druga opcija, „Arhivirani potresi“, otvara stranicu koja prikazuje pregled preliminarne karte inteziteta potresa koja sadži interaktivnu kartu Hrvatske te popis arhiviranih potresa. 
 	Na karti je zvjezdicom označen epicentar te kružićem određene boje označen je intenzitet potresa. (Hladnije plave nijanse označavaju slabiji intezitet, a tamnije crvene jači intezitet). 
-	Ispod karte nalazi se tablica s podacima o zadnjem i starijim potresima. 
+	Ispod karte nalazi se tablica s podacima o zadnjem i starijim potresima. Pri pregledu arhiviranih i aktualnih potresa moguće je filtrirati potrese prema mjestu, vremenu ili intezitetu. 
 	Ako se zadnji potres ne poklapa s opažanjima građana, preko treće opcije „Novi potres?" građanin može dodati novi potres koji je osjetio. 
 	Kada građanin odluči dodati novi potres, obavezan je popuniti i predati upitnik. 
 	Upitnik se sastoji od pitanja iz kojih znanstvenici mogu dobiti vrijedne informacije o tome kakvi su bili učinci potresa. 
 	Pitanja se odnose na to koliko se potres osjetio, koliku je štetu napravio na malim predmetima, kućama, zgradama i zemlji te kako su ljudi reagirali. 
 	Odgovori na ta pitanja pomažu pri računanju intenziteta potresa. 
-	Na početnoj stranici u gornjem desnom kutu nalazi se gumb za prijavu u sustav. Tu funkcionalnost koriste seizmolozi koji žele preuzeti podatke o potresu i odgovore građana.  Pri prijavi upisuju svoje ime, prezime, email, korisničko ime i lozinku. Znanstvenike u sustav mora registrirati administrator kako neovlaštena osoba ne bi mogla pristupiti svim podacima. Administrator se također mora prijaviti pri dolasku na stranicu kako bi imao sve ovlasti. \\
+	Na početnoj stranici u gornjem desnom kutu nalazi se gumb za prijavu u sustav. Tu funkcionalnost koriste seizmolozi koji žele preuzeti podatke o potresu i odgovore građana.  Pri prijavi upisuju svoje ime, prezime, email, korisničko ime i lozinku. 
+	Znanstvenike u sustav mora registrirati administrator kako neovlaštena osoba ne bi mogla pristupiti svim podacima. Nakon što se seizmolog registrira u sustav, administrator će ga e-mailom obavijestiti je li registracija potvrđena ili odbijena. 
+	Pregled svih registriranih seizmologa omogućen je samo administratoru.
+	Administrator se također mora prijaviti pri dolasku na stranicu kako bi imao sve ovlasti. \\
 	
 	}
 	
-	Program treba sam računati intenzitet potresa pomoću prethodno preuzetih upitnika. Upitnik treba automatski izračunati i proslijediti intenzitet potresa prema odgovorenim pitanjima. Vrijednost intenziteta na pojedinoj lokaciji odgovara srednjoj vrijednosti intenziteta svih upitnika ispunjenih za potres na istoj lokaciji. Mjesto epicentra aproksimira se koristeći lokacije jednakog intenziteta, a intenzitet potresa se u epicentru (predstavljen bojom) određuje koristeći \textit{Koevesligethyjevu jednadžbu}:
+	Program treba sam računati intenzitet potresa pomoću prethodno preuzetih upitnika. Upitnik treba automatski izračunati i proslijediti intenzitet potresa prema odgovorenim pitanjima. 
+	Vrijednost intenziteta na pojedinoj lokaciji odgovara srednjoj vrijednosti intenziteta svih upitnika ispunjenih za potres na istoj lokaciji. Mjesto epicentra aproksimira se koristeći lokacije jednakog intenziteta, a intenzitet potresa se u epicentru (predstavljen bojom) određuje koristeći \textit{Koevesligethyjevu jednadžbu}:
 \begin{equation}
   I_{0} = I_{max} + 3\log\frac{r}{h} + 3\mu\alpha(r-h)
 \end{equation}
