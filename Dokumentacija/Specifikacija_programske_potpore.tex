@@ -82,43 +82,223 @@
 				
 			\subsection{Obrasci uporabe}
 				
-				\textbf{\textit{dio 1. revizije}}
-				
-				\subsubsection{Opis obrazaca uporabe}
-					\textit{Funkcionalne zahtjeve razraditi u obliku obrazaca uporabe. Svaki obrazac je potrebno razraditi prema donjem predlošku. Ukoliko u nekom koraku može doći do odstupanja, potrebno je to odstupanje opisati i po mogućnosti ponuditi rješenje kojim bi se tijek obrasca vratio na osnovni tijek.}\\
-					
+				\subsubsection{Opis obrazaca uporabe}					
 
-					\noindent \underbar{\textbf{UC$<$broj obrasca$>$ -$<$ime obrasca$>$}}
+					\noindent \underbar{\textbf{UC1 - Prijava}}
 					\begin{packed_item}
 	
-						\item \textbf{Glavni sudionik: }$<$sudionik$>$
-						\item  \textbf{Cilj:} $<$cilj$>$
-						\item  \textbf{Sudionici:} $<$sudionici$>$
-						\item  \textbf{Preduvjet:} $<$preduvjet$>$
-						\item  \textbf{Opis osnovnog tijeka:}
+						\item \textbf{Glavni sudionik:} Korisnik (seizmolog, administrator)
+						\item \textbf{Cilj:} Dobiti pristup odgovarajućem sučelju na temelju uloge i ovlastima
+						\item \textbf{Sudionici:} Baza podataka
+						\item \textbf{Preduvjet:} Registracija
+						\item \textbf{Opis osnovnog tijeka:}
 						
 						\item[] \begin{packed_enum}
 	
-							\item $<$opis korak jedan$>$
-							\item $<$opis korak dva$>$
-							\item $<$opis korak tri$>$
-							\item $<$opis korak četiri$>$
-							\item $<$opis korak pet$>$
+							\item Korisnik odabire opciju za prijavu
+							\item Pokazuje se obrazac za prijavu
+							\item Korisnik unosi korisničke podatke (e-mail, lozinka)
+							\item Provjera ispravnosti unesenih podataka
+							\item Pristup odgovarajućim funkcijama
 						\end{packed_enum}
 						
 						\item  \textbf{Opis mogućih odstupanja:}
 						
 						\item[] \begin{packed_item}
 	
-							\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+							\item[4.a] Neispravan email ili lozinka
 							\item[] \begin{packed_enum}
 								
-								\item $<$opis rješenja mogućeg scenarija korak 1$>$
-								\item $<$opis rješenja mogućeg scenarija korak 2$>$
+								\item Sustav obavještava korisnika o netočnim informacijama
+								\item Sustav vraća korisnika na obrazac za prijavu
 								
 							\end{packed_enum}
-							\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-							\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
+							
+						\end{packed_item}
+					\end{packed_item}
+
+					\noindent \underbar{\textbf{UC2 - Registracija}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik:} Korisnik
+						\item \textbf{Cilj:} Registrirati se u sustav kako bi dobio ovlasti seizmologa
+						\item \textbf{Sudionici:} Baza podataka
+						\item \textbf{Preduvjet:} -
+						\item \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+	
+							\item Korisnik odabire opciju za registraciju
+							\item Pokazuje se obrazac za registraciju
+							\item Korisnik unosi korisničke podatke (ime, prezime, e-mail, lozinka, potvrda lozinke)
+							\item Administrator potvrđuje korisnika
+							\item Baza podataka se ažurira
+							\item Korisnik dobiva e-mail obavijest o potvrdi registracije
+						
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:}
+						
+						\item[] \begin{packed_item}
+	
+							\item[3.a] Unos neispravnog e-maila
+							\item[] \begin{packed_enum}
+								
+								\item Sustav obavještava korisnika o neispravnom upisu e-maila i vraća ga na stranicu za registraciju
+								\item Korisnik mijenja potrebne podatke te završava unos ili odustaje od registracije
+								
+							\end{packed_enum}
+							\item[3.b] Unos neispravne potvrde lozinke
+							\item[] \begin{packed_enum}
+								
+								\item Sustav obavještava korisnika o nepoklapanju lozinki i traži ponovni upis potvrde lozinke
+								\item Korisnik mijenja potrebne podatke te završava unos ili odustaje od registracije
+								
+							\end{packed_enum} 
+							\item[4.a] Administrator nije prepoznao korisnika kao seizmologa te je njegova potvrda odbačena
+							
+						\end{packed_item}
+					\end{packed_item}
+
+					\noindent \underbar{\textbf{UC3 - Pregled zahtjeva za registraciju seizmologa}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik:} Administrator
+						\item \textbf{Cilj:} Pregled zahtjeva za registraciju seizmologa
+						\item \textbf{Sudionici:} Baza podataka
+						\item \textbf{Preduvjet:} 
+							\begin{packed_item}
+								\item Administrator prijavljen u sustav
+								\item Postojanje zahtjeva za registraciju seizmologa
+							\end{packed_item}
+						\item  \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+	
+							\item Administrator u izborniku na početnoj stranici odabire opciju za pregled profila
+							\item Administrator na profilu odabire opciju "Pregled nove registracije"
+							\item Sustav prikazuje pristigle/nepotvrđene zahtjeve za registraciju 
+
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:} -
+						
+					\end{packed_item}
+
+					\noindent \underbar{\textbf{UC4 - Potvrđivanje novih registracija seizmologa}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik:} Administrator
+						\item \textbf{Cilj:} Registriranje novih seizmologa
+						\item \textbf{Sudionici:} Baza podataka, seizmolog
+						\item \textbf{Preduvjet:} 
+							\begin{packed_item}
+								\item Administrator prijavljen u sustav
+								\item Postojanje zahtjeva za registraciju seizmologa
+							\end{packed_item}
+						\item  \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+	
+							\item Pregled zahtjeva za registraciju seizmologa
+							\item Odabir jednog ili više zahtjeva
+							\item Odabir "Potvrdi"
+							\item Sustav šalje e-mail obavijest seizmologu o potvrđivanju registracije
+							\item Baza podataka se ažurira
+							\item Sustav obavještava administratora o uspješnosti registracije seizmologa
+							
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:} -
+						
+					\end{packed_item}
+
+					\noindent \underbar{\textbf{UC5 - Odbacivanje novih registracija seizmologa}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik:} Administrator
+						\item \textbf{Cilj:} Brisanje pristiglih registracija
+						\item \textbf{Sudionici:} Baza podataka, korisnik
+						\item \textbf{Preduvjet:} 
+							\begin{packed_item}
+								\item Administrator prijavljen u sustav
+								\item Postojanje zahtjeva za registraciju seizmologa
+							\end{packed_item}
+						\item  \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+	
+							\item Pregled zahtjeva za registraciju seizmologa
+							\item Odabir jednog ili više zahtjeva
+							\item Odabir "Odbaci"
+							\item Sustav šalje e-mail obavijest korisniku koji je podnio zahtjev za registraciju o odbijanju registracije
+							\item Odbačene registracije brišu se iz baze podataka
+							\item Sustav obavještava administratora o uspješnosti brisanja zahtjeva
+							
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:} - 
+						
+					\end{packed_item}
+
+					\noindent \underbar{\textbf{UC6 - Pregled seizmologa}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik:} Administrator
+						\item \textbf{Cilj:} Pregled seizmologa koji su registrirani u sustavu
+						\item \textbf{Sudionici:} Baza podataka
+						\item \textbf{Preduvjet:} Administrator prijavljen u sustav
+						\item \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+	
+							\item Administrator u izborniku na početnoj stranici odabire opciju za pregled profila
+							\item Administrator na profilu odabire opciju "Pregledaj seizmologe"
+							\item Sustav prikazuje popis registriranih korisnika (seizmologa)
+							
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:}
+						
+						\item[] \begin{packed_item}
+	
+							\item[2.a] Nema registriranih seizmologa
+							\item[] \begin{packed_enum}
+								
+								\item Prikazuje se poruka da još nema registriranih seizmologa
+								
+							\end{packed_enum}
+							
+						\end{packed_item}
+					\end{packed_item}
+
+					\noindent \underbar{\textbf{UC7 - Pregled upitnika}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik:} Administrator
+						\item \textbf{Cilj:} Pregled pristiglih upitnika
+						\item \textbf{Sudionici:} Baza podataka
+						\item \textbf{Preduvjet:} Administrator prijavljen u sustav
+						\item \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+	
+							\item Administrator u izborniku na početnoj stranici odabire opciju za pregled profila
+							\item Administrator na profilu odabire opciju "Pregledaj nove upitnike"
+							\item Sustav prikazuje popis pristiglih upitnika
+							
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:}
+						
+						\item[] \begin{packed_item}
+	
+							\item[2.a] Nema novih upitnika
+							\item[] \begin{packed_enum}
+								
+								\item Prikazuje se poruka da nema upitnika
+								
+							\end{packed_enum}
 							
 						\end{packed_item}
 					\end{packed_item}
