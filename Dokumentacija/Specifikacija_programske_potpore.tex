@@ -303,6 +303,192 @@
 							
 						\end{packed_item}
 					\end{packed_item}
+
+					\noindent \underbar{\textbf{UC8 - Registracija novog potresa}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik:} Administrator
+						\item \textbf{Cilj:} Stvoriti novi aktualni potres
+						\item \textbf{Sudionici:} Baza podataka
+						\item \textbf{Preduvjet:} 
+						\begin{packed_item}
+							\item Administrator prijavljen u sustav
+							\item Postojanje upitnika
+						\end{packed_item}
+						            
+						\item \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+	
+							\item Pregled pristiglih upitnika
+							\item Odabir jednog ili više upitnika
+							\item Odabir „Dodaj novi potres“ u izborniku
+							\item Otvara se obrazac za dodavanje novog potresa
+							\item Administrator unosi naziv potresa
+							\item Sustav obavještava administratora o uspješnosti dodavanja novog potresa
+							
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:} -
+					\end{packed_item}
+
+					\noindent \underbar{\textbf{UC9 - Dodavanje upitnika postojećem aktualnom potresu}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik:} Administrator
+						\item \textbf{Cilj:} Svrstavanje upitnika već postojećim potresima u svrhu upotpunjavanja informacija
+						\item \textbf{Sudionici:} Baza podataka
+						\item \textbf{Preduvjet:} 
+						\begin{packed_item}
+							\item Administrator prijavljen u sustav
+							\item Postojanje upitnika
+							\item Postojanje aktualnog potresa
+						\end{packed_item}
+
+						\item \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+	
+							\item Pregled pristiglih upitnika
+							\item Odabir jednog ili više upitnika
+							\item Odabir nekog imenovanog potresa iz izbornika
+							\item Baza podataka se ažurira
+							\item Sustav obavještava administratora o uspješnosti dodavanja upitnika postojećem potresu
+							
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:} -
+						
+					\end{packed_item}
+
+					\noindent \underbar{\textbf{UC10 - Brisanje upitnika}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik:} Administrator
+						\item \textbf{Cilj:} Ukloniti nerelevantne upitnike
+						\item \textbf{Sudionici:} Baza podataka
+						\item \textbf{Preduvjet:} 
+						\begin{packed_item}
+							\item Administrator prijavljen u sustav
+							\item Postojanje upitnika
+						\end{packed_item}
+
+						\item \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+	
+							\item Pregled pristiglih upitnika
+							\item Odabir jednog ili više upitnika
+							\item Odabir „Obriši“
+							\item Brišu se upitnici iz baze podataka
+							\item Sustav obavještava administratora o uspješnosti brisanja upitnika
+							
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:} -
+						
+					\end{packed_item}
+
+					\noindent \underbar{\textbf{UC11 - Arhiviranje aktualnih potresa}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik:} Administrator
+						\item \textbf{Cilj:} Prebaciti aktualne potrese u kategoriju arhiviranih
+						\item \textbf{Sudionici:} Baza podataka
+						\item \textbf{Preduvjet:} 
+						\begin{packed_item}
+							\item Administrator prijavljen u sustav
+							\item Postojanje aktualnih potresa
+						\end{packed_item}
+
+						\item \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+	
+							\item Pregled aktualnih potresa
+							\item Odabir jednog ili više aktualnih potresa
+							\item Odabir „Arhiviraj“
+							\item Baza podataka se ažurira
+							\item Sustav obavještava korisnika o uspješnosti arhiviranja potresa
+							
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:} -
+						
+					\end{packed_item}
+
+					\noindent \underbar{\textbf{UC12 - Pregled aktualnih potresa}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik:} Administrator
+						\item \textbf{Cilj:} Prebaciti aktualne potrese u kategoriju arhiviranih
+						\item \textbf{Sudionici:} Baza podataka
+						\item \textbf{Preduvjet:} -
+
+						\item \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+							\item Na početnoj stranici odabir opcije „Aktualni potresi“
+							\item Prilikom učitavanja stranice prikazana je preliminarna karta intenziteta i popis aktualnih potresa
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:}
+						
+						\item[] \begin{packed_item}
+	
+							\item[2.a] Nema aktualnih potresa
+							\item[] \begin{packed_enum}
+								
+								\item Prikazuje se odgovarajuća poruka
+								
+							\end{packed_enum}
+							
+						\end{packed_item}
+						
+					\end{packed_item}
+
+					\noindent \underbar{\textbf{UC13 - Odjava iz sustava}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik:} Seizmolog, Administrator
+						\item \textbf{Cilj:} Odjaviti se iz sustava
+						\item \textbf{Sudionici:} Baza podataka
+						\item \textbf{Preduvjet:} Korisnik prijavljen u sustav
+
+						\item \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+							\item Odabir opcije za odjavu
+							\item Korisnik se odjavljuje iz sustava
+							\item Prikazuje se početna stranica za neregistriranog korisnika
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:} -
+						
+					\end{packed_item}
+
+					\noindent \underbar{\textbf{UC14 - Preuzimanje podataka o arhiviranim potresima}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik:} Seizmolog
+						\item \textbf{Cilj:} Preuzimanje podataka o potresima
+						\item \textbf{Sudionici:} Baza podataka
+						\item \textbf{Preduvjet:} Korisnik prijavljen u sustav
+
+						\item \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+							\item Pregled i pretraživanje/filtriranje arhiviranih potresa
+							\item Odabir željenih potresa
+							\item Odabir opcije „Preuzmi“
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:} -
+						
+					\end{packed_item}
+
+					
+				
 				
 					
 				\subsubsection{Dijagrami obrazaca uporabe}
