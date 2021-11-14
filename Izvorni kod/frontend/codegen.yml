@@ -6,9 +6,8 @@ generates:
     plugins:
       - "typescript"
       - "typescript-operations"
-      - "typescript-document-nodes"
-      - "urql-introspection"
-      - "typescript-urql"
+      - "typescript-react-apollo"
+      - "fragment-matcher"
   ./graphql.schema.json:
     plugins:
       - "introspection"
