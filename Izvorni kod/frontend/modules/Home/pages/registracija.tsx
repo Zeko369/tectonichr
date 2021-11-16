@@ -33,8 +33,8 @@ const HomePage: NextPage = () => {
               <InputField name="ime" />
               <InputField name="prezime" />
               <InputField name="email" />
-              <InputField name="lozinka" />
-              <InputField name="potvrda lozinke" />
+              <InputField name="lozinka" type="password"/>
+              <InputField name="potvrda lozinke" type="password"/>
           </Form>
       </Container>
     </VStack>

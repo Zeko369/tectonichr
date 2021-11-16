@@ -6,7 +6,11 @@ import { useRouter } from "next/router";
 import { useCreateUserMutation } from "../../../generated/graphql";
 import { Container } from "@chakra-ui/layout";
 import Header from "modules/Partials/header";
-import { VStack } from "@chakra-ui/react";
+import { 
+    VStack,
+    Input,
+    InputGroup 
+} from "@chakra-ui/react";
 
 const schema = z.object({
   ime: z.string(),
@@ -29,10 +33,10 @@ const HomePage: NextPage = () => {
     <VStack>
       <Header />
       <Container>
-          <Form schema={schema} onSubmit={onSubmit} submitText="Prijava">
-              <InputField name="email" />
-              <InputField name="lozinka" />
-          </Form>
+        <Form schema={schema} onSubmit={onSubmit} submitText="Prijava">
+            <InputField name="email" />
+            <InputField name="lozinka" type="password" placeholder="Lozinka" />
+        </Form>
       </Container>
     </VStack>
     
