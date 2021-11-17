@@ -46,7 +46,9 @@
 					\item stvoriti novi potres od jednog ili više upitnika
 					\item dodati upitnik nekom od postojećih potresa
 					\item registrirati nove seizmologe
+					\item ukloniti registrirane seizmologe
 					\item preuzeti podatke o potresu
+					\item izmijeniti svoje podatke
 					
 				\end{packed_enum}
 
@@ -63,6 +65,7 @@
 
 					\end{packed_enum}
 					\item u tekstualnom formatu preuzeti podatke o potresima
+					\item izmijeniti svoje podatke
 				\end{packed_enum}
 			\end{packed_enum}
 			
@@ -107,23 +110,23 @@
 						\end{packed_item}
 					\end{packed_item}
 
-					\noindent \underbar{\textbf{UC2 - Registracija}}
+					\noindent \underbar{\textbf{UC2 - Registracija novih seizmologa}}
 					\begin{packed_item}
 	
-						\item \textbf{Glavni sudionik:} Korisnik
-						\item \textbf{Cilj:} Registrirati se u sustav kako bi dobio ovlasti seizmologa
-						\item \textbf{Sudionici:} Baza podataka
-						\item \textbf{Preduvjet:} -
+						\item \textbf{Glavni sudionik:} Administrator
+						\item \textbf{Cilj:} Registrirati nove seizmologe
+						\item \textbf{Sudionici:} Seizmolog, Baza podataka
+						\item \textbf{Preduvjet:} Administrator prijavljen
 						\item \textbf{Opis osnovnog tijeka:}
 						
 						\item[] \begin{packed_enum}
 	
-							\item Korisnik odabire opciju za registraciju
+							\item Administrator na svom profilu odabire opciju "Registriraj seizmologa"
 							\item Pokazuje se obrazac za registraciju
-							\item Korisnik unosi korisničke podatke (ime, prezime, e-mail, lozinka, potvrda lozinke)
-							\item Administrator potvrđuje korisnika
+							\item Administrator unosi korisničke podatke (ime, prezime, e-mail, lozinka)
+							\item Administrator potvrđuje unos
 							\item Baza podataka se ažurira
-							\item Korisnik dobiva e-mail obavijest o potvrdi registracije
+							\item Seizmolog dobiva e-mail obavijest o registraciji
 						
 						\end{packed_enum}
 						
@@ -134,90 +137,70 @@
 							\item[3.a] Unos neispravnog e-maila
 							\item[] \begin{packed_enum}
 								
-								\item Sustav obavještava korisnika o neispravnom upisu e-maila i vraća ga na stranicu za registraciju
-								\item Korisnik mijenja potrebne podatke te završava unos ili odustaje od registracije
+								\item Sustav obavještava administratora o neispravnom upisu e-maila i vraća ga na stranicu za registraciju
+								\item Administrator mijenja potrebne podatke te završava unos ili odustaje od registracije
 								
-							\end{packed_enum}
-							\item[3.b] Unos neispravne potvrde lozinke
-							\item[] \begin{packed_enum}
-								
-								\item Sustav obavještava korisnika o nepoklapanju lozinki i traži ponovni upis potvrde lozinke
-								\item Korisnik mijenja potrebne podatke te završava unos ili odustaje od registracije
-								
-							\end{packed_enum} 
-							\item[4.a] Administrator nije prepoznao korisnika kao seizmologa te je njegova potvrda odbačena
-							
+							\end{packed_enum}							
 						\end{packed_item}
 					\end{packed_item}
 
-					\noindent \underbar{\textbf{UC3 - Pregled zahtjeva za registraciju seizmologa}}
+					\noindent \underbar{\textbf{UC3 - Pregled korisničkih podataka}}
 					\begin{packed_item}
 	
-						\item \textbf{Glavni sudionik:} Administrator
-						\item \textbf{Cilj:} Pregled zahtjeva za registraciju seizmologa
+						\item \textbf{Glavni sudionik:} Seizmolog, Administrator
+						\item \textbf{Cilj:} Pregled podataka
 						\item \textbf{Sudionici:} Baza podataka
-						\item \textbf{Preduvjet:} 
-							\begin{packed_item}
-								\item Administrator prijavljen u sustav
-								\item Postojanje zahtjeva za registraciju seizmologa
-							\end{packed_item}
+						\item \textbf{Preduvjet:} Korisnik prijavljen u sustav
 						\item  \textbf{Opis osnovnog tijeka:}
 						
 						\item[] \begin{packed_enum}
 	
-							\item Administrator u izborniku na početnoj stranici odabire opciju za pregled profila
-							\item Administrator na profilu odabire opciju "Pregled nove registracije"
-							\item Sustav prikazuje pristigle/nepotvrđene zahtjeve za registraciju 
+							\item Korisnik u kutu početne stranice odabire opciju za pregled profila
+							\item Korisnik pregledava podatke
 
 						\end{packed_enum}						
 					\end{packed_item}
 
-					\noindent \underbar{\textbf{UC4 - Potvrđivanje novih registracija seizmologa}}
+					\noindent \underbar{\textbf{UC4 - Promjena korisničkih podataka}}
 					\begin{packed_item}
 	
-						\item \textbf{Glavni sudionik:} Administrator
-						\item \textbf{Cilj:} Registriranje novih seizmologa
-						\item \textbf{Sudionici:} Baza podataka, seizmolog
-						\item \textbf{Preduvjet:} 
-							\begin{packed_item}
-								\item Administrator prijavljen u sustav
-								\item Postojanje zahtjeva za registraciju seizmologa
-							\end{packed_item}
+						\item \textbf{Glavni sudionik:} Administrator, Seizmolog
+						\item \textbf{Cilj:} Promjena podataka
+						\item \textbf{Sudionici:} Baza podataka
+						\item \textbf{Preduvjet:} Korisnik prijavljen u sustav 
 						\item  \textbf{Opis osnovnog tijeka:}
 						
 						\item[] \begin{packed_enum}
 	
-							\item Pregled zahtjeva za registraciju seizmologa
-							\item Odabir jednog ili više zahtjeva
-							\item Odabir "Potvrdi"
-							\item Baza podataka se ažurira
-							\item Sustav obavještava administratora o uspješnosti registracije seizmologa
-							\item Sustav šalje e-mail obavijest seizmologu o potvrđivanju registracije
+							\item Pregled profila
+							\item Odabir opcije za promjenu podataka
+							\item Korisnik mijenja željene podatke
+							\item Korisnik potvrđuje promjenu
+							\item Ažurira se baza podataka
 							
 						\end{packed_enum}
 					\end{packed_item}
 
-					\noindent \underbar{\textbf{UC5 - Odbacivanje novih registracija seizmologa}}
+					\noindent \underbar{\textbf{UC5 - Uklanjanje seizmologa}}
 					\begin{packed_item}
 	
 						\item \textbf{Glavni sudionik:} Administrator
-						\item \textbf{Cilj:} Brisanje pristiglih registracija
-						\item \textbf{Sudionici:} Baza podataka, korisnik
+						\item \textbf{Cilj:} Uklanjanje registriranih seizmologa iz sustava
+						\item \textbf{Sudionici:} Baza podataka, Seizmolog
 						\item \textbf{Preduvjet:} 
 							\begin{packed_item}
 								\item Administrator prijavljen u sustav
-								\item Postojanje zahtjeva za registraciju seizmologa
+								\item Postojanje barem jednog registriranog seizmologa
 							\end{packed_item}
 						\item  \textbf{Opis osnovnog tijeka:}
 						
 						\item[] \begin{packed_enum}
 	
-							\item Pregled zahtjeva za registraciju seizmologa
-							\item Odabir jednog ili više zahtjeva
-							\item Odabir "Odbaci"
-							\item Odbačene registracije brišu se iz baze podataka
-							\item Sustav obavještava administratora o uspješnosti brisanja zahtjeva
-							\item Sustav šalje e-mail obavijest korisniku koji je podnio zahtjev za registraciju o odbijanju registracije
+							\item Pregled seizmologa
+							\item Odabir opcije "Ukloni" pored imena seizmologa
+							\item Sustav obavještava administratora o uklanjanju seizmologa
+							\item Sustav šalje e-mail obavijest seizmologu da je uklonjen iz sustava
+							\item Ažuriranje baze podataka
 							
 						\end{packed_enum}
 					\end{packed_item}
