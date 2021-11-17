@@ -666,14 +666,35 @@
 					
 				\subsubsection{Dijagrami obrazaca uporabe}
 					
-					\textit{Prikazati odnos aktora i obrazaca uporabe odgovarajućim UML dijagramom. Nije nužno nacrtati sve na jednom dijagramu. Modelirati po razinama apstrakcije i skupovima srodnih funkcionalnosti.}
+				\begin{figure}[H]
+					\includegraphics[width=\textwidth, height = 15cm]{slike/prvi.PNG} 
+					 \caption{Dijagram obrazaca uporabe, funkcionalnosti koje imaju svi korisnici}
+					  \label{fig:obrasci1} 
+				  \end{figure}
+				  
+				  \begin{figure}[H]
+					\includegraphics[width=\textwidth]{slike/drugi.PNG} 
+					\caption{Dijagram obrazaca uporabe, funkcionalnosti koje imaju regestrirani korisnici}
+					\label{fig:obrasci2} 
+				   \end{figure}
 				\eject		
 				
 			\subsection{Sekvencijski dijagrami}
 				
-				\textbf{\textit{dio 1. revizije}}\\
-				
-				\textit{Nacrtati sekvencijske dijagrame koji modeliraju najvažnije dijelove sustava (max. 4 dijagrama). Ukoliko postoji nedoumica oko odabira, razjasniti s asistentom. Uz svaki dijagram napisati detaljni opis dijagrama.}
+			\textbf{UC4:Potvrđivanje novih registracija}\\
+			{Administrator odabire opciju "Zahtjevi za registraciju". Poslužitelj potom šalje zahtjev za dohvaćanjem svih zahtjeva za registraciju bazi podataka. Zahtjev se prihvaća te se vraća popis onih korisnika koji se žele registrirati za seizmologa. Popis se prikazuje na klijentu. Administrator može označiti željene korisnike te potom pritisnuti "Potvrdi". Time su zahtjevi obrađeni te se u bazi označenim korisnicima uloga mijenja u "seizmolog". Sustav obavijesti administratora o uspješnom dodavanju seizmologa. Novim seizmolozima se šalje e-mail kako bi ih se obavijestilo da je njihova registracija potvrđena.}
+			\begin{figure}[H]
+				  \includegraphics[width=\textwidth, height=14cm]{slike/uc4.PNG}
+				  \caption{sekvencijski dijagram za UC4}
+				  \label{fig:sekvuc4} 
+				 \end{figure}
+			\textbf{UC8:Registracija novog potresa}\\
+			{Administrator odabire opciju "Pristigli upitnici". Poslužitelj potom šalje zahtjev bazi podataka kako bi dohvatio sve pristigle upitnike. Prihvaća se zahtjev te se na klijentu prikazuju svi pristigli upitnici. Administrator označuje upitnike te ih na taj način grupira. Kada grupira sve upitnike koji se odnose na isti potres, odabire opciju "Dodaj novi potres". Potom imenuje taj potres i odabire opciju "potvrdi". U bazu podataka se upisuje novi potres. Sustav obavijesti administratora o upješnom dodavanju novog potresa.}
+			\begin{figure}[H]
+				  \includegraphics[width=\textwidth, height=16cm]{slike/uc8.PNG}
+				  \caption{sekvencijski dijagram za UC8}
+				  \label{fig:sekvuc8} 
+				 \end{figure}
 				\eject
 	
 		\section{Ostali zahtjevi}
