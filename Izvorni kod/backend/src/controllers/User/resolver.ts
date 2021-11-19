@@ -7,7 +7,7 @@ import { CreateUserInput, DeleteUserInput, UpdateUserInput } from "./inputs";
 @Resolver()
 export class UserResolver {
   @Query(() => [User])
-  @Authorized(UserRole.ADMIN)
+  // @Authorized(UserRole.ADMIN)
   async users(): Promise<User[]> {
     return await User.find();
   }

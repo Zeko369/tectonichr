@@ -40,15 +40,16 @@ export const Navigation: React.FC = () => {
   return (
     <Container maxWidth="100%" p={0} bg="#a0afdb">
       <Flex px="2" py="2">
-        <Link href="/">
-          <Center>
+        <Center>
+          <Link href="/">
             <Heading size="md" p="2">
               TectonicHr
             </Heading>
-          </Center>
-        </Link>
+          </Link>
+        </Center>
 
         <Spacer />
+
         <Box>
           {loading ? (
             <Spinner />
@@ -70,6 +71,9 @@ export const Navigation: React.FC = () => {
                       <>
                         <Link href="/admin/users">
                           <MenuItem>Sezimolozi</MenuItem>
+                        </Link>
+                        <Link href="/admin/earthquakes">
+                          <MenuItem>Potresi</MenuItem>
                         </Link>
                       </>
                     )}

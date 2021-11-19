@@ -43,6 +43,11 @@ export type Earthquake = {
   updatedAt: Scalars["Float"];
 };
 
+export type EarthquakeCreateInput = {
+  name: Scalars["String"];
+  surveyIds: Array<Scalars["Int"]>;
+};
+
 export type FilterSurveys = {
   merged?: InputMaybe<Scalars["Boolean"]>;
 };
@@ -67,6 +72,7 @@ export type Mutation = {
   createUser: User;
   deleteUser: Scalars["Boolean"];
   login: LoginResponse;
+  mergeSurveys: Earthquake;
   submitSurvey: Survey;
   updateUser: User;
 };
@@ -81,6 +87,10 @@ export type MutationDeleteUserArgs = {
 
 export type MutationLoginArgs = {
   data: LoginInput;
+};
+
+export type MutationMergeSurveysArgs = {
+  data: EarthquakeCreateInput;
 };
 
 export type MutationSubmitSurveyArgs = {
@@ -150,6 +160,16 @@ export type EarthquakesQuery = {
     date: number;
     surveys: Array<{ __typename?: "Survey"; id: number }>;
   }>;
+};
+
+export type MergeSurveysMutationVariables = Exact<{
+  surveyIds: Array<Scalars["Int"]> | Scalars["Int"];
+  name: Scalars["String"];
+}>;
+
+export type MergeSurveysMutation = {
+  __typename?: "Mutation";
+  mergeSurveys: { __typename?: "Earthquake"; id: number; name: string };
 };
 
 export type SurveysQueryVariables = Exact<{
@@ -310,6 +330,58 @@ export type EarthquakesLazyQueryHookResult = ReturnType<
 export type EarthquakesQueryResult = Apollo.QueryResult<
   EarthquakesQuery,
   EarthquakesQueryVariables
+>;
+export const MergeSurveysDocument = gql`
+  mutation mergeSurveys($surveyIds: [Int!]!, $name: String!) {
+    mergeSurveys(data: { surveyIds: $surveyIds, name: $name }) {
+      id
+      name
+    }
+  }
+`;
+export type MergeSurveysMutationFn = Apollo.MutationFunction<
+  MergeSurveysMutation,
+  MergeSurveysMutationVariables
+>;
+
+/**
+ * __useMergeSurveysMutation__
+ *
+ * To run a mutation, you first call `useMergeSurveysMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMergeSurveysMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [mergeSurveysMutation, { data, loading, error }] = useMergeSurveysMutation({
+ *   variables: {
+ *      surveyIds: // value for 'surveyIds'
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useMergeSurveysMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    MergeSurveysMutation,
+    MergeSurveysMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    MergeSurveysMutation,
+    MergeSurveysMutationVariables
+  >(MergeSurveysDocument, options);
+}
+export type MergeSurveysMutationHookResult = ReturnType<
+  typeof useMergeSurveysMutation
+>;
+export type MergeSurveysMutationResult =
+  Apollo.MutationResult<MergeSurveysMutation>;
+export type MergeSurveysMutationOptions = Apollo.BaseMutationOptions<
+  MergeSurveysMutation,
+  MergeSurveysMutationVariables
 >;
 export const SurveysDocument = gql`
   query SURVEYS($merged: Boolean) {
