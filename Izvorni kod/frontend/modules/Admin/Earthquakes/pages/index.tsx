@@ -61,7 +61,7 @@ const UnmergedSurveys: React.FC = () => {
           />
         ),
         id: true,
-        date: (r) => r.createdAt,
+        date: (r) => new Date(r.createdAt).toLocaleString(),
       }}
     />
   );
@@ -81,7 +81,7 @@ const Earthquakes: React.FC = () => {
         id: true,
         name: true,
         count: (r) => r.surveys.length.toString(),
-        date: (r) => r.date,
+        date: (r) => new Date(r.date).toLocaleString(),
       }}
     />
   );
