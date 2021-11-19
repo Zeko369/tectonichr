@@ -3,6 +3,7 @@ import { NextPage } from "next";
 import { z } from "zod";
 import { Form, InputField } from "chakra-form";
 import { useRouter } from "next/router";
+import { useCreateUserMutation } from "../../../generated/graphql";
 import { Container } from "@chakra-ui/layout";
 import { VStack } from "@chakra-ui/react";
 
@@ -15,11 +16,11 @@ const schema = z.object({
 
 const HomePage: NextPage = () => {
   const router = useRouter();
-  // const [_, createUser] = useCreateUserMutation();
+  const [_, createUser] = useCreateUserMutation();
 
   const onSubmit = async (data: z.infer<typeof schema>) => {
     // @ts-ignore
-    // await createUser(data);
+    await createUser(data);
     await router.push("/");
   };
 

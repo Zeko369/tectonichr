@@ -1,7 +1,6 @@
-require("dotenv").config();
-
 import "reflect-metadata";
 import cors from "cors";
+import { config } from "dotenv";
 import express, { Express } from "express";
 import { AuthChecker, buildSchema } from "type-graphql";
 import { ApolloServer } from "apollo-server-express";
@@ -13,6 +12,7 @@ import {
   userMiddleware,
 } from "./controllers/Auth/middleware";
 import { GQLCtx, GQLReq } from "./types";
+import { join } from "path";
 
 const authChecker: AuthChecker<GQLCtx> = ({ context }, roles) => {
   if (roles.length > 0) {
@@ -22,7 +22,8 @@ const authChecker: AuthChecker<GQLCtx> = ({ context }, roles) => {
   return true;
 };
 
-const PORT = parseInt(process.env.PORT || "5000");
+config({ path: join(__dirname, "../.env") });
+const PORT = parseInt(process.env.PORT || "5000", 10);
 export const main = async (app: Express) => {
   await initDB();
   app.use(cors({ credentials: true, origin: true }));

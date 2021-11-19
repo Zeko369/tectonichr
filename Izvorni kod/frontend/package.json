@@ -16,7 +16,7 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "chakra-confirm": "^1.2.2",
-    "chakra-data-table": "^1.2.1",
+    "chakra-data-table": "^1.2.2",
     "chakra-form": "^0.3.3",
     "chakra-next-link": "^1.0.10",
     "conditional-wrap": "^1.0.2",

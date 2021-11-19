@@ -12,7 +12,7 @@ const HomePage: NextPage = () => {
             <Image src="/primjer-karte.jpg" alt="Primjer karte potresa"></Image>
           </VStack>
           <VStack width="50%" height="50%" alignItems="center">
-            <LinkButton href="/novipotresi" size="lg">
+            <LinkButton href="/surveys/new" size="lg">
               Novi potres?
             </LinkButton>
             <LinkButton href="/aktualnipotresi">Aktualni potresi</LinkButton>

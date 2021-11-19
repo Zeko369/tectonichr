@@ -2658,10 +2658,10 @@ chakra-confirm@^1.2.2:
   resolved "https://registry.yarnpkg.com/chakra-confirm/-/chakra-confirm-1.2.2.tgz#28912e0197382702043a89952e5a76540426213a"
   integrity sha512-Wq3FtFE7LUlmrvcT8H49DyzKLvGScihkpb6PCwpDTDSQrxFeVuX6628EjF+6bFflE8+Je9xmXt7Azs8jFheXMg==
 
-chakra-data-table@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/chakra-data-table/-/chakra-data-table-1.2.1.tgz#7a494a0b1f1af64b6cd0b6566551883f06bdf440"
-  integrity sha512-wSwj1Ls6XtOmIc4houmcUovbSovGtePA2iwP4Wo2h/rpZcdaW0+Ahj0ioRLEMglVcrczPAWnBn7sgLg7rSHstQ==
+chakra-data-table@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/chakra-data-table/-/chakra-data-table-1.2.2.tgz#1348b156a398c684b8419e6239741f48385e1857"
+  integrity sha512-E+uSYgRUiKT4eES6wSkIFeHgk2VBrJXUU2kPceAJW33Gqhm4TEiUdMFxpEAWI94GwhToj44q3brbFgYYixhKLA==
 
 chakra-form@^0.3.3:
   version "0.3.3"
