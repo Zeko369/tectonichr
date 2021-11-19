@@ -1,0 +1,11 @@
+{
+  "name": "tectonichr",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@gitlab.com:bitbybit1/tectonichr.git",
+  "author": "Fran Zekan <zekan.fran369@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "pm2": "^5.1.2"
+  }
+}
