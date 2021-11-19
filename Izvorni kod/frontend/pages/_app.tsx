@@ -36,6 +36,8 @@ const client = new ApolloClient({
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <ApolloProvider client={client}>
+      <title>TectonicHR</title>
+
       <ChakraProvider>
         <ConfirmContextProvider>
           <Navigation />
