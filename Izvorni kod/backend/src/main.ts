@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 import "reflect-metadata";
 import cors from "cors";
 import express, { Express } from "express";
@@ -20,7 +22,7 @@ const authChecker: AuthChecker<GQLCtx> = ({ context }, roles) => {
   return true;
 };
 
-const PORT = 5000;
+const PORT = parseInt(process.env.PORT || "5000");
 export const main = async (app: Express) => {
   await initDB();
   app.use(cors({ credentials: true, origin: true }));

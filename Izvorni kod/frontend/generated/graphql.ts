@@ -26,10 +26,6 @@ export type CreateUserInput = {
   password: Scalars["String"];
 };
 
-export type DeleteUserInput = {
-  id: Scalars["Int"];
-};
-
 export type LoginInput = {
   email: Scalars["String"];
   password: Scalars["String"];
@@ -46,37 +42,21 @@ export type LoginResponse = {
 export type Mutation = {
   __typename?: "Mutation";
   createUser: User;
-  deleteUser: Scalars["Boolean"];
   login: LoginResponse;
-  updateUser: User;
 };
 
 export type MutationCreateUserArgs = {
   data: CreateUserInput;
 };
 
-export type MutationDeleteUserArgs = {
-  data: DeleteUserInput;
-};
-
 export type MutationLoginArgs = {
   data: LoginInput;
-};
-
-export type MutationUpdateUserArgs = {
-  data: UpdateUserInput;
 };
 
 export type Query = {
   __typename?: "Query";
   me?: Maybe<User>;
   users: Array<User>;
-};
-
-export type UpdateUserInput = {
-  email?: InputMaybe<Scalars["String"]>;
-  id: Scalars["Int"];
-  role?: InputMaybe<UserRole>;
 };
 
 export type User = {
