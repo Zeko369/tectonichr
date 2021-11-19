@@ -1,19 +1,42 @@
 import "reflect-metadata";
 import cors from "cors";
 import express, { Express } from "express";
-import { buildSchema } from "type-graphql";
+import { AuthChecker, buildSchema } from "type-graphql";
 import { ApolloServer } from "apollo-server-express";
 
 import { resolvers } from "./controllers";
 import { initDB } from "./db";
+import {
+  handleAuthenticationError,
+  userMiddleware,
+} from "./controllers/Auth/middleware";
+import { GQLCtx, GQLReq } from "./types";
+
+const authChecker: AuthChecker<GQLCtx> = ({ context }, roles) => {
+  if (roles.length > 0) {
+    return roles.some((r) => context.user?.role === r);
+  }
+
+  return true;
+};
 
 const PORT = 5000;
 export const main = async (app: Express) => {
   await initDB();
   app.use(cors({ credentials: true, origin: true }));
+  app.use(userMiddleware);
+  app.use(handleAuthenticationError);
 
-  const schema = await buildSchema({ resolvers, validate: false });
-  const server = new ApolloServer({ schema });
+  const schema = await buildSchema({
+    resolvers,
+    authChecker,
+    validate: false,
+  });
+
+  const server = new ApolloServer({
+    schema,
+    context: ({ req, res }: GQLReq): GQLCtx => ({ req, res, user: req.user }),
+  });
 
   await server.start();
 
@@ -25,6 +48,8 @@ if (require.main === module) {
     const app = express();
     await main(app);
 
-    app.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}/graphql`));
+    app.listen(PORT, () =>
+      console.log(`Listening on http://localhost:${PORT}/graphql`)
+    );
   })();
 }

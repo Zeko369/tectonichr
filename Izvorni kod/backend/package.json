@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "ts-node-dev ./src/main.ts",
     "start": "ts-node ./src/main.ts",
-    "typeorm": "ts-node ./node_modules/.bin/typeorm",
+    "typeorm": "ts-node ./node_modules/typeorm/cli",
     "db:generate": "yarn typeorm migration:generate -n",
     "db:drop": "yarn typeorm schema:drop",
     "db:seed": "ts-node ./db/seeds/index.ts",
@@ -20,6 +20,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "graphql": "^15.6.1",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.1.1",
@@ -27,6 +28,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^8.5.6",
     "@types/node": "^16.11.4",
     "dotenv": "^10.0.0",
     "ts-node": "^10.4.0",

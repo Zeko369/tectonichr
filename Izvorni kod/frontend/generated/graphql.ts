@@ -1,6 +1,7 @@
-import gql from "graphql-tag";
-import * as Urql from "urql";
+import { gql } from "@apollo/client";
+import * as Apollo from "@apollo/client";
 export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
 };
@@ -10,7 +11,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>;
 };
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+const defaultOptions = {};
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -25,188 +26,194 @@ export type CreateUserInput = {
   password: Scalars["String"];
 };
 
+export type DeleteUserInput = {
+  id: Scalars["Int"];
+};
+
+export type LoginInput = {
+  email: Scalars["String"];
+  password: Scalars["String"];
+};
+
+export type LoginResponse = {
+  __typename?: "LoginResponse";
+  email: Scalars["String"];
+  id: Scalars["Int"];
+  role: UserRole;
+  token: Scalars["String"];
+};
+
 export type Mutation = {
   __typename?: "Mutation";
   createUser: User;
+  deleteUser: Scalars["Boolean"];
+  login: LoginResponse;
+  updateUser: User;
 };
 
 export type MutationCreateUserArgs = {
   data: CreateUserInput;
 };
 
+export type MutationDeleteUserArgs = {
+  data: DeleteUserInput;
+};
+
+export type MutationLoginArgs = {
+  data: LoginInput;
+};
+
+export type MutationUpdateUserArgs = {
+  data: UpdateUserInput;
+};
+
 export type Query = {
   __typename?: "Query";
+  me?: Maybe<User>;
   users: Array<User>;
+};
+
+export type UpdateUserInput = {
+  email?: InputMaybe<Scalars["String"]>;
+  id: Scalars["Int"];
+  role?: InputMaybe<UserRole>;
 };
 
 export type User = {
   __typename?: "User";
   email: Scalars["String"];
   id: Scalars["Int"];
+  role: UserRole;
 };
 
-export type CreateUserMutationVariables = Exact<{
+/** Role of the user */
+export enum UserRole {
+  Admin = "ADMIN",
+  Seismologists = "SEISMOLOGISTS",
+}
+
+export type LoginMutationVariables = Exact<{
   email: Scalars["String"];
   password: Scalars["String"];
 }>;
 
-export type CreateUserMutation = {
+export type LoginMutation = {
   __typename?: "Mutation";
-  createUser: { __typename?: "User"; id: number; email: string };
+  login: {
+    __typename?: "LoginResponse";
+    id: number;
+    email: string;
+    token: string;
+  };
 };
 
-export type UsersQueryVariables = Exact<{ [key: string]: never }>;
+export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
-export type UsersQuery = {
+export type MeQuery = {
   __typename?: "Query";
-  users: Array<{ __typename?: "User"; id: number; email: string }>;
+  me?:
+    | { __typename?: "User"; id: number; email: string; role: UserRole }
+    | null
+    | undefined;
 };
 
-export const CreateUser = gql`
-  mutation createUser($email: String!, $password: String!) {
-    createUser(data: { email: $email, password: $password }) {
+export const LoginDocument = gql`
+  mutation login($email: String!, $password: String!) {
+    login(data: { email: $email, password: $password }) {
       id
       email
+      token
     }
   }
 `;
-export const Users = gql`
-  query USERS {
-    users {
-      id
-      email
-    }
-  }
-`;
-import { IntrospectionQuery } from "graphql";
-export default {
-  __schema: {
-    queryType: {
-      name: "Query",
-    },
-    mutationType: {
-      name: "Mutation",
-    },
-    subscriptionType: null,
-    types: [
-      {
-        kind: "OBJECT",
-        name: "Mutation",
-        fields: [
-          {
-            name: "createUser",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "User",
-                ofType: null,
-              },
-            },
-            args: [
-              {
-                name: "data",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
-          },
-        ],
-        interfaces: [],
-      },
-      {
-        kind: "OBJECT",
-        name: "Query",
-        fields: [
-          {
-            name: "users",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "LIST",
-                ofType: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "OBJECT",
-                    name: "User",
-                    ofType: null,
-                  },
-                },
-              },
-            },
-            args: [],
-          },
-        ],
-        interfaces: [],
-      },
-      {
-        kind: "OBJECT",
-        name: "User",
-        fields: [
-          {
-            name: "email",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
-            },
-            args: [],
-          },
-          {
-            name: "id",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
-            },
-            args: [],
-          },
-        ],
-        interfaces: [],
-      },
-      {
-        kind: "SCALAR",
-        name: "Any",
-      },
-    ],
-    directives: [],
-  },
-} as unknown as IntrospectionQuery;
+export type LoginMutationFn = Apollo.MutationFunction<
+  LoginMutation,
+  LoginMutationVariables
+>;
 
-export const CreateUserDocument = gql`
-  mutation createUser($email: String!, $password: String!) {
-    createUser(data: { email: $email, password: $password }) {
-      id
-      email
-    }
-  }
-`;
-
-export function useCreateUserMutation() {
-  return Urql.useMutation<CreateUserMutation, CreateUserMutationVariables>(
-    CreateUserDocument
+/**
+ * __useLoginMutation__
+ *
+ * To run a mutation, you first call `useLoginMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLoginMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [loginMutation, { data, loading, error }] = useLoginMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *      password: // value for 'password'
+ *   },
+ * });
+ */
+export function useLoginMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    LoginMutation,
+    LoginMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<LoginMutation, LoginMutationVariables>(
+    LoginDocument,
+    options
   );
 }
-export const UsersDocument = gql`
-  query USERS {
-    users {
+export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
+export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
+export type LoginMutationOptions = Apollo.BaseMutationOptions<
+  LoginMutation,
+  LoginMutationVariables
+>;
+export const MeDocument = gql`
+  query ME {
+    me {
       id
       email
+      role
     }
   }
 `;
 
-export function useUsersQuery(
-  options: Omit<Urql.UseQueryArgs<UsersQueryVariables>, "query"> = {}
+/**
+ * __useMeQuery__
+ *
+ * To run a query within a React component, call `useMeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMeQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMeQuery(
+  baseOptions?: Apollo.QueryHookOptions<MeQuery, MeQueryVariables>
 ) {
-  return Urql.useQuery<UsersQuery>({ query: UsersDocument, ...options });
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<MeQuery, MeQueryVariables>(MeDocument, options);
 }
+export function useMeLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<MeQuery, MeQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<MeQuery, MeQueryVariables>(MeDocument, options);
+}
+export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
+export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
+export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+
+export interface PossibleTypesResultData {
+  possibleTypes: {
+    [key: string]: string[];
+  };
+}
+const result: PossibleTypesResultData = {
+  possibleTypes: {},
+};
+export default result;
