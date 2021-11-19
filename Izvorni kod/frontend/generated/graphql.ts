@@ -30,6 +30,23 @@ export type DeleteUserInput = {
   id: Scalars["Int"];
 };
 
+export type Earthquake = {
+  __typename?: "Earthquake";
+  createdAt: Scalars["Float"];
+  date: Scalars["Float"];
+  epicenterLat: Scalars["Float"];
+  epicenterLng: Scalars["Float"];
+  id: Scalars["Int"];
+  name: Scalars["String"];
+  strength: Scalars["Float"];
+  surveys: Array<Survey>;
+  updatedAt: Scalars["Float"];
+};
+
+export type FilterSurveys = {
+  merged?: InputMaybe<Scalars["Boolean"]>;
+};
+
 export type LoginInput = {
   email: Scalars["String"];
   password: Scalars["String"];
@@ -50,6 +67,7 @@ export type Mutation = {
   createUser: User;
   deleteUser: Scalars["Boolean"];
   login: LoginResponse;
+  submitSurvey: Survey;
   updateUser: User;
 };
 
@@ -65,6 +83,10 @@ export type MutationLoginArgs = {
   data: LoginInput;
 };
 
+export type MutationSubmitSurveyArgs = {
+  data: SurveyCreateInput;
+};
+
 export type MutationUpdateUserArgs = {
   data: UpdateUserInput;
 };
@@ -72,7 +94,27 @@ export type MutationUpdateUserArgs = {
 export type Query = {
   __typename?: "Query";
   me?: Maybe<User>;
+  surveys: Array<Survey>;
   users: Array<User>;
+};
+
+export type QuerySurveysArgs = {
+  filter: FilterSurveys;
+};
+
+export type Survey = {
+  __typename?: "Survey";
+  createdAt: Scalars["Float"];
+  earthquake?: Maybe<Earthquake>;
+  id: Scalars["Int"];
+  lat: Scalars["Float"];
+  lng: Scalars["Float"];
+  updatedAt: Scalars["Float"];
+};
+
+export type SurveyCreateInput = {
+  lat?: InputMaybe<Scalars["Float"]>;
+  lng?: InputMaybe<Scalars["Float"]>;
 };
 
 export type UpdateUserInput = {
