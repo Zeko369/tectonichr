@@ -641,13 +641,13 @@
 				\subsubsection{Dijagrami obrazaca uporabe}
 					
 				\begin{figure}[H]
-					\includegraphics[width=\textwidth, height = 15cm]{slike/prvi.PNG} 
+					\includegraphics[width=\textwidth, height = 15cm]{slike/prvinovo.PNG} 
 					 \caption{Dijagram obrazaca uporabe, funkcionalnosti koje imaju svi korisnici}
 					  \label{fig:obrasci1} 
 				  \end{figure}
 				  
 				  \begin{figure}[H]
-					\includegraphics[width=\textwidth]{slike/drugi.PNG} 
+					\includegraphics[width=\textwidth]{slike/druginovo.PNG} 
 					\caption{Dijagram obrazaca uporabe, funkcionalnosti koje imaju regestrirani korisnici}
 					\label{fig:obrasci2} 
 				   \end{figure}
@@ -655,18 +655,19 @@
 				
 			\subsection{Sekvencijski dijagrami}
 				
-			\textbf{UC4:Potvrđivanje novih registracija}\\
+			\textbf{UC4: Potvrđivanje novih registracija}\\
 			{Administrator odabire opciju "Zahtjevi za registraciju". Poslužitelj potom šalje zahtjev za dohvaćanjem svih zahtjeva za registraciju bazi podataka. Zahtjev se prihvaća te se vraća popis onih korisnika koji se žele registrirati za seizmologa. Popis se prikazuje na klijentu. Administrator može označiti željene korisnike te potom pritisnuti "Potvrdi". Time su zahtjevi obrađeni te se u bazi označenim korisnicima uloga mijenja u "seizmolog". Sustav obavijesti administratora o uspješnom dodavanju seizmologa. Novim seizmolozima se šalje e-mail kako bi ih se obavijestilo da je njihova registracija potvrđena.}
 			\begin{figure}[H]
 				  \includegraphics[width=\textwidth, height=14cm]{slike/uc4.PNG}
 				  \caption{sekvencijski dijagram za UC4}
 				  \label{fig:sekvuc4} 
 				 \end{figure}
-			\textbf{UC8:Registracija novog potresa}\\
-			{Administrator odabire opciju "Pristigli upitnici". Poslužitelj potom šalje zahtjev bazi podataka kako bi dohvatio sve pristigle upitnike. Prihvaća se zahtjev te se na klijentu prikazuju svi pristigli upitnici. Administrator označuje upitnike te ih na taj način grupira. Kada grupira sve upitnike koji se odnose na isti potres, odabire opciju "Dodaj novi potres". Potom imenuje taj potres i odabire opciju "potvrdi". U bazu podataka se upisuje novi potres. Sustav obavijesti administratora o upješnom dodavanju novog potresa.}
+			\textbf{UC20: Ispunjavanje upitnika za aktualni potres}\\
+			{Korisnik odabire opciju "Aktualni potresi". Poslužitelj potom šalje zahtjev bazi podataka kako bi dohvatio sve aktualne potrese. Prihvaća se zahtjev te se na klijentu prikazuju svi aktualni potresi. Korisnik odabire potres za koji želi ispuniti upitnik. S klijenta se bazi podataka šalje zahtjev za dohvaćanjem podataka o potresu koji se automatski popunjavaju u upitniku. Korisniku se prikazuje upitnik s djelomično popunjenim odgovorima. Korisnik popunjava upitnik. Kada pritisne opciju "Predaj", upitnik se šalje na validaciju. Ako su odgovorena sva pitanja, odgovori se pohranjuju u bazu te se na temelju odgovora računa intezitet potresa pa se i to ažurira u bazi. 
+			Kada je upitnik uspješno predan, sustav o tome obavijesti korisnika. Ako nije sve odgovoreno, korisnik dobiva obavijest o neuspjeloj predaji te ga sustav vraća na stranicu s upitnikom. Ako je korisnik odabrao "Odustani" umjesto "Predaj" sustav ga vraća na stranicu "Aktualni potresi".}
 			\begin{figure}[H]
-				  \includegraphics[width=\textwidth, height=16cm]{slike/uc8.PNG}
-				  \caption{sekvencijski dijagram za UC8}
+				  \includegraphics[width=\textwidth, height=13cm]{slike/uc20.PNG}
+				  \caption{sekvencijski dijagram za UC20}
 				  \label{fig:sekvuc8} 
 				 \end{figure}
 				\eject
