@@ -13,6 +13,7 @@ import {
 } from "./controllers/Auth/middleware";
 import { GQLCtx, GQLReq } from "./types";
 import { join } from "path";
+import { FirstQuestion } from "../../shared/enums/SurveyEnums";
 
 const authChecker: AuthChecker<GQLCtx> = ({ context }, roles) => {
   if (roles.length > 0) {
@@ -50,6 +51,10 @@ if (require.main === module) {
   (async () => {
     const app = express();
     await main(app);
+
+    for (let item in FirstQuestion) {
+      console.log(item);
+    }
 
     app.listen(PORT, () =>
       console.log(`Listening on http://localhost:${PORT}/graphql`)

@@ -15,6 +15,16 @@ export class SurveyResolver {
     const survey = new Survey({
       lat: data.lat || 0,
       lng: data.lng || 0,
+      firstQuestion: data.firstQuestion,
+      secondQuestion: data.secondQuestion,
+      thirdQuestion: data.thirdQuestion,
+      fourthQuestion: data.fourthQuestion,
+      fifthQuestion: data.fifthQuestion,
+      sixthQuestion: data.sixthQuestion,
+      seventhQuestion: data.seventhQuestion,
+      eighthQuestion: data.eighthQuestion,
+      ninthQuestion: data.ninthQuestion,
+      tenthQuestion: data.tenthQuestion,
     });
 
     await survey.save();

@@ -11,8 +11,8 @@ const dbConfig = {
 module.exports = {
   type: "postgres",
   ...dbConfig,
-  synchronize: false,
-  logging: false,
+  synchronize: true,
+  logging: true,
   entities: ["src/models/**/*.ts"],
   migrations: ["db/migrations/**/*.ts"],
   cli: {
