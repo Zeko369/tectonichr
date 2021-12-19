@@ -13,7 +13,7 @@ import { AppProps } from "next/app";
 
 import { Navigation } from "../components/Navigation";
 
-const serverUri =
+export const serverUri =
   process.env.NEXT_PUBLIC_APOLLO_SERVER || "http://localhost:5000/graphql";
 
 const httpLink = createHttpLink({ uri: serverUri });
