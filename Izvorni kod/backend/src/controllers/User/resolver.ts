@@ -1,4 +1,4 @@
-import { Arg, Mutation, Query, Resolver, Int, Authorized } from "type-graphql";
+import { Arg, Authorized, Mutation, Query, Resolver } from "type-graphql";
 import { hash } from "bcryptjs";
 
 import { User, UserRole } from "../../models/User";
@@ -7,7 +7,7 @@ import { CreateUserInput, DeleteUserInput, UpdateUserInput } from "./inputs";
 @Resolver()
 export class UserResolver {
   @Query(() => [User])
-  // @Authorized(UserRole.ADMIN)
+  @Authorized(UserRole.ADMIN)
   async users(): Promise<User[]> {
     return await User.find();
   }

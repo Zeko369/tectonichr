@@ -2673,15 +2673,15 @@ capital-case@^1.0.4:
     tslib "^2.0.3"
     upper-case-first "^2.0.2"
 
-chakra-confirm@^1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/chakra-confirm/-/chakra-confirm-1.2.2.tgz#28912e0197382702043a89952e5a76540426213a"
-  integrity sha512-Wq3FtFE7LUlmrvcT8H49DyzKLvGScihkpb6PCwpDTDSQrxFeVuX6628EjF+6bFflE8+Je9xmXt7Azs8jFheXMg==
+chakra-confirm@^1.2.11:
+  version "1.2.11"
+  resolved "https://registry.yarnpkg.com/chakra-confirm/-/chakra-confirm-1.2.11.tgz#0562053eb474830b127de79c0260123be987c205"
+  integrity sha512-1rra7RaDaKyypyUQ5hidjO8dyK/22xMk/HQkGeSHbHjYppoUgpUeu3FdKwPjL3eeLtYW7mIt8fIIhAXT9M2r6g==
 
-chakra-data-table@^1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/chakra-data-table/-/chakra-data-table-1.2.2.tgz#1348b156a398c684b8419e6239741f48385e1857"
-  integrity sha512-E+uSYgRUiKT4eES6wSkIFeHgk2VBrJXUU2kPceAJW33Gqhm4TEiUdMFxpEAWI94GwhToj44q3brbFgYYixhKLA==
+chakra-data-table@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/chakra-data-table/-/chakra-data-table-1.2.3.tgz#f987b90048a6e68aaad081fc5f7e209fcacc8a76"
+  integrity sha512-wXXe8tzq94miXi1QfisqN/Cw4UdknzsIGJ0PitRrKeW1vt+frX/AIxNpuF0bev0BS39ZLotlWioO55gl7sGa5w==
 
 chakra-form@^0.3.3:
   version "0.3.3"

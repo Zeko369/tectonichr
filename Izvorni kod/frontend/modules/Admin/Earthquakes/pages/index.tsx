@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { NextPage } from "next";
-import { Button, Spinner, Container, VStack, Checkbox } from "@chakra-ui/react";
+import { Button, Checkbox, Container, Spinner, VStack } from "@chakra-ui/react";
 import { DataTable } from "chakra-data-table";
-import { usePrompt } from "chakra-confirm";
+import { useConfirmDelete, usePrompt } from "chakra-confirm";
 
 import {
+  useDeleteSurveyMutation,
   useEarthquakesQuery,
   useMergeSurveysMutation,
   useSurveysQuery,
@@ -36,6 +37,16 @@ const UnmergedSurveys: React.FC = () => {
     }
   };
 
+  const [deleteSurvey] = useDeleteSurveyMutation({
+    refetchQueries: [{ query: surveys }],
+  });
+  const confirmDelete = useConfirmDelete();
+  const onDelete = (id: number) => async () => {
+    if (await confirmDelete()) {
+      await deleteSurvey({ variables: { id } });
+    }
+  };
+
   if (loading) return <Spinner />;
   if (error) return <p>Error</p>;
 
@@ -46,7 +57,7 @@ const UnmergedSurveys: React.FC = () => {
       data={data?.surveys || []}
       keyFunc={(r) => r.id.toString()}
       right={selectedIds.length > 0 && <Button onClick={onMerge}>Merge</Button>}
-      keys={["select", "id", "date"] as const}
+      keys={["select", "id", "date", "actions"] as const}
       mapper={{
         select: (r) => (
           <Checkbox
@@ -62,6 +73,11 @@ const UnmergedSurveys: React.FC = () => {
         ),
         id: true,
         date: (r) => new Date(r.createdAt).toLocaleString(),
+        actions: (r) => (
+          <Button size="sm" colorScheme="red" onClick={onDelete(r.id)}>
+            Delete
+          </Button>
+        ),
       }}
     />
   );
