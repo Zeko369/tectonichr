@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import { NextPage } from "next";
-import { Button, Spinner, Container, VStack, Checkbox } from "@chakra-ui/react";
+import {
+  Button,
+  Spinner,
+  Container,
+  VStack,
+  Checkbox,
+  HStack,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { DataTable } from "chakra-data-table";
 import { usePrompt } from "chakra-confirm";
 
@@ -11,6 +19,7 @@ import {
 } from "generated/graphql";
 import { surveys } from "../graphql/surveys";
 import { earthquakes } from "../graphql/earthquakes";
+import { AddToExistingEarthquakeModal } from "../components/AddToExistinEarthquakeModal";
 
 const UnmergedSurveys: React.FC = () => {
   const { loading, error, data, refetch } = useSurveysQuery();
@@ -27,7 +36,6 @@ const UnmergedSurveys: React.FC = () => {
       await merge({
         variables: {
           name,
-          // @ts-ignore
           surveyIds: selectedIds,
         },
       });
@@ -36,34 +44,58 @@ const UnmergedSurveys: React.FC = () => {
     }
   };
 
+  const addToExistingModal = useDisclosure();
+  const onAddToEarthquake = () => {
+    addToExistingModal.onOpen();
+  };
+
+  const onClose = () => {
+    addToExistingModal.onClose();
+    setSelectedIds([]);
+  };
+
   if (loading) return <Spinner />;
   if (error) return <p>Error</p>;
 
   return (
-    <DataTable
-      isLoading={merging}
-      title="Unmerged surveys"
-      data={data?.surveys || []}
-      keyFunc={(r) => r.id.toString()}
-      right={selectedIds.length > 0 && <Button onClick={onMerge}>Merge</Button>}
-      keys={["select", "id", "date"] as const}
-      mapper={{
-        select: (r) => (
-          <Checkbox
-            checked={selectedIds.includes(r.id)}
-            onChange={(e) =>
-              setSelectedIds((ids) =>
-                ids.includes(r.id)
-                  ? ids.filter((id) => id !== r.id)
-                  : [...ids, r.id]
-              )
-            }
-          />
-        ),
-        id: true,
-        date: (r) => new Date(r.createdAt).toLocaleString(),
-      }}
-    />
+    <>
+      <AddToExistingEarthquakeModal
+        modalProps={{ ...addToExistingModal, onClose }}
+        surveyIds={selectedIds}
+      />
+
+      <DataTable
+        isLoading={merging}
+        title="Unmerged surveys"
+        data={data?.surveys || []}
+        keyFunc={(r) => r.id.toString()}
+        right={
+          selectedIds.length > 0 && (
+            <HStack>
+              <Button onClick={onMerge}>New</Button>
+              <Button onClick={onAddToEarthquake}>Existing</Button>
+            </HStack>
+          )
+        }
+        keys={["select", "id", "date"] as const}
+        mapper={{
+          select: (r) => (
+            <Checkbox
+              checked={selectedIds.includes(r.id)}
+              onChange={(e) =>
+                setSelectedIds((ids) =>
+                  ids.includes(r.id)
+                    ? ids.filter((id) => id !== r.id)
+                    : [...ids, r.id]
+                )
+              }
+            />
+          ),
+          id: true,
+          date: (r) => new Date(r.createdAt).toLocaleString(),
+        }}
+      />
+    </>
   );
 };
 

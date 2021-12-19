@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "gen": "graphql-codegen --config codegen.yml -r dotenv/config"
+    "gen": "graphql-codegen --config codegen.yml -r dotenv/config",
+    "gen:watch": "yarn gen --watch"
   },
   "dependencies": {
     "@apollo/client": "^3.4.17",
