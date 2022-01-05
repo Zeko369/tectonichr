@@ -10,6 +10,8 @@
 				\item Seizmolozi
 				\item Građani (neregistrirani korisnici)
 				\item Razvojni tim
+				\item Geološki institut
+				\item Geofizički institut
 
 			\end{packed_enum}
 			
@@ -17,7 +19,7 @@
 			
 			
 			\begin{packed_enum}
-				\item  \underbar{Neregistrirani/neprijavljeni korisnik (građanin) može:}
+				\item  \underbar{Neregistrirani/neprijavljeni korisnik (građanin) (inicijator) može:}
 				
 				\begin{packed_enum}
 					
@@ -38,34 +40,47 @@
 					\end{packed_enum}
 				\end{packed_enum}
 			
-				\item  \underbar{Administrator može:}
+				\item  \underbar{Administrator (inicijator) može:}
 				
 				\begin{packed_enum}
 
-					\item sve što i neregistrirani/neprijavljeni korisnik može
-					\item stvoriti novi potres od jednog ili više upitnika
-					\item dodati upitnik nekom od postojećih potresa
-					\item registrirati nove seizmologe
-					\item ukloniti registrirane seizmologe
-					\item preuzeti podatke o potresu
+					\item sve što i seizmolog
+					\item upravljati upitnicima
+					\begin{packed_enum}
+						\item stvoriti novi potres od jednog ili više upitnika
+						\item dodati upitnik nekom od postojećih potresa
+						\item brisati upitnike
+					\end{packed_enum}
+					\item upravljati seizmolozima
+					\begin{packed_enum}
+						\item registrirati nove seizmologe
+						\item pregledati registrirane seizmologe
+						\item ukloniti registrirane seizmologe
+					\end{packed_enum}
 					\item izmijeniti svoje podatke
 					
 				\end{packed_enum}
 
-				\item  \underbar{Seizmolog/znanstvenik može:}
+				\item  \underbar{Seizmolog/znanstvenik (inicijator) može:}
 
 				\begin{packed_enum}
 
+					\item sve što i neregistrirani/neprijavljeni korisnik može
 					\item pristupiti aplikaciji nakon prijave (e-mail i lozinka)
 					\item pregledavati podatke o:
 					\begin{packed_enum}
-						
 						\item arhiviranim potresima
 						\item aktualnim potresima
-
 					\end{packed_enum}
 					\item u tekstualnom formatu preuzeti podatke o potresima
 					\item izmijeniti svoje podatke
+				\end{packed_enum}
+			
+				\item  \underbar{Baza podataka (sudionik):}
+				\begin{packed_enum}
+					\item pohranjuje sve podatke o potresima
+					\item pohranjuje sve podatke o registriranim korisnicima (seizmolozima i administratoru)
+					\item pohranjuje sve odgovore na upitnik
 				\end{packed_enum}
 			\end{packed_enum}
 			
@@ -139,8 +154,18 @@
 								
 								\item Sustav obavještava administratora o neispravnom upisu e-maila i vraća ga na stranicu za registraciju
 								\item Administrator mijenja potrebne podatke te završava unos ili odustaje od registracije
-								
-							\end{packed_enum}							
+								\end{packed_enum}
+							\item[3.b] Unos e-maila koji već postoji u sustavu
+								\item[] \begin{packed_enum}
+									
+									\item Sustav obavještava administratora o upisu e-maila seizmologa koji je već registriran u sustavu i vraća ga na stranicu za registraciju
+									\item Administrator mijenja potrebne podatke te završava unos ili odustaje od registracije
+							\end{packed_enum}
+							\item[3.c] Unos lozinke koja ne odgovara ograničenjima
+								\item[] \begin{packed_enum}
+									\item Sustav obavještava administratora o upisu nevaljane lozinku i ostaje na stranici za registraciju
+									\item Administrator mijenja potrebne podatke te završava unos ili odustaje od registracije
+								\end{packed_enum}				
 						\end{packed_item}
 					\end{packed_item}
 
@@ -167,7 +192,7 @@
 						\item \textbf{Glavni sudionik:} Administrator, Seizmolog
 						\item \textbf{Cilj:} Promjena podataka
 						\item \textbf{Sudionici:} Baza podataka
-						\item \textbf{Preduvjet:} Korisnik prijavljen u sustav 
+						\item \textbf{Preduvjet:} Korisnik prijavljen u sustav i odabrao opciju za pregled profila
 						\item  \textbf{Opis osnovnog tijeka:}
 						
 						\item[] \begin{packed_enum}
@@ -179,6 +204,14 @@
 							\item Ažurira se baza podataka
 							
 						\end{packed_enum}
+						\item  \textbf{Opis mogućih odstupanja:}
+						\item[] \begin{packed_item}
+							\item[3.a] Unos nevaljane lozinke
+							\item[] \begin{packed_enum}
+								\item Sustav obavještava korisnika o upisu nevaljane lozinke i vraća ga na stranicu za promjenu podataka
+								\item Korisnik mijenja potrebne podatke te završava unos ili odustaje od promjene podataka
+							\end{packed_enum}
+						\end{packed_item}
 					\end{packed_item}
 
 					\noindent \underbar{\textbf{UC5 - Uklanjanje seizmologa}}
@@ -198,11 +231,20 @@
 	
 							\item Pregled seizmologa
 							\item Odabir opcije "Ukloni" pored imena seizmologa
+							\item Prikazuje se potvrdni okvir
+							\item Administrator potvrđuje uklanjanje
 							\item Sustav obavještava administratora o uklanjanju seizmologa
 							\item Sustav šalje e-mail obavijest seizmologu da je uklonjen iz sustava
 							\item Ažuriranje baze podataka
 							
 						\end{packed_enum}
+					\item \textbf{Opis mogućih odstupanja:}
+					\item[] \begin{packed_item}
+							\item[3.a] Administrator odustaje od uklanjanja seizmologa
+							\item[] \begin{packed_enum}
+								\item Sustav vraća administratora na pregled seizmologa
+							\end{packed_enum}	
+						\end{packed_item}
 					\end{packed_item}
 
 					\noindent \underbar{\textbf{UC6 - Pregled seizmologa}}
@@ -377,7 +419,6 @@
 						\item \textbf{Glavni sudionik:} Administrator
 						\item \textbf{Cilj:} Prebaciti aktualne potrese u kategoriju arhiviranih
 						\item \textbf{Sudionici:} Baza podataka
-						\item \textbf{Preduvjet:} -
 
 						\item \textbf{Opis osnovnog tijeka:}
 						
@@ -452,8 +493,6 @@
 					\item Odabir opcije „Preuzmi“
 					\item Preuzimanje podataka
 				\end{packed_enum}
-				
-				\item  \textbf{Opis mogućih odstupanja:} -
 				
 			\end{packed_item}
 			
@@ -655,11 +694,11 @@
 				
 			\subsection{Sekvencijski dijagrami}
 				
-			\textbf{UC4: Potvrđivanje novih registracija}\\
-			{Administrator odabire opciju "Zahtjevi za registraciju". Poslužitelj potom šalje zahtjev za dohvaćanjem svih zahtjeva za registraciju bazi podataka. Zahtjev se prihvaća te se vraća popis onih korisnika koji se žele registrirati za seizmologa. Popis se prikazuje na klijentu. Administrator može označiti željene korisnike te potom pritisnuti "Potvrdi". Time su zahtjevi obrađeni te se u bazi označenim korisnicima uloga mijenja u "seizmolog". Sustav obavijesti administratora o uspješnom dodavanju seizmologa. Novim seizmolozima se šalje e-mail kako bi ih se obavijestilo da je njihova registracija potvrđena.}
+			\textbf{UC8: Registracija novog potresa}\\
+			{Administrator odabire opciju "Pristigli upitnici". Poslužitelj potom šalje zahtjev bazi podataka kako bi dohvatio sve pristigle upitnike. Prihvaća se zahtjev te se na klijentu prikazuju svi pristigli upitnici. Administrator označuje upitnike te ih na taj način grupira. Kada grupira sve upitnike koji se odnose na isti potres, odabire opciju "Dodaj novi potres". Potom imenuje taj potres i odabire opciju "potvrdi". U bazu podataka se upisuje novi potres. Sustav obavijesti administratora o uspješnom dodavanju novog potresa.}
 			\begin{figure}[H]
-				  \includegraphics[width=\textwidth, height=14cm]{slike/uc4.PNG}
-				  \caption{sekvencijski dijagram za UC4}
+				  \includegraphics[width=\textwidth, height=14cm]{slike/uc8.PNG}
+				  \caption{sekvencijski dijagram za UC8}
 				  \label{fig:sekvuc4} 
 				 \end{figure}
 			\textbf{UC20: Ispunjavanje upitnika za aktualni potres}\\
@@ -677,7 +716,6 @@
 					\item Aplikacija treba podržavati rad više korisnika u stvarnom vremenu.
 					\item Sustav treba biti implementiran kao mobilna ili web aplikacija koristeći objektno orijentirane jezike.
 					\item Neposredno nakon što se dogodi neki potres, administrator može poslati notifikaciju na uređaje građana da ispune upitnik.
-					\item Treba kreirati administratora i dva znanstvenika te barem jedan stari potres s 10 popunjenih upitnika i jedan novi potres s 5 popunjenih upitnika.
 					\item Korisničko sučelje mora biti pisano na hrvatskom jeziku i podržavati dijakritičke znakove.
 					\item Upitnik o potresu mora imati barem 10 pitanja pomoću kojih se može odrediti intenzitet potresa.
 					\item Aplikacija mora jednostavno prikazivati informacije o potresima korisnicima.

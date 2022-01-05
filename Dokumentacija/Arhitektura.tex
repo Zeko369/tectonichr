@@ -1,16 +1,15 @@
 \chapter{Arhitektura i dizajn sustava}
-		
-		\textbf{\textit{dio 1. revizije}}\\
-
 		Arhitektura naše aplikacije, može se podijeliti na sljedeće komponente
 	\begin{itemize}
 		\item 	Server strana (\textit{backend})
 		\item 	Klijent strana (\textit{frontend})
 		\item 	Baza podataka (\textit{db})		
 	\end{itemize}
-	\textbf{Server strana} je glavna komponenta naše aplikacije. U njoj se nalazi programska logika koja se brine da korisnik može dohvatiti sve podatke koji mu trebaju ili spremiti iste. Komunikaciju prema klijentskoj strani smo ostvarili korištenjem GraphQL-om. \\
-	\textbf{Baza podataka} koju smo koristili je PostgreSQL. Kako bi izbjegli programske greške u SQLu te potencijalne ranjivosti (Npr SQL Injekcija), za komunikaciju s bazom koristili smo ORM (Object Relation Mapper) \textit{TypeORM}. Kroz \textit{TypeORM} dobili smo i sustav za verzioniranje baza podataka "migracije", tako da možemo lakše i sigurnije raditi izmjene na bazi, te dijeliti te izmjene između programera u timu i produkcijskih servera. \\
-	\textbf{Klijentska strana} je grafičko sučelje s kojim krajnji korisnik pristupa aplikaciji. U našem slučaju implementirano je kao SPA (Single Page Application) sa \textit{React}-om. \\
+	\textbf{Serverska strana} glavna je komponenta naše aplikacije. U njoj se nalazi programska logika koja se brine da se korisniku isporuči ono što je zatražio i da aplikacija radi u skladu sa zahtjevima. Komunikacija prema klijentskoj strani ostvarena je korištenjem GraphQL-a (za manipulaciju s API-jem), a komunikacija prema bazi podataka ORM-om (Object-Relational Mapping). Također smo koristili razred Prisma kojem se predaju parametri SQL upita. Prisma je biblioteka sa serverske strane koja pomaže pri čitanju i pisanju podataka u i iz baze podataka na siguran način (štiti od SQL injekcija).
+	
+	\textbf{Baza podataka} koju smo koristili je PostgreSQL. Kako bi izbjegli programske greške u SQLu te potencijalne ranjivosti (npr. SQL injekcija), za komunikaciju s bazom koristili smo \textit{TypeORM} kako bi programer izbjegao greške u SQL jeziku. \textit{TypeOrm} je podvrsta radnog okvira ORM prilagođen TypeScriptu i JavaScriptu. Kroz \textit{TypeORM} dobili smo i sustav za verzioniranje baze podataka "migracije" tako da možemo lakše i sigurnije raditi izmjene na bazi te dijeliti te izmjene između programera u timu i produkcijskih servera. 
+	
+	\textbf{Klijentska strana} je pruža grafičko sučelje za olakšan i intuitivan pristup uslugama aplikacije. Ovu komponentu možemo zamisliti kao posrednika u komunikaciji između korisnika i serverske strane aplikacije. U našem slučaju klijentska strana implementirana je kao SPA (Single Page Application) s \textit{React}-om. \textit{React} je JavaScript knjižnica koja olakšava oblikovanje korisničkog sučelja.\\
 	
 	\begin{figure}[H]
 		\includegraphics[width=\textwidth]{slike/arhitekturaDijagram.png} 
@@ -20,10 +19,9 @@
 
 				
 		\section{Baza podataka}
-			
-			\textbf{\textit{dio 1. revizije}}\\
-			
-		U našem sustavu korisimo PostgreSQL relacijsku bazu podataka za spremanje informacija o potresima i upitnicima.
+		
+		U našem sustavu korisimo PostgreSQL relacijsku bazu podataka za spremanje informacija o potresima i upitnicima. Zadaća baze podataka brza je i jednostavna pohrana, izmjena i dohvat podataka za daljnju obradu. Podaci će biti pohranjeni u tablice koje imaju svoje ime i atribute te će svaki entitet imati svoj primarni ključ, jedinstvenu
+		oznakau svake n-torke koja ne smije imati vrijednost ”null”.
 		U bazi podataka imamo sljedeće entitete:
 		\begin{itemize}
 			\item 	users
@@ -152,3 +150,4 @@
 			\textbf{\textit{dio 2. revizije}}\\
 		
 			 \textit{Potrebno je priložiti dijagram komponenti s pripadajućim opisom. Dijagram komponenti treba prikazivati strukturu cijele aplikacije.}
+		\eject

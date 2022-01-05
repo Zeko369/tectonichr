@@ -5,24 +5,43 @@
 {Ovaj se projekt bavi razvojem programske podrške za web aplikaciju "TectonicHR". 
 	Cilj aplikacije "TectonicHR" olakšano je prikupljanje podataka o intenzitetu potres te olakšani vizualni pristup informacijama. 
 	Aplikacija je namijenjena znanstvenoj zajednici, ali i općoj populaciji.
-	
 	 
 	Znanstvenoj zajednici, seizmolozima, bit će olakšan pristup informacijama i njihovo prikupljanje.  
 	Opća populacija, građani, imat će mogućnost unosa novog potresa kojega su osjetili te pregled već zabilježenih potresa.  
 	
+	Prilikom otvaranja aplikacije građanima se prikazuje početna stranica na kojoj se nude tri opcije:
+		\begin{packed_item}
+			\item Novi upitnik?
+			\item Aktualni potresi
+			\item Arhivirani potresi
+		\end{packed_item}
+	Na početnoj stranici također se nalazi i preliminarna karta Hrvatske na kojoj su označeni aktualni i arhivirani potresi. Boje oznaka potresa različite su za ove dvije kategorije potresa.
 	
-	Prilikom otvaranja aplikacije građanima se nude tri opcije te se pokazuje preliminarna karta Hrvatske na kojoj su označeni aktualni i arhivirani potresi. Boje oznaka potresa različite su za ove dvije kategorije potresa.
-	Opcija, „Aktualni potresi“, omogućava pregled aktualnih potresa te ispunjavanje upitnika za njih. 
-	Opcija, „Arhivirani potresi“ otvara stranicu koja prikazuje pregled preliminarne karte inteziteta potresa koja sadži interaktivnu kartu Hrvatske te popis arhiviranih potresa. 
-	Na karti je zvjezdicom označen epicentar te kružićem određene boje označen je intenzitet potresa. Hladnije plave nijanse označavaju slabiji intezitet, a tamnije crvene jači intezitet. 
-	Ispod karte nalazi se tablica s podacima o zadnjem i starijim potresima. Pri pregledu arhiviranih i aktualnih potresa moguće je filtrirati potrese prema mjestu, vremenu ili intezitetu. 
-	Ako se zadnji potres ne poklapa s opažanjima građana, preko treće opcije „Novi potres?" građanin može dodati novi potres koji je osjetio. 
-	Kada građanin odluči dodati novi potres, obavezan je popuniti i predati upitnik. 
+	Odabirom opcije „Aktualni potresi“ prikazuje se stranica na kojoj se može pregledati karta aktualnih potresa, mogu se pregledati podatci o aktualnim potresima te se može ispuniti upitnik za neki od navedenih aktualnih potresa.
+	
+	Odabirom opcije „Arhivirani potresi“ prikazuje se stranica na kojoj se može pregledati karta intenziteta arhiviranih potresa i na kojoj se mogu pregledati podatci o arhiviranim potresima.
+	
+	Na kartama na stranicama „Aktualni potresi“ i „Arhivirani potresi“ zvjezdicom je označen epicentar te kružićem određene boje označen je intenzitet potresa. Hladnije plave nijanse označavaju slabiji intezitet, a tamnije crvene jači intezitet. 
+	Pored svake od karta nalazi se tablica s podacima o zadnjem i starijim potresima.
+	
+	Pri pregledu arhiviranih i aktualnih potresa moguće je filtrirati potrese prema mjestu, vremenu ili intezitetu. 
+	
+	Ako se posljednji prijavljeni potres ne poklapa s opažanjima građana, preko treće opcije „Novi potres?" građanin može prijaviti novi potres koji je osjetio. Građanin prijavljuje novi potres ispunjavanjem i predajom upitnika.
+	
 	Upitnik se sastoji od pitanja iz kojih znanstvenici mogu dobiti vrijedne informacije o tome kakvi su bili učinci potresa. 
 	Pitanja se odnose na to koliko se potres osjetio, koliku je štetu napravio na malim predmetima, kućama, zgradama i zemlji te kako su ljudi reagirali. 
-	Odgovori na ta pitanja pomažu pri računanju intenziteta potresa. 
-	Na početnoj stranici u gornjem desnom kutu nalazi se gumb za prijavu u sustav. Tu funkcionalnost koriste seizmolozi koji žele preuzeti podatke o potresu i odgovore građana.  Pri prijavi upisuju svoje e-mail i lozinku. 
-	Znanstvenike u sustav mora registrirati administrator kako neovlaštena osoba ne bi mogla pristupiti svim podacima. Pri registraciji, seizmolog upisuje ime, prezime, e-mail, lozinku i potvrdu lozinke. Nakon što se seizmolog registrira u sustav, administrator će ga e-mailom obavijestiti je li registracija potvrđena ili odbijena. 
+	Odgovori na ta pitanja pomažu pri računanju intenziteta potresa.
+	
+	Na početnoj stranici u gornjem desnom kutu nalazi se gumb za prijavu u sustav. Tu funkcionalnost koriste seizmolozi koji prijavom mogu preuzeti podatke o potresu i odgovore građana na upitnik.  Pri prijavi upisuju svoje e-mail i lozinku.
+	 
+	Znanstvenike u sustav mora registrirati administrator. Pri registraciji, administrator upisuje:
+	\begin{packed_item}
+		\item ime seizmologa
+		\item prezime seizmologa
+		\item e-mail seizmologa
+		\item lozinku.
+	\end{packed_item}
+	Nakon što administrator registrira seizmologa u sustav, seizmolog će e-mailom primiti obavijest o registraciji te time dobiva mogućnost prijave u sustav.
 	Pregled svih registriranih seizmologa omogućen je samo administratoru.
 	Administrator se također mora prijaviti pri dolasku na stranicu kako bi imao sve ovlasti. \\
 	
@@ -63,9 +82,16 @@ Sustav treba podržavati rad više korisnika u stvarnom vremenu.\\
 
 \section{Usporedba s već postojećim rješenjima}
 
-{Od sličnih aplikacija koje već postoje, najpoznatija je EMSC. Aplikaciju je razvila organizacija European Mediterranean Seismological Centre. 
-Početna stranica sastoji se od karte Europe i Mediterana. Na karti možete birati želite li pregledati potrese u zadnjih sat  vremena, 24 sata, 48 sati, tjedan dana ili dva tjedna. Osim karte Europe i Mediterana, postoji mogućnost otvaranja karte cijelog svijeta. 
-Ispod karte nalazi se tablica s informacijama o potresima koji su označeni na karti. Osim toga, stranica nudi funkcionalnosti ispunjavanja upitnika o doživljaju potresa i dodavanje slika koje prikazuju posljedice potresa. Postoji posebni odjeljak za seizmologe, kao i odjeljci namijenjeni projektima organizacije i publikaciji. Problem stranice je što je prilično neintuitivna za korištenje i zastarjelog dizajna. Nudi mnogo mogućnosti u raznim izbornicima te to stvara mogućnost nesnalaženja. Većinu građana koji posjećuju tu stranicu radi prijave potresa ili traženja informacija o potresu kojega su možda osjetili, zasigurno neće zanimati projekti EMSC-a ili publikacija.}
+{Od sličnih aplikacija koje već postoje, najpoznatija je EMSC. Aplikaciju je razvila organizacija European Mediterranean Seismological Centre.
+	
+Početna stranica sastoji se od karte Europe i Mediterana. Na karti možete birati želite li pregledati potrese u zadnjih sat  vremena, 24 sata, 48 sati, tjedan dana ili dva tjedna. Osim karte Europe i Mediterana, postoji mogućnost otvaranja karte cijelog svijeta.
+Ispod karte nalazi se tablica s informacijama o potresima koji su označeni na karti.
+
+Osim toga, stranica nudi funkcionalnosti ispunjavanja upitnika o doživljaju potresa i dodavanje slika koje prikazuju posljedice potresa.
+
+Postoji posebni odjeljak za seizmologe, kao i odjeljci namijenjeni projektima organizacije i publikaciji.
+
+Problem stranice je što je prilično neintuitivna za korištenje i zastarjelog dizajna. Nudi mnogo mogućnosti u raznim izbornicima te to stvara problem nesnalaženja. Većinu građana koji posjećuju tu stranicu radi prijave potresa ili traženja informacija o potresu kojega su možda osjetili zasigurno neće zanimati projekti EMSC-a ili znanstvena publikacija.}
 
 \begin{figure}[H]
 			\includegraphics[width=\textwidth]{slike/emsc1.PNG} %veličina u odnosu na širinu linije
@@ -80,7 +106,21 @@ Mogućnost prijave seizmologa na stranicu omogućilo bi bolju prilagodbu stranic
 Kada dođe do potresa, većina želi znati gdje je epicentar, kolike je magnitude potres bio, kakvu je štetu prouzročilo u ostalim dijelovima pogođenog područja… 
 Tako da bi ova jednostavna aplikacija ljudima pružila, za početak, osnovne informacije o doživljenom potresu te odgovor na neka od pitanja koja im se nameću nakon doživljenog potresa. 
 Osim toga, korist od aplikacije imaju i znanstvenici koji putem opažanja građana mogu doći do vrlo vrijednih informacija. }\\		
-		
+
+\section{Mogućnosti nadogradnje}
+{Buduće verzije aplikacije mogle bi uključivati mogućnosti:
+\begin{packed_enum}
+	\item umetanje slika područja pogođenih potresom
+	\item pregledavanje pojedinog potresa (informacija o potresu, galerije slika...)
+	\item prikaz područja s većim rizikom pojave potresa
+	\item donacije za obnovu područja pogođenih potresom
+	\item preuzimanje karte s označenim potresima u tom trenutku
+	\item pregled potresa iz određenog vremenskog perioda ili s geografskog područja
+\end{packed_enum}
+Vidimo veliku korist i primjenjivost aplikacije te bi se nove funkcionalnosti dodavale nakon dobivanja povratne informacije od svih korisnika (i građana i seizmologa) u ovisnosti o njihovim potrebama.
+}
+
+	
 \eject
-		
+	
 	
