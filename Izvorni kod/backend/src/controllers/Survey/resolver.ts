@@ -1,7 +1,8 @@
-import { Arg, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Authorized, Int, Mutation, Query, Resolver } from "type-graphql";
 
 import { Survey } from "../../models/Survey";
 import { FilterSurveys, SurveyCreateInput } from "./inputs";
+import { UserRole } from "../../models/User";
 
 @Resolver()
 export class SurveyResolver {
@@ -20,5 +21,18 @@ export class SurveyResolver {
     await survey.save();
 
     return survey;
+  }
+
+  @Mutation(() => Boolean)
+  @Authorized(UserRole.ADMIN)
+  async deleteSurvey(@Arg("id", () => Int) id: number): Promise<boolean> {
+    const survey = await Survey.findOne(id);
+    if (!survey) {
+      throw new Error("Survey not found");
+    }
+
+    await survey.remove();
+
+    return true;
   }
 }

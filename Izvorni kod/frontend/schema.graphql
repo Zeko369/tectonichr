@@ -28,12 +28,6 @@ type LoginResponse {
 
 type Mutation {
     createUser(data: CreateUserInput!): User!
-    deleteUser(data: DeleteUserInput!): Boolean!
-    login(data: LoginInput!): LoginResponse!
-    mergeSurveys(data: EarthquakeCreateInput!): Earthquake!
-    submitSurvey(data: SurveyCreateInput!): Survey!
-    updateEarthquake(data: EarthquakeUpdateInput!, id: Int!): Earthquake!
-    updateUser(data: UpdateUserInput!): User!
 }
 
 type Query {
@@ -78,12 +72,6 @@ input DeleteUserInput {
 input EarthquakeCreateInput {
     name: String!
     surveyIds: [Int!]!
-}
-
-input EarthquakeUpdateInput {
-    addSurveyIds: [Int!]
-    name: String
-    removeSurveyIds: [Int!]
 }
 
 input FilterSurveys {

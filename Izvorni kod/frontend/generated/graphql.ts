@@ -76,6 +76,7 @@ export type LoginResponse = {
 export type Mutation = {
   __typename?: "Mutation";
   createUser: User;
+  deleteSurvey: Scalars["Boolean"];
   deleteUser: Scalars["Boolean"];
   login: LoginResponse;
   mergeSurveys: Earthquake;
@@ -86,6 +87,10 @@ export type Mutation = {
 
 export type MutationCreateUserArgs = {
   data: CreateUserInput;
+};
+
+export type MutationDeleteSurveyArgs = {
+  id: Scalars["Int"];
 };
 
 export type MutationDeleteUserArgs = {
