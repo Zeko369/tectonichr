@@ -214,7 +214,38 @@
 						\end{packed_item}
 					\end{packed_item}
 
-					\noindent \underbar{\textbf{UC5 - Uklanjanje seizmologa}}
+					\noindent \underbar{\textbf{UC5 - Pregled seizmologa}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik:} Administrator
+						\item \textbf{Cilj:} Pregled seizmologa koji su registrirani u sustavu
+						\item \textbf{Sudionici:} Baza podataka
+						\item \textbf{Preduvjet:} Administrator prijavljen u sustav
+						\item \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+	
+							\item Administrator u izborniku na početnoj stranici odabire opciju za pregled profila
+							\item Administrator na profilu odabire opciju "Pregledaj seizmologe"
+							\item Sustav prikazuje popis registriranih korisnika (seizmologa)
+							
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:}
+						
+						\item[] \begin{packed_item}
+	
+							\item[2.a] Nema registriranih seizmologa
+							\item[] \begin{packed_enum}
+								
+								\item Prikazuje se poruka da još nema registriranih seizmologa
+								
+							\end{packed_enum}
+							
+						\end{packed_item}
+					\end{packed_item}
+
+					\noindent \underbar{\textbf{UC6 - Uklanjanje seizmologa}}
 					\begin{packed_item}
 	
 						\item \textbf{Glavni sudionik:} Administrator
@@ -244,37 +275,6 @@
 							\item[] \begin{packed_enum}
 								\item Sustav vraća administratora na pregled seizmologa
 							\end{packed_enum}	
-						\end{packed_item}
-					\end{packed_item}
-
-					\noindent \underbar{\textbf{UC6 - Pregled seizmologa}}
-					\begin{packed_item}
-	
-						\item \textbf{Glavni sudionik:} Administrator
-						\item \textbf{Cilj:} Pregled seizmologa koji su registrirani u sustavu
-						\item \textbf{Sudionici:} Baza podataka
-						\item \textbf{Preduvjet:} Administrator prijavljen u sustav
-						\item \textbf{Opis osnovnog tijeka:}
-						
-						\item[] \begin{packed_enum}
-	
-							\item Administrator u izborniku na početnoj stranici odabire opciju za pregled profila
-							\item Administrator na profilu odabire opciju "Pregledaj seizmologe"
-							\item Sustav prikazuje popis registriranih korisnika (seizmologa)
-							
-						\end{packed_enum}
-						
-						\item  \textbf{Opis mogućih odstupanja:}
-						
-						\item[] \begin{packed_item}
-	
-							\item[2.a] Nema registriranih seizmologa
-							\item[] \begin{packed_enum}
-								
-								\item Prikazuje se poruka da još nema registriranih seizmologa
-								
-							\end{packed_enum}
-							
 						\end{packed_item}
 					\end{packed_item}
 
@@ -388,32 +388,7 @@
 						\end{packed_enum}
 					\end{packed_item}
 
-					\noindent \underbar{\textbf{UC11 - Arhiviranje aktualnih potresa}}
-					\begin{packed_item}
-	
-						\item \textbf{Glavni sudionik:} Administrator
-						\item \textbf{Cilj:} Prebaciti aktualne potrese u kategoriju arhiviranih
-						\item \textbf{Sudionici:} Baza podataka
-						\item \textbf{Preduvjet:} 
-						\begin{packed_item}
-							\item Administrator prijavljen u sustav
-							\item Postojanje aktualnih potresa
-						\end{packed_item}
-
-						\item \textbf{Opis osnovnog tijeka:}
-						
-						\item[] \begin{packed_enum}
-	
-							\item Pregled aktualnih potresa
-							\item Odabir jednog ili više aktualnih potresa
-							\item Odabir „Arhiviraj“
-							\item Baza podataka se ažurira
-							\item Sustav obavještava korisnika o uspješnosti arhiviranja potresa
-							
-						\end{packed_enum}
-					\end{packed_item}
-
-					\noindent \underbar{\textbf{UC12 - Pregled aktualnih potresa}}
+					\noindent \underbar{\textbf{UC11 - Pregled aktualnih potresa}}
 					\begin{packed_item}
 	
 						\item \textbf{Glavni sudionik:} Administrator
@@ -440,6 +415,31 @@
 							
 						\end{packed_item}
 						
+					\end{packed_item}
+
+					\noindent \underbar{\textbf{UC12 - Arhiviranje aktualnih potresa}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik:} Administrator
+						\item \textbf{Cilj:} Prebaciti aktualne potrese u kategoriju arhiviranih
+						\item \textbf{Sudionici:} Baza podataka
+						\item \textbf{Preduvjet:} 
+						\begin{packed_item}
+							\item Administrator prijavljen u sustav
+							\item Postojanje aktualnih potresa
+						\end{packed_item}
+
+						\item \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+	
+							\item Pregled aktualnih potresa
+							\item Odabir jednog ili više aktualnih potresa
+							\item Odabir „Arhiviraj“
+							\item Baza podataka se ažurira
+							\item Sustav obavještava korisnika o uspješnosti arhiviranja potresa
+							
+						\end{packed_enum}
 					\end{packed_item}
 
 					\noindent \underbar{\textbf{UC13 - Odjava iz sustava}}
@@ -680,13 +680,13 @@
 				\subsubsection{Dijagrami obrazaca uporabe}
 					
 				\begin{figure}[H]
-					\includegraphics[width=\textwidth, height = 15cm]{slike/prvinovo.PNG} 
+					\includegraphics[width=\textwidth, height = 15cm]{slike/prvinovi.PNG} 
 					 \caption{Dijagram obrazaca uporabe, funkcionalnosti koje imaju svi korisnici}
 					  \label{fig:obrasci1} 
 				  \end{figure}
 				  
 				  \begin{figure}[H]
-					\includegraphics[width=\textwidth]{slike/druginovo.PNG} 
+					\includegraphics[width=\textwidth]{slike/druginov.PNG} 
 					\caption{Dijagram obrazaca uporabe, funkcionalnosti koje imaju regestrirani korisnici}
 					\label{fig:obrasci2} 
 				   \end{figure}
