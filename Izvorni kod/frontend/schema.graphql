@@ -5,20 +5,103 @@ schema {
     mutation: Mutation
 }
 
+type Earthquake {
+    createdAt: Float!
+    date: Float!
+    epicenterLat: Float!
+    epicenterLng: Float!
+    id: Int!
+    name: String!
+    strength: Float!
+    surveys: [Survey!]!
+    updatedAt: Float!
+}
+
+type LoginResponse {
+    createdAt: Float!
+    email: String!
+    id: Int!
+    role: UserRole!
+    token: String!
+    updatedAt: Float!
+}
+
 type Mutation {
     createUser(data: CreateUserInput!): User!
+    deleteUser(data: DeleteUserInput!): Boolean!
+    login(data: LoginInput!): LoginResponse!
+    mergeSurveys(data: EarthquakeCreateInput!): Earthquake!
+    submitSurvey(data: SurveyCreateInput!): Survey!
+    updateEarthquake(data: EarthquakeUpdateInput!, id: Int!): Earthquake!
+    updateUser(data: UpdateUserInput!): User!
 }
 
 type Query {
+    earthquakes: [Earthquake!]!
+    me: User
+    surveys(filter: FilterSurveys!): [Survey!]!
     users: [User!]!
 }
 
+type Survey {
+    createdAt: Float!
+    earthquake: Earthquake
+    id: Int!
+    lat: Float!
+    lng: Float!
+    updatedAt: Float!
+}
+
 type User {
+    createdAt: Float!
     email: String!
     id: Int!
+    role: UserRole!
+    updatedAt: Float!
+}
+
+"Role of the user"
+enum UserRole {
+    ADMIN
+    SEISMOLOGISTS
 }
 
 input CreateUserInput {
     email: String!
     password: String!
+}
+
+input DeleteUserInput {
+    id: Int!
+}
+
+input EarthquakeCreateInput {
+    name: String!
+    surveyIds: [Int!]!
+}
+
+input EarthquakeUpdateInput {
+    addSurveyIds: [Int!]
+    name: String
+    removeSurveyIds: [Int!]
+}
+
+input FilterSurveys {
+    merged: Boolean
+}
+
+input LoginInput {
+    email: String!
+    password: String!
+}
+
+input SurveyCreateInput {
+    lat: Float
+    lng: Float
+}
+
+input UpdateUserInput {
+    email: String
+    id: Int!
+    role: UserRole
 }

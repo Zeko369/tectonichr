@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Avatar,
   Box,
@@ -22,7 +22,17 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 
 export const Navigation: React.FC = () => {
   const router = useRouter();
-  const { loading, data, client, refetch } = useMeQuery();
+  const { loading, data, client, error, refetch } = useMeQuery();
+
+  useEffect(() => {
+    if (
+      error &&
+      error.message === "Response not successful: Received status code 401" &&
+      localStorage.getItem("token")
+    ) {
+      localStorage.removeItem("token");
+    }
+  }, [error]);
 
   const onLogout = async () => {
     if (router.pathname !== "/") {

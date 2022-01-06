@@ -48,6 +48,12 @@ export type EarthquakeCreateInput = {
   surveyIds: Array<Scalars["Int"]>;
 };
 
+export type EarthquakeUpdateInput = {
+  addSurveyIds?: InputMaybe<Array<Scalars["Int"]>>;
+  name?: InputMaybe<Scalars["String"]>;
+  removeSurveyIds?: InputMaybe<Array<Scalars["Int"]>>;
+};
+
 export type FilterSurveys = {
   merged?: InputMaybe<Scalars["Boolean"]>;
 };
@@ -74,6 +80,7 @@ export type Mutation = {
   login: LoginResponse;
   mergeSurveys: Earthquake;
   submitSurvey: Survey;
+  updateEarthquake: Earthquake;
   updateUser: User;
 };
 
@@ -95,6 +102,11 @@ export type MutationMergeSurveysArgs = {
 
 export type MutationSubmitSurveyArgs = {
   data: SurveyCreateInput;
+};
+
+export type MutationUpdateEarthquakeArgs = {
+  data: EarthquakeUpdateInput;
+  id: Scalars["Int"];
 };
 
 export type MutationUpdateUserArgs = {
@@ -185,6 +197,23 @@ export type SurveysQuery = {
     lng: number;
     createdAt: number;
   }>;
+};
+
+export type UpdateEarthquakeMutationVariables = Exact<{
+  id: Scalars["Int"];
+  name?: Maybe<Scalars["String"]>;
+  add?: Maybe<Array<Scalars["Int"]> | Scalars["Int"]>;
+  remove?: Maybe<Array<Scalars["Int"]> | Scalars["Int"]>;
+}>;
+
+export type UpdateEarthquakeMutation = {
+  __typename?: "Mutation";
+  updateEarthquake: {
+    __typename?: "Earthquake";
+    id: number;
+    name: string;
+    surveys: Array<{ __typename?: "Survey"; id: number }>;
+  };
 };
 
 export type CreateUserMutationVariables = Exact<{
@@ -433,6 +462,71 @@ export type SurveysLazyQueryHookResult = ReturnType<typeof useSurveysLazyQuery>;
 export type SurveysQueryResult = Apollo.QueryResult<
   SurveysQuery,
   SurveysQueryVariables
+>;
+export const UpdateEarthquakeDocument = gql`
+  mutation updateEarthquake(
+    $id: Int!
+    $name: String
+    $add: [Int!]
+    $remove: [Int!]
+  ) {
+    updateEarthquake(
+      id: $id
+      data: { name: $name, addSurveyIds: $add, removeSurveyIds: $remove }
+    ) {
+      id
+      name
+      surveys {
+        id
+      }
+    }
+  }
+`;
+export type UpdateEarthquakeMutationFn = Apollo.MutationFunction<
+  UpdateEarthquakeMutation,
+  UpdateEarthquakeMutationVariables
+>;
+
+/**
+ * __useUpdateEarthquakeMutation__
+ *
+ * To run a mutation, you first call `useUpdateEarthquakeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateEarthquakeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateEarthquakeMutation, { data, loading, error }] = useUpdateEarthquakeMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      name: // value for 'name'
+ *      add: // value for 'add'
+ *      remove: // value for 'remove'
+ *   },
+ * });
+ */
+export function useUpdateEarthquakeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateEarthquakeMutation,
+    UpdateEarthquakeMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    UpdateEarthquakeMutation,
+    UpdateEarthquakeMutationVariables
+  >(UpdateEarthquakeDocument, options);
+}
+export type UpdateEarthquakeMutationHookResult = ReturnType<
+  typeof useUpdateEarthquakeMutation
+>;
+export type UpdateEarthquakeMutationResult =
+  Apollo.MutationResult<UpdateEarthquakeMutation>;
+export type UpdateEarthquakeMutationOptions = Apollo.BaseMutationOptions<
+  UpdateEarthquakeMutation,
+  UpdateEarthquakeMutationVariables
 >;
 export const CreateUserDocument = gql`
   mutation createUser($email: String!, $password: String!) {
