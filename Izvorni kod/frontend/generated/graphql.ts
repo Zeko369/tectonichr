@@ -121,6 +121,7 @@ export type MutationUpdateUserArgs = {
 export type Query = {
   __typename?: "Query";
   earthquakes: Array<Earthquake>;
+  exportEarthquakes: Scalars["String"];
   me?: Maybe<User>;
   surveys: Array<Survey>;
   users: Array<User>;
@@ -296,6 +297,13 @@ export type MeQuery = {
     | { __typename?: "User"; id: number; email: string; role: UserRole }
     | null
     | undefined;
+};
+
+export type ExportEarthquakesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type ExportEarthquakesQuery = {
+  __typename?: "Query";
+  exportEarthquakes: string;
 };
 
 export type SubmitSurveyMutationVariables = Exact<{ [key: string]: never }>;
@@ -827,6 +835,61 @@ export function useMeLazyQuery(
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const ExportEarthquakesDocument = gql`
+  query exportEarthquakes {
+    exportEarthquakes
+  }
+`;
+
+/**
+ * __useExportEarthquakesQuery__
+ *
+ * To run a query within a React component, call `useExportEarthquakesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useExportEarthquakesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useExportEarthquakesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useExportEarthquakesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    ExportEarthquakesQuery,
+    ExportEarthquakesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    ExportEarthquakesQuery,
+    ExportEarthquakesQueryVariables
+  >(ExportEarthquakesDocument, options);
+}
+export function useExportEarthquakesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ExportEarthquakesQuery,
+    ExportEarthquakesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    ExportEarthquakesQuery,
+    ExportEarthquakesQueryVariables
+  >(ExportEarthquakesDocument, options);
+}
+export type ExportEarthquakesQueryHookResult = ReturnType<
+  typeof useExportEarthquakesQuery
+>;
+export type ExportEarthquakesLazyQueryHookResult = ReturnType<
+  typeof useExportEarthquakesLazyQuery
+>;
+export type ExportEarthquakesQueryResult = Apollo.QueryResult<
+  ExportEarthquakesQuery,
+  ExportEarthquakesQueryVariables
+>;
 export const SubmitSurveyDocument = gql`
   mutation submitSurvey {
     submitSurvey(data: { lat: 0, lng: 0 }) {

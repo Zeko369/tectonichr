@@ -28,10 +28,19 @@ type LoginResponse {
 
 type Mutation {
     createUser(data: CreateUserInput!): User!
+    deleteUser(data: DeleteUserInput!): Boolean!
+    login(data: LoginInput!): LoginResponse!
+    mergeSurveys(data: EarthquakeCreateInput!): Earthquake!
+    submitSurvey(data: SurveyCreateInput!): Survey!
+    updateUser(data: UpdateUserInput!): User!
 }
 
 type Query {
     earthquakes: [Earthquake!]!
+<<<<<<< HEAD
+=======
+    exportEarthquakes: String!
+>>>>>>> origin/feature/exportData
     me: User
     surveys(filter: FilterSurveys!): [Survey!]!
     users: [User!]!
