@@ -141,7 +141,6 @@
 							\item Administrator unosi korisničke podatke (ime, prezime, e-mail, lozinka)
 							\item Administrator potvrđuje unos
 							\item Baza podataka se ažurira
-							\item Seizmolog dobiva e-mail obavijest o registraciji
 						
 						\end{packed_enum}
 						
@@ -265,7 +264,6 @@
 							\item Prikazuje se potvrdni okvir
 							\item Administrator potvrđuje uklanjanje
 							\item Sustav obavještava administratora o uklanjanju seizmologa
-							\item Sustav šalje e-mail obavijest seizmologu da je uklonjen iz sustava
 							\item Ažuriranje baze podataka
 							
 						\end{packed_enum}
@@ -379,13 +377,28 @@
 						
 						\item[] \begin{packed_enum}
 	
-							\item Pregled pristiglih upitnika
-							\item Odabir jednog ili više upitnika
-							\item Odabir „Obriši“
-							\item Brišu se upitnici iz baze podataka
-							\item Sustav obavještava administratora o uspješnosti brisanja upitnika
-							
+							\item Administrator u izborniku na početnoj stranici odabire opciju za pregled profila
+							\item Administrator odabire upitnike za brisanje
+							\item Administrator na profilu odabire opciju brisanja upitnika
+							\item Prikazuje se potvrdni okvir
+							\item Administrator potvrđuje uklanjanje
+							\item Sustav obavještava administratora o uklanjanju
+							\item Ažuriranje baze podataka
 						\end{packed_enum}
+							
+						\item \textbf{Opis mogućih odstupanja:}
+					
+							\item[] \begin{packed_item}
+		
+								\item[5.a] Administator odabire opciju "Odustani"
+								\item[] \begin{packed_enum}
+									
+									\item Sustav vraća administratora na pregled upitnika
+									
+								\end{packed_enum}
+							
+							\end{packed_item}
+
 					\end{packed_item}
 
 					\noindent \underbar{\textbf{UC11 - Pregled aktualnih potresa}}
@@ -473,7 +486,7 @@
 					\item Pregled i pretraživanje/filtriranje arhiviranih potresa
 					\item Odabir željenih potresa
 					\item Odabir opcije „Preuzmi“
-					\item Preuzimanje podatak
+					\item Preuzimanje podataka
 				\end{packed_enum}
 			\end{packed_item}
 			
@@ -675,7 +688,90 @@
 					
 				\end{packed_item}
 				
-			\end{packed_item}						
+			\end{packed_item}	
+			
+			\noindent \underbar{\textbf{UC21 - Brisanje potresa i pripadajućih upitnika}}
+			\begin{packed_item}
+
+				\item \textbf{Glavni sudionik:} Administrator
+				\item \textbf{Cilj:} Brisanje potresa
+				\item \textbf{Sudionici:} Baza podataka
+				\item \textbf{Preduvjet:}
+					\begin{packed_item}
+						\item Administrator prijavljen u sustav
+						\item Postojanje potresa
+					\end{packed_item}
+				\item \textbf{Opis osnovnog tijeka:}
+				
+				\item[] \begin{packed_enum}
+
+					\item Administrator u izborniku na početnoj stranici odabire opciju za pregled profila
+					\item Administrator odabire potrese za brisanje
+					\item Administrator na profilu odabire opciju brisanja potresa
+					\item Prikazuje se potvrdni okvir
+					\item Administrator označava da želi obrisati i pripadajuće upitnike
+					\item Administrator upisuje ime potresa kojeg želi obrisati
+					\item Administrator potvrđuje uklanjanje
+					\item Sustav obavještava administratora o uklanjanju potresa i upitnika
+					\item Ažuriranje baze podataka
+					
+				\end{packed_enum}
+				
+				\item  \textbf{Opis mogućih odstupanja:}
+				
+				\item[] \begin{packed_item}
+				 
+					\item[7.a] Administator odabire opciju "Odustani"
+					\item[] \begin{packed_enum}
+						
+						\item Sustav vraća administratora na pregled potresa
+						
+						\end{packed_enum}
+					
+				\end{packed_item}
+			\end{packed_item}
+
+			\noindent \underbar{\textbf{UC22 - Brisanje potresa bez brisanja upitnika}}
+			\begin{packed_item}
+
+				\item \textbf{Glavni sudionik:} Administrator
+				\item \textbf{Cilj:} Brisanje potresa
+				\item \textbf{Sudionici:} Baza podataka
+				\item \textbf{Preduvjet:}
+					\begin{packed_item}
+						\item Administrator prijavljen u sustav
+						\item Postojanje potresa
+					\end{packed_item}
+				\item \textbf{Opis osnovnog tijeka:}
+				
+				\item[] \begin{packed_enum}
+
+					\item Administrator u izborniku na početnoj stranici odabire opciju za pregled profila
+					\item Administrator odabire potrese za brisanje
+					\item Administrator na profilu odabire opciju brisanja potresa
+					\item Prikazuje se potvrdni okvir
+					\item Administrator označava da ne želi obrisati pripadajuće upitnike
+					\item Administrator upisuje ime potresa kojeg želi obrisati
+					\item Administrator potvrđuje uklanjanje
+					\item Sustav obavještava administratora o uklanjanju potresa
+					\item Administatoru se prikazuju upitnici unutar kojih su i upitnici koji su prije brisanja pripadali potresu
+					\item Ažuriranje baze podataka
+					
+				\end{packed_enum}
+				
+				\item  \textbf{Opis mogućih odstupanja:}
+				
+				\item[] \begin{packed_item}
+				 
+					\item[7.a] Administator odabire opciju "Odustani"
+					\item[] \begin{packed_enum}
+						
+						\item Sustav vraća administratora na pregled potresa
+						
+						\end{packed_enum}
+					
+				\end{packed_item}
+			\end{packed_item}
 					
 				\subsubsection{Dijagrami obrazaca uporabe}
 					
@@ -686,7 +782,7 @@
 				  \end{figure}
 				  
 				  \begin{figure}[H]
-					\includegraphics[width=\textwidth]{slike/druginov.PNG} 
+					\includegraphics[width=\textwidth]{slike/druginovi.PNG} 
 					\caption{Dijagram obrazaca uporabe, funkcionalnosti koje imaju regestrirani korisnici}
 					\label{fig:obrasci2} 
 				   \end{figure}
