@@ -10,7 +10,6 @@ const EarthquakesPage: NextPage = () => {
     <Container>
       <VStack spacing="20">
         <UnmergedSurveys />
-
         <Earthquakes />
       </VStack>
     </Container>

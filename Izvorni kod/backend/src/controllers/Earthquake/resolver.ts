@@ -53,4 +53,48 @@ export class EarthquakeResolver {
 
     return earthquake.save();
   }
+
+  @Mutation(() => Earthquake)
+  async archiveEarthquake(
+    @Arg("id", () => Int) id: number
+  ): Promise<Earthquake> {
+    const earthquake = await Earthquake.findOne(id);
+    if (!earthquake) {
+      throw new Error("Earthquake not found");
+    }
+
+    earthquake.archivedAt = new Date();
+
+    return earthquake.save();
+  }
+
+  @Mutation(() => Boolean)
+  async deleteEarthquake(
+    @Arg("id", () => Int) id: number,
+    @Arg("removeSurveys", () => Boolean, { nullable: true })
+    removeSurveys: boolean
+  ): Promise<boolean> {
+    const earthquake = await Earthquake.findOne(id, {
+      relations: ["surveys", "surveys.responses"],
+    });
+    if (!earthquake) {
+      throw new Error("Earthquake not found");
+    }
+
+    if (removeSurveys) {
+      await Promise.all(
+        earthquake.surveys.map((survey) =>
+          Promise.all(survey.responses.map((r) => r.remove()))
+        )
+      );
+      await Promise.all(earthquake.surveys.map((survey) => survey.remove()));
+    } else {
+      earthquake.surveys = [];
+      await earthquake.save();
+    }
+
+    await earthquake.remove();
+
+    return true;
+  }
 }
