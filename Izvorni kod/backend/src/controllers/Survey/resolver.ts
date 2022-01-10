@@ -3,12 +3,16 @@ import { Arg, Authorized, Int, Mutation, Query, Resolver } from "type-graphql";
 import { Survey } from "../../models/Survey";
 import { FilterSurveys, SurveyCreateInput } from "./inputs";
 import { UserRole } from "../../models/User";
+import { SurveyResponse } from "../../models/SurveyResponse";
 
 @Resolver()
 export class SurveyResolver {
   @Query(() => [Survey])
   async surveys(@Arg("filter") filter: FilterSurveys): Promise<Survey[]> {
-    return Survey.find({ where: { earthquake: null } });
+    return Survey.find({
+      where: { earthquake: null },
+      relations: ["responses"],
+    });
   }
 
   @Mutation(() => Survey)
@@ -19,6 +23,18 @@ export class SurveyResolver {
     });
 
     await survey.save();
+
+    await Promise.all(
+      data.responses.map((resp) => {
+        const tmp = new SurveyResponse({
+          optionId: resp.optionId,
+          questionId: resp.questionId,
+        });
+
+        tmp.survey = survey;
+        return tmp.save();
+      })
+    );
 
     return survey;
   }
@@ -32,7 +48,6 @@ export class SurveyResolver {
     }
 
     await survey.remove();
-
     return true;
   }
 }

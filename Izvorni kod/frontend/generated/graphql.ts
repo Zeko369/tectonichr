@@ -21,6 +21,21 @@ export type Scalars = {
   Float: number;
 };
 
+export type City = {
+  __typename?: "City";
+  country_code: Scalars["String"];
+  country_id: Scalars["Int"];
+  country_name: Scalars["String"];
+  id: Scalars["Int"];
+  latitude: Scalars["Float"];
+  longitude: Scalars["Float"];
+  name: Scalars["String"];
+  state_code: Scalars["String"];
+  state_id: Scalars["Int"];
+  state_name: Scalars["String"];
+  wikiDataId: Scalars["String"];
+};
+
 export type CreateUserInput = {
   email: Scalars["String"];
   password: Scalars["String"];
@@ -120,11 +135,17 @@ export type MutationUpdateUserArgs = {
 
 export type Query = {
   __typename?: "Query";
+  cities: Array<City>;
   earthquakes: Array<Earthquake>;
   exportEarthquakes: Scalars["String"];
   me?: Maybe<User>;
+  questions: Array<SurveyQuestion>;
   surveys: Array<Survey>;
   users: Array<User>;
+};
+
+export type QueryCitiesArgs = {
+  filter: Scalars["String"];
 };
 
 export type QuerySurveysArgs = {
@@ -138,12 +159,47 @@ export type Survey = {
   id: Scalars["Int"];
   lat: Scalars["Float"];
   lng: Scalars["Float"];
+  responses: Array<SurveyResponse>;
   updatedAt: Scalars["Float"];
 };
 
 export type SurveyCreateInput = {
   lat?: InputMaybe<Scalars["Float"]>;
   lng?: InputMaybe<Scalars["Float"]>;
+  responses: Array<SurveyQuestionResponse>;
+};
+
+export type SurveyOption = {
+  __typename?: "SurveyOption";
+  id: Scalars["String"];
+  intensity: Scalars["String"];
+  text: Scalars["String"];
+};
+
+export type SurveyQuestion = {
+  __typename?: "SurveyQuestion";
+  id: Scalars["String"];
+  options: Array<SurveyOption>;
+  text: Scalars["String"];
+};
+
+export type SurveyQuestionResponse = {
+  optionId: Scalars["String"];
+  questionId: Scalars["String"];
+};
+
+export type SurveyResponse = {
+  __typename?: "SurveyResponse";
+  createdAt: Scalars["Float"];
+  id: Scalars["Int"];
+  intensity: Scalars["String"];
+  option: Scalars["String"];
+  optionId: Scalars["String"];
+  optionLetter?: Maybe<Scalars["String"]>;
+  question: Scalars["String"];
+  questionId: Scalars["String"];
+  survey: Survey;
+  updatedAt: Scalars["Float"];
 };
 
 export type UpdateUserInput = {
@@ -166,6 +222,15 @@ export enum UserRole {
   Admin = "ADMIN",
   Seismologists = "SEISMOLOGISTS",
 }
+
+export type DeleteSurveyMutationVariables = Exact<{
+  id: Scalars["Int"];
+}>;
+
+export type DeleteSurveyMutation = {
+  __typename?: "Mutation";
+  deleteSurvey: boolean;
+};
 
 export type EarthquakesQueryVariables = Exact<{ [key: string]: never }>;
 
@@ -202,6 +267,13 @@ export type SurveysQuery = {
     lat: number;
     lng: number;
     createdAt: number;
+    responses: Array<{
+      __typename?: "SurveyResponse";
+      question: string;
+      option: string;
+      optionLetter?: string | null | undefined;
+      intensity: string;
+    }>;
   }>;
 };
 
@@ -306,13 +378,96 @@ export type ExportEarthquakesQuery = {
   exportEarthquakes: string;
 };
 
-export type SubmitSurveyMutationVariables = Exact<{ [key: string]: never }>;
+export type CitiesQueryVariables = Exact<{
+  name: Scalars["String"];
+}>;
+
+export type CitiesQuery = {
+  __typename?: "Query";
+  cities: Array<{
+    __typename?: "City";
+    id: number;
+    name: string;
+    latitude: number;
+    longitude: number;
+    state_name: string;
+  }>;
+};
+
+export type QuestionsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type QuestionsQuery = {
+  __typename?: "Query";
+  questions: Array<{
+    __typename?: "SurveyQuestion";
+    id: string;
+    text: string;
+    options: Array<{
+      __typename?: "SurveyOption";
+      id: string;
+      text: string;
+      intensity: string;
+    }>;
+  }>;
+};
+
+export type SubmitSurveyMutationVariables = Exact<{
+  data: SurveyCreateInput;
+}>;
 
 export type SubmitSurveyMutation = {
   __typename?: "Mutation";
   submitSurvey: { __typename?: "Survey"; id: number; lat: number; lng: number };
 };
 
+export const DeleteSurveyDocument = gql`
+  mutation deleteSurvey($id: Int!) {
+    deleteSurvey(id: $id)
+  }
+`;
+export type DeleteSurveyMutationFn = Apollo.MutationFunction<
+  DeleteSurveyMutation,
+  DeleteSurveyMutationVariables
+>;
+
+/**
+ * __useDeleteSurveyMutation__
+ *
+ * To run a mutation, you first call `useDeleteSurveyMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteSurveyMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteSurveyMutation, { data, loading, error }] = useDeleteSurveyMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteSurveyMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteSurveyMutation,
+    DeleteSurveyMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    DeleteSurveyMutation,
+    DeleteSurveyMutationVariables
+  >(DeleteSurveyDocument, options);
+}
+export type DeleteSurveyMutationHookResult = ReturnType<
+  typeof useDeleteSurveyMutation
+>;
+export type DeleteSurveyMutationResult =
+  Apollo.MutationResult<DeleteSurveyMutation>;
+export type DeleteSurveyMutationOptions = Apollo.BaseMutationOptions<
+  DeleteSurveyMutation,
+  DeleteSurveyMutationVariables
+>;
 export const EarthquakesDocument = gql`
   query EARTHQUAKES {
     earthquakes {
@@ -431,6 +586,12 @@ export const SurveysDocument = gql`
       id
       lat
       lng
+      responses {
+        question
+        option
+        optionLetter
+        intensity
+      }
       createdAt
     }
   }
@@ -890,9 +1051,119 @@ export type ExportEarthquakesQueryResult = Apollo.QueryResult<
   ExportEarthquakesQuery,
   ExportEarthquakesQueryVariables
 >;
+export const CitiesDocument = gql`
+  query cities($name: String!) {
+    cities(filter: $name) {
+      id
+      name
+      latitude
+      longitude
+      state_name
+    }
+  }
+`;
+
+/**
+ * __useCitiesQuery__
+ *
+ * To run a query within a React component, call `useCitiesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCitiesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCitiesQuery({
+ *   variables: {
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useCitiesQuery(
+  baseOptions: Apollo.QueryHookOptions<CitiesQuery, CitiesQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<CitiesQuery, CitiesQueryVariables>(
+    CitiesDocument,
+    options
+  );
+}
+export function useCitiesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<CitiesQuery, CitiesQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<CitiesQuery, CitiesQueryVariables>(
+    CitiesDocument,
+    options
+  );
+}
+export type CitiesQueryHookResult = ReturnType<typeof useCitiesQuery>;
+export type CitiesLazyQueryHookResult = ReturnType<typeof useCitiesLazyQuery>;
+export type CitiesQueryResult = Apollo.QueryResult<
+  CitiesQuery,
+  CitiesQueryVariables
+>;
+export const QuestionsDocument = gql`
+  query QUESTIONS {
+    questions {
+      id
+      text
+      options {
+        id
+        text
+        intensity
+      }
+    }
+  }
+`;
+
+/**
+ * __useQuestionsQuery__
+ *
+ * To run a query within a React component, call `useQuestionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQuestionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQuestionsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useQuestionsQuery(
+  baseOptions?: Apollo.QueryHookOptions<QuestionsQuery, QuestionsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<QuestionsQuery, QuestionsQueryVariables>(
+    QuestionsDocument,
+    options
+  );
+}
+export function useQuestionsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    QuestionsQuery,
+    QuestionsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<QuestionsQuery, QuestionsQueryVariables>(
+    QuestionsDocument,
+    options
+  );
+}
+export type QuestionsQueryHookResult = ReturnType<typeof useQuestionsQuery>;
+export type QuestionsLazyQueryHookResult = ReturnType<
+  typeof useQuestionsLazyQuery
+>;
+export type QuestionsQueryResult = Apollo.QueryResult<
+  QuestionsQuery,
+  QuestionsQueryVariables
+>;
 export const SubmitSurveyDocument = gql`
-  mutation submitSurvey {
-    submitSurvey(data: { lat: 0, lng: 0 }) {
+  mutation submitSurvey($data: SurveyCreateInput!) {
+    submitSurvey(data: $data) {
       id
       lat
       lng
@@ -917,6 +1188,7 @@ export type SubmitSurveyMutationFn = Apollo.MutationFunction<
  * @example
  * const [submitSurveyMutation, { data, loading, error }] = useSubmitSurveyMutation({
  *   variables: {
+ *      data: // value for 'data'
  *   },
  * });
  */

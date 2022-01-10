@@ -16,6 +16,7 @@
     "@chakra-ui/react": "^1.6.10",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "@graphql-codegen/schema-ast": "^2.4.1",
     "chakra-confirm": "^1.2.11",
     "chakra-data-table": "^1.2.3",
     "chakra-form": "^0.3.3",
