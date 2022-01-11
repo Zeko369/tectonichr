@@ -27,15 +27,16 @@ export const SearchCity: React.FC<SearchCityProps> = ({ onChange }) => {
   }, [city, onChange]);
 
   return (
-    <VStack>
+    <VStack paddingTop="2%">
       {loading ? (
         <Spinner />
       ) : error || !data ? (
-        <Text>Error loading cities</Text>
+        <Text>Pogreška pri učitavanju gradova</Text>
       ) : (
         <ReactSelect
           name="cityId"
           {...styles}
+          placeholder="Odaberite grad"
           onChange={(v) => setCityId(parseInt((v as any).value))}
           options={data.cities.map((city) => ({
             label: city.name,

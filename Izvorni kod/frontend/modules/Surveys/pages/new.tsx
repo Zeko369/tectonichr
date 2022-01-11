@@ -10,6 +10,7 @@ import {
   Tooltip,
   useToast,
   VStack,
+  Box
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import ConditionalWrap from "conditional-wrap";
@@ -68,7 +69,7 @@ const SubmitSurveyPage: NextPage = () => {
 
     if (isDisabled) {
       return toast({
-        title: "Please fill all the fields",
+        title: "Označite sva polja",
         status: "error",
         duration: 3000,
       });
@@ -76,7 +77,7 @@ const SubmitSurveyPage: NextPage = () => {
 
     if (!position) {
       return toast({
-        title: "Select a location",
+        title: "Odaberite lokaciju",
         status: "error",
         duration: 3000,
       });
@@ -95,65 +96,68 @@ const SubmitSurveyPage: NextPage = () => {
       },
     });
 
-    toast({ title: "Successfully submitted" });
+    toast({ title: "Uspješno predano" });
     await router.push("/");
   };
 
   return (
-    <VStack pt="5" maxW="80%" marginX="auto">
-      <form onSubmit={onSubmit}>
-        <VStack py="2" spacing="4">
-          <Heading>Unesi novi potres</Heading>
+    <Box bg="#3939a4" minH="calc(100vh - 65px)" p="5%" paddingTop="1%" opacity="0.9">
+      <VStack pt="5" maxW="80%" marginX="auto" border="4px" borderColor="#3934a4" borderRadius="20px" padding="5%" bgColor="white">
+        <form onSubmit={onSubmit}>
+          <VStack py="2" spacing="4" marginBottom="30px">
+            <Heading marginBottom="5%">Unesi novi potres</Heading>
 
-          <SimpleGrid columns={[1, 2]} gap="12">
-            <VStack align="flex-start">
-              <Heading size="md">Lokacija</Heading>
-              {posLoading ? (
-                <Heading size="sm">Loading position...</Heading>
-              ) : position ? (
-                <Heading size="sm">Location set</Heading>
-              ) : (
-                <>
-                  <Heading size="sm">
-                    {"Couldn't load position from GPS, select a city bellow"}
-                    <SearchCity
-                      onChange={(c) =>
-                        setPosition({
-                          latitude: c.latitude,
-                          longitude: c.longitude,
-                        })
-                      }
-                    />
-                  </Heading>
-                </>
+            <SimpleGrid columns={[1, 2]} gap="12">
+              <VStack align="flex-start" marginBottom="30%">
+                <Heading size="md">Lokacija</Heading>
+                {posLoading ? (
+                  <Heading size="sm">Učitavanje lokacije...</Heading>
+                ) : position ? (
+                  <Heading size="sm">Lokacija postavljena</Heading>
+                ) : (
+                  <>
+                    <Heading size="sm" p="2%">
+                      {"Nije moguće dohvatiti lokaciju. Odaberite neki od ponuđenih gradova."}
+                      <SearchCity
+                        onChange={(c) =>
+                          setPosition({
+                            latitude: c.latitude,
+                            longitude: c.longitude,
+                          })
+                        }
+                      />
+                    </Heading>
+                  </>
+                )}
+              </VStack>
+
+              {data.questions.map((question) => (
+                <RenderQuestion
+                  key={question.id}
+                  question={question}
+                  state={state}
+                  setState={setState}
+                />
+              ))}
+            </SimpleGrid>
+
+            <ConditionalWrap
+              condition={isDisabled}
+              wrap={(c) => (
+                <Tooltip label="Odgovorite na sva pitanja kako bi mogli predati upitnik">
+                  {c}
+                </Tooltip>
               )}
-            </VStack>
-
-            {data.questions.map((question) => (
-              <RenderQuestion
-                key={question.id}
-                question={question}
-                state={state}
-                setState={setState}
-              />
-            ))}
-          </SimpleGrid>
-
-          <ConditionalWrap
-            condition={isDisabled}
-            wrap={(c) => (
-              <Tooltip label="You need to check all of the values to be able to submit">
-                {c}
-              </Tooltip>
-            )}
-          >
-            <Button isLoading={isLoading} type="submit">
-              Send
-            </Button>
-          </ConditionalWrap>
-        </VStack>
-      </form>
-    </VStack>
+            >
+              <Button isLoading={isLoading} type="submit" colorScheme="teal"> 
+                Predaj
+              </Button>
+            </ConditionalWrap>
+          </VStack>
+        </form>
+      </VStack>
+    </Box>
+    
   );
 };
 

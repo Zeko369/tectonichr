@@ -40,13 +40,13 @@ export class SurveyQuestion {
 }
 
 export const surveyQuestions = [
-  new SurveyQuestion("U zatvorenom prostru potres su osjetili", [
+  new SurveyQuestion("U zatvorenom prostoru potres su osjetili:", [
     new SurveyOption("nitko", "1"),
     new SurveyOption("pojedinci", "2||3"),
     new SurveyOption("mnogi", "3||4"),
     new SurveyOption("većina", "5"),
   ]),
-  new SurveyQuestion("Na otvorenom potres su osjetili", [
+  new SurveyQuestion("Na otvorenom potres su osjetili:", [
     new SurveyOption("nitko", "<=3"),
     new SurveyOption("pojedinci", "4"),
     new SurveyOption("mnogi", "4||5"),
@@ -73,7 +73,7 @@ export const surveyQuestions = [
 
   new SurveyQuestion("Obješeni predmeti", [
     new SurveyOption("se nisu njihali", "<=2"),
-    new SurveyOption("su se slabo se njihali", "3"),
+    new SurveyOption("su se slabo njihali", "3"),
     new SurveyOption("su se umjereno njihali", "4"),
     new SurveyOption("su se jako njihali", "5"),
     new SurveyOption("su padali", "6"),
@@ -86,20 +86,20 @@ export const surveyQuestions = [
     new SurveyOption("budio je većinu", ">=6"),
   ]),
 
-  new SurveyQuestion("Jesu li ljudi bježali van za vrijeme potresa", [
+  new SurveyQuestion("Jesu li ljudi bježali van za vrijeme potresa?", [
     new SurveyOption("ne", "<=4"),
     new SurveyOption("pojedinci", "5"),
     new SurveyOption("mnogi", "6"),
     new SurveyOption("većina", "7"),
   ]),
 
-  new SurveyQuestion("Jesu li zvonila zvona", [
+  new SurveyQuestion("Jesu li zvonila zvona?", [
     new SurveyOption("nisu", "<5"),
-    new SurveyOption("zvonila mala zvona", "6"),
-    new SurveyOption("zvonila velika zvona", ">=7"),
+    new SurveyOption("zvonila su mala zvona", "6"),
+    new SurveyOption("zvonila su velika zvona", ">=7"),
   ]),
 
-  new SurveyQuestion("Koliko se zgrada u Vašem mjestu posve srušilo", [
+  new SurveyQuestion("Koliko se zgrada u Vašem mjestu posve srušilo?", [
     new SurveyOption("niti jedna", "<=7"),
     new SurveyOption("poneka", "8||9"),
     new SurveyOption("mnoge", "10"),
@@ -107,7 +107,7 @@ export const surveyQuestions = [
     new SurveyOption("sve", "12"),
   ]),
 
-  new SurveyQuestion("Je li pucala zemlja", [
+  new SurveyQuestion("Je li pucala zemlja?", [
     new SurveyOption("je", ">=8"),
     new SurveyOption("nije", "<=7"),
   ]),
