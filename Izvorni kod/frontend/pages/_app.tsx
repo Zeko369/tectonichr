@@ -10,6 +10,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { AppProps } from "next/app";
+import { css, Global} from "@emotion/react";
 
 import { Navigation } from "../components/Navigation";
 
@@ -37,6 +38,15 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <ApolloProvider client={client}>
       <title>TectonicHR</title>
+      <Global
+        styles={css`
+          html,
+          body,
+          #__next {
+            min-height: 100vh;
+          }
+        `}
+      />
 
       <ChakraProvider>
         <ConfirmContextProvider>

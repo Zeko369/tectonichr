@@ -5,7 +5,7 @@ import { Form, FORM_ERROR, InputField } from "chakra-form";
 import { useRouter } from "next/router";
 
 import { useLoginMutation, useMeQuery } from "generated/graphql";
-import { VStack, Container, Heading } from "@chakra-ui/react";
+import { VStack, Container, Heading, Button, Box } from "@chakra-ui/react";
 import { ApolloError } from "@apollo/client";
 
 const schema = z.object({
@@ -25,48 +25,56 @@ const LoginPage: NextPage = () => {
   }, [meLoading, data]);
 
   return (
-    <Container>
-      <VStack>
-        <Heading>Prijava</Heading>
+    <Box bg="#3939a4" minH="calc(100vh - 65px)" p="5%" opacity="0.9">
+      <Container bgColor="#3934a4">
+        <Container border="4px" borderColor="#3934a4" borderRadius="20px" padding="10%" bgColor="white">
+          <VStack>
+            <Heading>Prijava</Heading>
 
-        <Form
-          schema={schema}
-          submitText="login"
-          submitButtonProps={{ isLoading: loading }}
-          onSubmit={async (data) => {
-            try {
-              const res = await login({ variables: data });
-              const token = res.data?.login.token!;
-              localStorage.setItem("token", token);
+            <Form
+              schema={schema}
+              //submitText="Prijavi se"
+              //submitButtonProps={{ isLoading: loading }}
 
-              await client.refetchQueries({});
-              // await router.push("/");
-              // TODO: Fix
-              window.location.href = "/";
-            } catch (err) {
-              if (err instanceof ApolloError) {
-                if (err.message === "WRONG_PASSWORD") {
-                  return { password: "Wrong password" };
+              onSubmit={async (data) => {
+                try {
+                  const res = await login({ variables: data });
+                  const token = res.data?.login.token!;
+                  localStorage.setItem("token", token);
+
+                  await client.refetchQueries({});
+                  // await router.push("/");
+                  // TODO: Fix
+                  window.location.href = "/";
+                } catch (err) {
+                  if (err instanceof ApolloError) {
+                    if (err.message === "WRONG_PASSWORD") {
+                      return { password: "Neipravna lozinka" };
+                    }
+
+                    if (err.message === "EMAIL_NOT_FOUND") {
+                      return { email: "Neispravan email" };
+                    }
+
+                    return {
+                      [FORM_ERROR]: err.message,
+                    };
+                  }
+
+                  throw err;
                 }
-
-                if (err.message === "EMAIL_NOT_FOUND") {
-                  return { email: "Email not found" };
-                }
-
-                return {
-                  [FORM_ERROR]: err.message,
-                };
-              }
-
-              throw err;
-            }
-          }}
-        >
-          <InputField name="email" />
-          <InputField name="password" />
-        </Form>
-      </VStack>
-    </Container>
+              }}
+            >
+              <InputField name="email" />
+              <InputField name="password" />
+              <Button mt={4} colorScheme='teal' type='submit'>
+                Prijavi se
+              </Button>
+            </Form>
+          </VStack>
+        </Container>
+      </Container>
+    </Box>
   );
 };
 

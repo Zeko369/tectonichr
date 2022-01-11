@@ -48,12 +48,12 @@ export const Navigation: React.FC = () => {
   const loggedIn = !!data?.me?.id;
 
   return (
-    <Container maxWidth="100%" p={0} bg="#a0afdb">
+    <Container maxWidth="100%" p={0} bg="#3939a4" opacity="0.9">
       <Flex px="2" py="2">
         <Center>
           <Link href="/">
-            <Heading size="md" p="2">
-              TectonicHr
+            <Heading size="lg" p="2" color="white">
+              TECTONIC HR
             </Heading>
           </Link>
         </Center>
@@ -71,10 +71,11 @@ export const Navigation: React.FC = () => {
                 icon={!loggedIn && <HamburgerIcon />}
                 variant={!loggedIn ? "outline" : undefined}
                 m={1}
+                bgColor="white"
               >
-                {data?.me ? <Avatar name={data.me.email} /> : null}
+                {data?.me ? <Avatar name={data.me.email} bgColor="white" textColor="#3939a4" border="10px" borderRadius="50px" borderColor="#3939a4"/> : null}
               </MenuButton>
-              <MenuList>
+              <MenuList> 
                 {data?.me ? (
                   <>
                     {data.me.role === UserRole.Admin && (
