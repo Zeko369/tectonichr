@@ -28,10 +28,10 @@ const PromptBody: React.FC<PromptBodyProps> = (props) => {
 
   return (
     <VStack align="flex-start">
-      <Heading size="sm">To confirm, enter earthquake name</Heading>
+      <Heading size="sm">Za potvrđivanje brisanja upišite ime potresa</Heading>
       <Input
         isRequired
-        label="Earthquake name"
+        label="Ime potresa"
         placeholder={state.defaultName}
         error={
           parsed.success
@@ -44,7 +44,7 @@ const PromptBody: React.FC<PromptBodyProps> = (props) => {
 
       <Checkbox
         isChecked={state.removeSurveys}
-        name="Delete associated surveys"
+        name="Obriši pridružene upitnike"
         onChange={(e) =>
           setState((v) => ({ ...v, removeSurveys: e.target.checked }))
         }
