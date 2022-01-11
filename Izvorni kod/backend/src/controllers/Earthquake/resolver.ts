@@ -1,4 +1,5 @@
 import { Arg, Int, Mutation, Query, Resolver } from "type-graphql";
+import { Not, IsNull } from "typeorm";
 
 import { Earthquake } from "../../models/Earthquake";
 import { Survey } from "../../models/Survey";
@@ -7,8 +8,21 @@ import { EarthquakeCreateInput, EarthquakeUpdateInput } from "./inputs";
 @Resolver()
 export class EarthquakeResolver {
   @Query(() => [Earthquake])
-  async earthquakes(): Promise<Earthquake[]> {
-    return Earthquake.find({ relations: ["surveys"] });
+  async earthquakes(
+    @Arg("archived", () => Boolean, { nullable: true })
+    archived?: boolean
+  ): Promise<Earthquake[]> {
+    if (archived === undefined) {
+      return Earthquake.find({ relations: ["surveys"], order: { id: "DESC" } });
+    }
+
+    return Earthquake.find({
+      relations: ["surveys"],
+      where: {
+        archivedAt: archived ? Not(IsNull()) : IsNull(),
+      },
+      order: { id: "DESC" },
+    });
   }
 
   @Mutation(() => Earthquake)
