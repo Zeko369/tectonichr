@@ -41,7 +41,7 @@ export const Earthquakes: React.FC = () => {
   const onDelete =
     (earthquake: EarthquakesQuery["earthquakes"][number]) => async () => {
       const res = await deletePrompt({
-        title: `Delete earthquake "${earthquake.name}"`,
+        title: `Obriši potres "${earthquake.name}"`,
         defaultState: {
           name: "",
           defaultName: earthquake.name,
@@ -65,8 +65,9 @@ export const Earthquakes: React.FC = () => {
   return (
     <DataTable
       data={data?.earthquakes || []}
-      title="Earthquakes"
+      title="Potresi"
       keys={["id", "name", "count", "date", "archived", "actions"] as const}
+      labels={{name: "Ime", count: "Broj upitnika", date: "Datum", archived: "Arhivirano", actions: " "}}
       mapper={{
         id: true,
         name: true,
@@ -77,12 +78,12 @@ export const Earthquakes: React.FC = () => {
         actions: (r) => (
           <HStack>
             {!r.archivedAt && (
-              <Button size="sm" colorScheme="yellow" onClick={onArchive(r.id)}>
-                Archive
+              <Button size="sm" colorScheme="teal" onClick={onArchive(r.id)}>
+                Arhiviraj
               </Button>
             )}
             <Button size="sm" colorScheme="red" onClick={onDelete(r)}>
-              Delete
+              Obriši
             </Button>
           </HStack>
         ),

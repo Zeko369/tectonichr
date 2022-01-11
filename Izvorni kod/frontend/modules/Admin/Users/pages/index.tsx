@@ -61,6 +61,7 @@ const UsersPage: NextPage = () => {
             </LinkButton>
           }
           keys={["id", "email", "role", "ops"] as const}
+          labels= {{role: "Uloga", ops: " "}}
           mapper={{
             id: true,
             email: true,
