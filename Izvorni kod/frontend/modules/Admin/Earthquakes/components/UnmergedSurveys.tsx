@@ -129,7 +129,7 @@ export const UnmergedSurveys: React.FC = () => {
                 Pregled
               </Button>
               <Button size="sm" colorScheme="red" onClick={onDelete(r.id)}>
-                ObriÅ¡i
+                Obriši
               </Button>
             </HStack>
           ),
