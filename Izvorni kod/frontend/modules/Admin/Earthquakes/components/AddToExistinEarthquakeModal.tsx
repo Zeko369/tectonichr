@@ -43,10 +43,10 @@ export const AddToExistingEarthquakeModal: React.FC<Props> = (props) => {
       <ModalOverlay />
       <ModalContent>
         <ModalBody>
-          <ModalHeader>Add to existing earthquake</ModalHeader>
+          <ModalHeader>Dodaj u neki aktualni potres</ModalHeader>
           <ModalCloseButton />
 
-          {error && <Heading>Error loading...</Heading>}
+          {error && <Heading>Pogreška pri učitavanju...</Heading>}
 
           <DataTable
             keys={["id", "name", "date", "select"] as const}
@@ -57,8 +57,8 @@ export const AddToExistingEarthquakeModal: React.FC<Props> = (props) => {
               name: true,
               date: (row) => new Date(row.date).toLocaleString(),
               select: (row) => (
-                <Button colorScheme="blue" onClick={onAdd(row.id)}>
-                  Add
+                <Button colorScheme="teal" onClick={onAdd(row.id)}>
+                  Dodaj
                 </Button>
               ),
             }}
@@ -66,7 +66,7 @@ export const AddToExistingEarthquakeModal: React.FC<Props> = (props) => {
         </ModalBody>
 
         <ModalFooter>
-          <Button onClick={() => modalProps.onClose()}>Close</Button>
+          <Button onClick={() => modalProps.onClose()}>Zatvori</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

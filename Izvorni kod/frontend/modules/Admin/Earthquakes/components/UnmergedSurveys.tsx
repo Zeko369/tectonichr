@@ -95,18 +95,19 @@ export const UnmergedSurveys: React.FC = () => {
 
       <DataTable
         isLoading={merging}
-        title="Unmerged surveys"
+        title="Pristigli upitnici"
         data={data?.surveys || []}
         keyFunc={(r) => r.id.toString()}
         right={
           selectedIds.length > 0 && (
-            <HStack>
-              <Button onClick={onMerge}>New</Button>
-              <Button onClick={onAddToEarthquake}>Existing</Button>
+            <HStack pb="5%">
+              <Button onClick={onMerge} bgColor="#3939a4" textColor="white">Novi potres</Button>
+              <Button onClick={onAddToEarthquake} bgColor="#3939a4" textColor="white">Aktualni potres</Button>
             </HStack>
           )
         }
         keys={["select", "id", "date", "actions"] as const}
+        labels={{select: " ", date: "datum", actions: " "}}
         mapper={{
           select: (r) => (
             <Checkbox
@@ -124,11 +125,11 @@ export const UnmergedSurveys: React.FC = () => {
           date: (r) => new Date(r.createdAt).toLocaleString(),
           actions: (r) => (
             <HStack>
-              <Button size="sm" colorScheme="red" onClick={onDelete(r.id)}>
-                Delete
+              <Button size="sm" colorScheme="teal" onClick={onPreview(r.id)}>
+                Pregled
               </Button>
-              <Button size="sm" colorScheme="blue" onClick={onPreview(r.id)}>
-                Preview
+              <Button size="sm" colorScheme="red" onClick={onDelete(r.id)}>
+                ObriÅ¡i
               </Button>
             </HStack>
           ),

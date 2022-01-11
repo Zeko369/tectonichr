@@ -24,7 +24,7 @@ export const PreviewSurveyModal: React.FC<PreviewModalProps> = (props) => {
       <ModalOverlay />
       <ModalContent>
         <ModalBody>
-          <ModalHeader>Survey preview</ModalHeader>
+          <ModalHeader>Pregled upitnika</ModalHeader>
           <ModalCloseButton />
 
           {previewSurvey && (
