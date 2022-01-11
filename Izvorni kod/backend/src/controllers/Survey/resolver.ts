@@ -42,10 +42,12 @@ export class SurveyResolver {
   @Mutation(() => Boolean)
   @Authorized(UserRole.ADMIN)
   async deleteSurvey(@Arg("id", () => Int) id: number): Promise<boolean> {
-    const survey = await Survey.findOne(id);
+    const survey = await Survey.findOne(id, { relations: ["responses"] });
     if (!survey) {
       throw new Error("Survey not found");
     }
+
+    await Promise.all(survey.responses.map((r) => r.remove()));
 
     await survey.remove();
     return true;

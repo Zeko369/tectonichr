@@ -47,6 +47,7 @@ export type DeleteUserInput = {
 
 export type Earthquake = {
   __typename?: "Earthquake";
+  archivedAt?: Maybe<Scalars["Float"]>;
   createdAt: Scalars["Float"];
   date: Scalars["Float"];
   epicenterLat: Scalars["Float"];
@@ -90,7 +91,9 @@ export type LoginResponse = {
 
 export type Mutation = {
   __typename?: "Mutation";
+  archiveEarthquake: Earthquake;
   createUser: User;
+  deleteEarthquake: Scalars["Boolean"];
   deleteSurvey: Scalars["Boolean"];
   deleteUser: Scalars["Boolean"];
   login: LoginResponse;
@@ -100,8 +103,17 @@ export type Mutation = {
   updateUser: User;
 };
 
+export type MutationArchiveEarthquakeArgs = {
+  id: Scalars["Int"];
+};
+
 export type MutationCreateUserArgs = {
   data: CreateUserInput;
+};
+
+export type MutationDeleteEarthquakeArgs = {
+  id: Scalars["Int"];
+  removeSurveys?: InputMaybe<Scalars["Boolean"]>;
 };
 
 export type MutationDeleteSurveyArgs = {
@@ -138,6 +150,7 @@ export type Query = {
   cities: Array<City>;
   earthquakes: Array<Earthquake>;
   exportEarthquakes: Scalars["String"];
+  exportQuestions: Scalars["String"];
   me?: Maybe<User>;
   questions: Array<SurveyQuestion>;
   surveys: Array<Survey>;
@@ -146,6 +159,10 @@ export type Query = {
 
 export type QueryCitiesArgs = {
   filter: Scalars["String"];
+};
+
+export type QueryEarthquakesArgs = {
+  archived?: InputMaybe<Scalars["Boolean"]>;
 };
 
 export type QuerySurveysArgs = {
@@ -223,6 +240,29 @@ export enum UserRole {
   Seismologists = "SEISMOLOGISTS",
 }
 
+export type ArchiveEarthquakeMutationVariables = Exact<{
+  id: Scalars["Int"];
+}>;
+
+export type ArchiveEarthquakeMutation = {
+  __typename?: "Mutation";
+  archiveEarthquake: {
+    __typename?: "Earthquake";
+    id: number;
+    archivedAt?: number | null | undefined;
+  };
+};
+
+export type DeleteEarthquakeMutationVariables = Exact<{
+  id: Scalars["Int"];
+  removeSurveys?: Maybe<Scalars["Boolean"]>;
+}>;
+
+export type DeleteEarthquakeMutation = {
+  __typename?: "Mutation";
+  deleteEarthquake: boolean;
+};
+
 export type DeleteSurveyMutationVariables = Exact<{
   id: Scalars["Int"];
 }>;
@@ -232,7 +272,9 @@ export type DeleteSurveyMutation = {
   deleteSurvey: boolean;
 };
 
-export type EarthquakesQueryVariables = Exact<{ [key: string]: never }>;
+export type EarthquakesQueryVariables = Exact<{
+  archived?: Maybe<Scalars["Boolean"]>;
+}>;
 
 export type EarthquakesQuery = {
   __typename?: "Query";
@@ -241,6 +283,7 @@ export type EarthquakesQuery = {
     id: number;
     name: string;
     date: number;
+    archivedAt?: number | null | undefined;
     surveys: Array<{ __typename?: "Survey"; id: number }>;
   }>;
 };
@@ -371,11 +414,28 @@ export type MeQuery = {
     | undefined;
 };
 
+export type ExportEarthquakeQueryVariables = Exact<{
+  id: Scalars["Int"];
+  full?: Maybe<Scalars["Boolean"]>;
+}>;
+
+export type ExportEarthquakeQuery = {
+  __typename?: "Query";
+  exportEarthquake: string;
+};
+
 export type ExportEarthquakesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type ExportEarthquakesQuery = {
   __typename?: "Query";
   exportEarthquakes: string;
+};
+
+export type ExportQuestionsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type ExportQuestionsQuery = {
+  __typename?: "Query";
+  exportQuestions: string;
 };
 
 export type CitiesQueryVariables = Exact<{
@@ -420,6 +480,106 @@ export type SubmitSurveyMutation = {
   submitSurvey: { __typename?: "Survey"; id: number; lat: number; lng: number };
 };
 
+export const ArchiveEarthquakeDocument = gql`
+  mutation archiveEarthquake($id: Int!) {
+    archiveEarthquake(id: $id) {
+      id
+      archivedAt
+    }
+  }
+`;
+export type ArchiveEarthquakeMutationFn = Apollo.MutationFunction<
+  ArchiveEarthquakeMutation,
+  ArchiveEarthquakeMutationVariables
+>;
+
+/**
+ * __useArchiveEarthquakeMutation__
+ *
+ * To run a mutation, you first call `useArchiveEarthquakeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useArchiveEarthquakeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [archiveEarthquakeMutation, { data, loading, error }] = useArchiveEarthquakeMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useArchiveEarthquakeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    ArchiveEarthquakeMutation,
+    ArchiveEarthquakeMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    ArchiveEarthquakeMutation,
+    ArchiveEarthquakeMutationVariables
+  >(ArchiveEarthquakeDocument, options);
+}
+export type ArchiveEarthquakeMutationHookResult = ReturnType<
+  typeof useArchiveEarthquakeMutation
+>;
+export type ArchiveEarthquakeMutationResult =
+  Apollo.MutationResult<ArchiveEarthquakeMutation>;
+export type ArchiveEarthquakeMutationOptions = Apollo.BaseMutationOptions<
+  ArchiveEarthquakeMutation,
+  ArchiveEarthquakeMutationVariables
+>;
+export const DeleteEarthquakeDocument = gql`
+  mutation deleteEarthquake($id: Int!, $removeSurveys: Boolean) {
+    deleteEarthquake(id: $id, removeSurveys: $removeSurveys)
+  }
+`;
+export type DeleteEarthquakeMutationFn = Apollo.MutationFunction<
+  DeleteEarthquakeMutation,
+  DeleteEarthquakeMutationVariables
+>;
+
+/**
+ * __useDeleteEarthquakeMutation__
+ *
+ * To run a mutation, you first call `useDeleteEarthquakeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteEarthquakeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteEarthquakeMutation, { data, loading, error }] = useDeleteEarthquakeMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      removeSurveys: // value for 'removeSurveys'
+ *   },
+ * });
+ */
+export function useDeleteEarthquakeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteEarthquakeMutation,
+    DeleteEarthquakeMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    DeleteEarthquakeMutation,
+    DeleteEarthquakeMutationVariables
+  >(DeleteEarthquakeDocument, options);
+}
+export type DeleteEarthquakeMutationHookResult = ReturnType<
+  typeof useDeleteEarthquakeMutation
+>;
+export type DeleteEarthquakeMutationResult =
+  Apollo.MutationResult<DeleteEarthquakeMutation>;
+export type DeleteEarthquakeMutationOptions = Apollo.BaseMutationOptions<
+  DeleteEarthquakeMutation,
+  DeleteEarthquakeMutationVariables
+>;
 export const DeleteSurveyDocument = gql`
   mutation deleteSurvey($id: Int!) {
     deleteSurvey(id: $id)
@@ -469,11 +629,12 @@ export type DeleteSurveyMutationOptions = Apollo.BaseMutationOptions<
   DeleteSurveyMutationVariables
 >;
 export const EarthquakesDocument = gql`
-  query EARTHQUAKES {
-    earthquakes {
+  query EARTHQUAKES($archived: Boolean) {
+    earthquakes(archived: $archived) {
       id
       name
       date
+      archivedAt
       surveys {
         id
       }
@@ -493,6 +654,7 @@ export const EarthquakesDocument = gql`
  * @example
  * const { data, loading, error } = useEarthquakesQuery({
  *   variables: {
+ *      archived: // value for 'archived'
  *   },
  * });
  */
@@ -996,6 +1158,63 @@ export function useMeLazyQuery(
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const ExportEarthquakeDocument = gql`
+  query exportEarthquake($id: Int!, $full: Boolean) {
+    exportEarthquake(id: $id, full: $full)
+  }
+`;
+
+/**
+ * __useExportEarthquakeQuery__
+ *
+ * To run a query within a React component, call `useExportEarthquakeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useExportEarthquakeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useExportEarthquakeQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      full: // value for 'full'
+ *   },
+ * });
+ */
+export function useExportEarthquakeQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    ExportEarthquakeQuery,
+    ExportEarthquakeQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<ExportEarthquakeQuery, ExportEarthquakeQueryVariables>(
+    ExportEarthquakeDocument,
+    options
+  );
+}
+export function useExportEarthquakeLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ExportEarthquakeQuery,
+    ExportEarthquakeQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    ExportEarthquakeQuery,
+    ExportEarthquakeQueryVariables
+  >(ExportEarthquakeDocument, options);
+}
+export type ExportEarthquakeQueryHookResult = ReturnType<
+  typeof useExportEarthquakeQuery
+>;
+export type ExportEarthquakeLazyQueryHookResult = ReturnType<
+  typeof useExportEarthquakeLazyQuery
+>;
+export type ExportEarthquakeQueryResult = Apollo.QueryResult<
+  ExportEarthquakeQuery,
+  ExportEarthquakeQueryVariables
+>;
 export const ExportEarthquakesDocument = gql`
   query exportEarthquakes {
     exportEarthquakes
@@ -1050,6 +1269,61 @@ export type ExportEarthquakesLazyQueryHookResult = ReturnType<
 export type ExportEarthquakesQueryResult = Apollo.QueryResult<
   ExportEarthquakesQuery,
   ExportEarthquakesQueryVariables
+>;
+export const ExportQuestionsDocument = gql`
+  query exportQuestions {
+    exportQuestions
+  }
+`;
+
+/**
+ * __useExportQuestionsQuery__
+ *
+ * To run a query within a React component, call `useExportQuestionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useExportQuestionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useExportQuestionsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useExportQuestionsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    ExportQuestionsQuery,
+    ExportQuestionsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<ExportQuestionsQuery, ExportQuestionsQueryVariables>(
+    ExportQuestionsDocument,
+    options
+  );
+}
+export function useExportQuestionsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ExportQuestionsQuery,
+    ExportQuestionsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    ExportQuestionsQuery,
+    ExportQuestionsQueryVariables
+  >(ExportQuestionsDocument, options);
+}
+export type ExportQuestionsQueryHookResult = ReturnType<
+  typeof useExportQuestionsQuery
+>;
+export type ExportQuestionsLazyQueryHookResult = ReturnType<
+  typeof useExportQuestionsLazyQuery
+>;
+export type ExportQuestionsQueryResult = Apollo.QueryResult<
+  ExportQuestionsQuery,
+  ExportQuestionsQueryVariables
 >;
 export const CitiesDocument = gql`
   query cities($name: String!) {

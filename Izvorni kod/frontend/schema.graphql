@@ -22,6 +22,7 @@ input DeleteUserInput {
 }
 
 type Earthquake {
+  archivedAt: Float
   createdAt: Float!
   date: Float!
   epicenterLat: Float!
@@ -63,7 +64,9 @@ type LoginResponse {
 }
 
 type Mutation {
+  archiveEarthquake(id: Int!): Earthquake!
   createUser(data: CreateUserInput!): User!
+  deleteEarthquake(id: Int!, removeSurveys: Boolean): Boolean!
   deleteSurvey(id: Int!): Boolean!
   deleteUser(data: DeleteUserInput!): Boolean!
   login(data: LoginInput!): LoginResponse!
@@ -75,8 +78,9 @@ type Mutation {
 
 type Query {
   cities(filter: String!): [City!]!
-  earthquakes: [Earthquake!]!
+  earthquakes(archived: Boolean): [Earthquake!]!
   exportEarthquakes: String!
+  exportQuestions: String!
   me: User
   questions: [SurveyQuestion!]!
   surveys(filter: FilterSurveys!): [Survey!]!

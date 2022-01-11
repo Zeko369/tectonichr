@@ -20,7 +20,9 @@ import { surveys } from "../graphql/surveys";
 import { earthquakes } from "../graphql/earthquakes";
 
 type Props = {
-  modalProps: UseDisclosureReturn;
+  modalProps: Omit<UseDisclosureReturn, "onClose"> & {
+    onClose: (done?: boolean) => void;
+  };
   surveyIds: number[];
 };
 
@@ -33,7 +35,7 @@ export const AddToExistingEarthquakeModal: React.FC<Props> = (props) => {
   });
   const onAdd = (id: number) => async () => {
     await updateEarthquake({ variables: { id, add: surveyIds } });
-    modalProps.onClose();
+    modalProps.onClose(true);
   };
 
   return (
@@ -64,7 +66,7 @@ export const AddToExistingEarthquakeModal: React.FC<Props> = (props) => {
         </ModalBody>
 
         <ModalFooter>
-          <Button onClick={modalProps.onClose}>Close</Button>
+          <Button onClick={() => modalProps.onClose()}>Close</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
