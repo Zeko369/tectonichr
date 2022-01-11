@@ -26,7 +26,7 @@ const LoginPage: NextPage = () => {
 
   return (
     <Box bg="#3939a4" minH="calc(100vh - 65px)" p="5%" opacity="0.9">
-      <Container bgColor="#3934a4">
+      <Container>
         <Container border="4px" borderColor="#3934a4" borderRadius="20px" padding="10%" bgColor="white">
           <VStack>
             <Heading>Prijava</Heading>
@@ -67,6 +67,7 @@ const LoginPage: NextPage = () => {
             >
               <InputField name="email" />
               <InputField name="password" />
+              <b></b>
               <Button mt={4} colorScheme='teal' type='submit'>
                 Prijavi se
               </Button>
