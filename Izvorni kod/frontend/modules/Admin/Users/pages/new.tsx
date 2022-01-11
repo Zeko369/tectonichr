@@ -11,7 +11,7 @@ import { getUsers } from "../graphql/getUsers";
 
 const schema = z.object({
   email: z.string(),
-  password: z.string(),
+  password: z.string().min(6),
 });
 
 const NewUserPage: NextPage = () => {
