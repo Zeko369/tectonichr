@@ -81,6 +81,7 @@ type Query {
   earthquakes: [Earthquake!]!
   exportEarthquake(full: Boolean, id: Int!): String!
   exportEarthquakes: String!
+  exportQuestions: String!
   me: User
   questions: [SurveyQuestion!]!
   surveys(filter: FilterSurveys!): [Survey!]!

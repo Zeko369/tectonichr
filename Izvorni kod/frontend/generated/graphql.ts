@@ -151,6 +151,7 @@ export type Query = {
   earthquakes: Array<Earthquake>;
   exportEarthquake: Scalars["String"];
   exportEarthquakes: Scalars["String"];
+  exportQuestions: Scalars["String"];
   me?: Maybe<User>;
   questions: Array<SurveyQuestion>;
   surveys: Array<Survey>;
@@ -413,11 +414,28 @@ export type MeQuery = {
     | undefined;
 };
 
+export type ExportEarthquakeQueryVariables = Exact<{
+  id: Scalars["Int"];
+  full?: Maybe<Scalars["Boolean"]>;
+}>;
+
+export type ExportEarthquakeQuery = {
+  __typename?: "Query";
+  exportEarthquake: string;
+};
+
 export type ExportEarthquakesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type ExportEarthquakesQuery = {
   __typename?: "Query";
   exportEarthquakes: string;
+};
+
+export type ExportQuestionsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type ExportQuestionsQuery = {
+  __typename?: "Query";
+  exportQuestions: string;
 };
 
 export type CitiesQueryVariables = Exact<{
@@ -1139,6 +1157,63 @@ export function useMeLazyQuery(
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const ExportEarthquakeDocument = gql`
+  query exportEarthquake($id: Int!, $full: Boolean) {
+    exportEarthquake(id: $id, full: $full)
+  }
+`;
+
+/**
+ * __useExportEarthquakeQuery__
+ *
+ * To run a query within a React component, call `useExportEarthquakeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useExportEarthquakeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useExportEarthquakeQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      full: // value for 'full'
+ *   },
+ * });
+ */
+export function useExportEarthquakeQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    ExportEarthquakeQuery,
+    ExportEarthquakeQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<ExportEarthquakeQuery, ExportEarthquakeQueryVariables>(
+    ExportEarthquakeDocument,
+    options
+  );
+}
+export function useExportEarthquakeLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ExportEarthquakeQuery,
+    ExportEarthquakeQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    ExportEarthquakeQuery,
+    ExportEarthquakeQueryVariables
+  >(ExportEarthquakeDocument, options);
+}
+export type ExportEarthquakeQueryHookResult = ReturnType<
+  typeof useExportEarthquakeQuery
+>;
+export type ExportEarthquakeLazyQueryHookResult = ReturnType<
+  typeof useExportEarthquakeLazyQuery
+>;
+export type ExportEarthquakeQueryResult = Apollo.QueryResult<
+  ExportEarthquakeQuery,
+  ExportEarthquakeQueryVariables
+>;
 export const ExportEarthquakesDocument = gql`
   query exportEarthquakes {
     exportEarthquakes
@@ -1193,6 +1268,61 @@ export type ExportEarthquakesLazyQueryHookResult = ReturnType<
 export type ExportEarthquakesQueryResult = Apollo.QueryResult<
   ExportEarthquakesQuery,
   ExportEarthquakesQueryVariables
+>;
+export const ExportQuestionsDocument = gql`
+  query exportQuestions {
+    exportQuestions
+  }
+`;
+
+/**
+ * __useExportQuestionsQuery__
+ *
+ * To run a query within a React component, call `useExportQuestionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useExportQuestionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useExportQuestionsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useExportQuestionsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    ExportQuestionsQuery,
+    ExportQuestionsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<ExportQuestionsQuery, ExportQuestionsQueryVariables>(
+    ExportQuestionsDocument,
+    options
+  );
+}
+export function useExportQuestionsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ExportQuestionsQuery,
+    ExportQuestionsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    ExportQuestionsQuery,
+    ExportQuestionsQueryVariables
+  >(ExportQuestionsDocument, options);
+}
+export type ExportQuestionsQueryHookResult = ReturnType<
+  typeof useExportQuestionsQuery
+>;
+export type ExportQuestionsLazyQueryHookResult = ReturnType<
+  typeof useExportQuestionsLazyQuery
+>;
+export type ExportQuestionsQueryResult = Apollo.QueryResult<
+  ExportQuestionsQuery,
+  ExportQuestionsQueryVariables
 >;
 export const CitiesDocument = gql`
   query cities($name: String!) {
