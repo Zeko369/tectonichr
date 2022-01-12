@@ -38,14 +38,144 @@
 			
 			\subsection{Ispitivanje sustava}
 			
-			 \textit{Potrebno je provesti i opisati ispitivanje sustava koristeći radni okvir Selenium\footnote{\url{https://www.seleniumhq.org/}}. Razraditi \textbf{minimalno 4 ispitna slučaja} u kojima će se ispitati redovni slučajevi, rubni uvjeti te poziv funkcionalnosti koja nije implementirana/izaziva pogrešku kako bi se vidjelo na koji način sustav reagira kada nešto nije u potpunosti ostvareno. Ispitni slučaj se treba sastojati od ulaza (npr. korisničko ime i lozinka), očekivanog izlaza ili rezultata, koraka ispitivanja i dobivenog izlaza ili rezultata.\\ }
+			 \textit{Ispitivanje cjelokupnog sustava provedeno je pomoću alata Selenium WebDriver. Ispitni slučajevi pokrivaju prijavu u sustav s ispravnim/neispravnim podacima, kao i uspješno/neuspješno dodavanje novog seizmologa.\\ }
 			 
-			 \textit{Izradu ispitnih slučajeva pomoću radnog okvira Selenium moguće je provesti pomoću jednog od sljedeća dva alata:}
-			 \begin{itemize}
-			 	\item \textit{dodatak za preglednik \textbf{Selenium IDE} - snimanje korisnikovih akcija radi automatskog ponavljanja ispita	}
-			 	\item \textit{\textbf{Selenium WebDriver} - podrška za pisanje ispita u jezicima Java, C\#, PHP koristeći posebno programsko sučelje.}
-			 \end{itemize}
-		 	\textit{Detalji o korištenju alata Selenium bit će prikazani na posebnom predavanju tijekom semestra.}
+			 \noindent \underbar{\textbf{Testni Slučaj 1: Prijava s ispravnim podacima}}
+			 \begin{packed_item}
+
+				 \item \textbf{Ulaz:}
+
+				 \item[] \begin{packed_enum}
+					\item email: "foo@bar.com"
+					\item password: "foobar123"
+				\end{packed_enum}
+
+				  \item \textbf{Očekivani izlaz:}
+
+				 \item[] \begin{packed_enum}
+					\item prijava u sustav
+					\item preusmjerenje na početnu stranicu
+				\end{packed_enum}
+				 
+				\item \textbf{Rezultat:}
+
+				\item[] \begin{packed_enum}
+					\item prijava u sustav
+					\item preusmjerenje na početnu stranicu
+			   \end{packed_enum}
+
+			 \end{packed_item}
+			 \begin{lstlisting}
+				@Test()
+				public void loginTestGoodCredentials() {
+					System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\chromedriver\\chromedriver.exe");
+					WebDriver driver = new ChromeDriver();
+					driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+					// posjeti web stranicu
+					driver.get("https://tectonichr.tk/");
+
+					// otvori izbornik s gumbom za prijavu
+					WebElement element = driver.findElement(By.id("menu-button-2"));
+					element.click();
+
+					// otvori stranicu za prijavu
+					element = driver.findElement(By.id("menu-list-2"));
+					element.click();
+
+					// unesi email
+					element = driver.findElement(By.name("email"));
+					element.sendKeys("foo@bar.com");
+
+					// unesi zaporku
+					element = driver.findElement(By.name("password"));
+					element.sendKeys("foobar123");
+
+					// pritiskom na gumb pokusaj se prijaviti u sustav
+					driver.findElement(By.cssSelector("button[type='submit']")).click();
+
+					try {
+						// pricekaj dok se provjeri prijava
+						TimeUnit.MILLISECONDS.sleep(1000);
+					} catch (Exception e) {
+						System.out.println("Exception while waiting for login: " + e.getMessage());
+					}
+
+					// ako je doslo do preusmjerenja na pocetnu stranicu prijava je uspjesna
+					String redirURL = driver.getCurrentUrl();
+					boolean compRes = redirURL.equals("https://tectonichr.tk/");
+					assertEquals(compRes, true);
+
+					driver.quit();
+				}
+			\end{lstlisting}
+
+			\noindent \underbar{\textbf{Testni Slučaj 2: Prijava s neispravnim podacima}}
+			 \begin{packed_item}
+
+				 \item \textbf{Ulaz:}
+
+				 \item[] \begin{packed_enum}
+					\item email: "neispravni@email.com"
+					\item password: "neispravnaZaporka"
+				\end{packed_enum}
+
+				  \item \textbf{Očekivani izlaz:}
+
+				 \item[] \begin{packed_enum}
+					\item neuspješna prijava u sustav
+				\end{packed_enum}
+				 
+				\item \textbf{Rezultat:}
+
+				\item[] \begin{packed_enum}
+					\item neuspješna prijava u sustav
+			   \end{packed_enum}
+
+			 \end{packed_item}
+			\begin{lstlisting}
+				@Test()
+				public void loginTestBadCredentials() {
+					System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\chromedriver\\chromedriver.exe");
+					WebDriver driver = new ChromeDriver();
+					driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+					// posjeti web stranicu
+					driver.get("https://tectonichr.tk/");
+
+					// otvori izbornik s gumbom za prijavu
+					WebElement element = driver.findElement(By.id("menu-button-2"));
+					element.click();
+
+					// otvori stranicu za prijavu
+					element = driver.findElement(By.id("menu-list-2"));
+					element.click();
+
+					// unesi email
+					element = driver.findElement(By.name("email"));
+					element.sendKeys("krivi@email.com");
+
+					// unesi zaporku
+					element = driver.findElement(By.name("password"));
+					element.sendKeys("neispravnaSifra");
+
+					// pritiskom na gumb pokusaj se prijaviti u sustav
+					driver.findElement(By.cssSelector("button[type='submit']")).click();
+
+					try {
+						// pricekaj dok se provjeri prijava
+						TimeUnit.MILLISECONDS.sleep(1000);
+					} catch (Exception e) {
+						System.out.println("Exception while waiting for login: " + e.getMessage());
+					}
+
+					// ako nije doslo do preusmjerenja uspjesno je prepoznata priajva s neispravnim
+					// podacima
+					String redirURL = driver.getCurrentUrl();
+					boolean compRes = redirURL.equals("https://tectonichr.tk/auth/login");
+					assertEquals(compRes, true);
+
+					driver.quit();
+				}
+				\end{lstlisting}
 			
 			\eject 
 		
