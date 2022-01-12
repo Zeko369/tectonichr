@@ -1,5 +1,5 @@
 import React from "react";
-import { ChakraProvider } from "@chakra-ui/react";
+import { Box, ChakraProvider } from "@chakra-ui/react";
 import { ConfirmContextProvider } from "chakra-confirm";
 import {
   ApolloClient,
@@ -10,7 +10,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { AppProps } from "next/app";
-import { css, Global} from "@emotion/react";
+import { css, Global } from "@emotion/react";
 
 import { Navigation } from "../components/Navigation";
 

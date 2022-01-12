@@ -155,6 +155,7 @@ export type Query = {
   __typename?: "Query";
   cities: Array<City>;
   earthquakes: Array<Earthquake>;
+  exportEarthquake: Scalars["String"];
   exportEarthquakes: Scalars["String"];
   exportQuestions: Scalars["String"];
   me?: Maybe<User>;
@@ -169,6 +170,11 @@ export type QueryCitiesArgs = {
 
 export type QueryEarthquakesArgs = {
   archived?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type QueryExportEarthquakeArgs = {
+  full?: InputMaybe<Scalars["Boolean"]>;
+  id: Scalars["Int"];
 };
 
 export type QuerySurveysArgs = {
