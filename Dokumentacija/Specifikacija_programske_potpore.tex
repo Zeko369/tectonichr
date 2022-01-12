@@ -468,7 +468,7 @@
 				
 				\item[] \begin{packed_enum}
 					\item Pregled i pretraživanje/filtriranje arhiviranih potresa
-					\item Odabir željenih potresa
+					\item Odabir željenog potresa
 					\item Odabir opcije „Preuzmi“
 					\item Preuzimanje podataka
 				\end{packed_enum}
@@ -486,7 +486,7 @@
 				
 				\item[] \begin{packed_enum}
 					\item Pregled i pretraživanje/filtriranje arhiviranih potresa
-					\item Odabir željenih potresa
+					\item Odabir željenog potresa
 					\item Odabir opcije „Preuzmi“
 					\item Preuzimanje podataka
 				\end{packed_enum}
@@ -749,6 +749,60 @@
 						\end{packed_enum}
 					
 				\end{packed_item}
+
+			\end{packed_item}
+
+			\noindent \underbar{\textbf{UC23 - Preuzimanje pitanja iz upitnika}}
+			\begin{packed_item}
+				
+				\item \textbf{Glavni sudionik:} Korisnik (seizmolog, administrator)
+				\item \textbf{Cilj:} Preuzeti pitanja koja se javljaju u upitnicima zajedno sa svim mogućim odgovorima i intenzitetima
+				\item \textbf{Sudionici:} Baza podataka
+				\item \textbf{Preduvjet:} Korisnik prijavljen u sustav
+				\item \textbf{Opis osnovnog tijeka:}
+				
+				\item[] \begin{packed_enum}
+					\item Korisnik u izborniku na početnoj stranici odabire opciju za izvoz podataka
+					\item Korisnik odabire opciju "Preuzmi pitanja upitnika"
+					\item Preuzimanje podataka u .csv formatu
+				\end{packed_enum}
+				
+			\end{packed_item}
+
+			\noindent \underbar{\textbf{UC24 - Preuzimanje svih potresa s upitnicima}}
+			\begin{packed_item}
+				
+				\item \textbf{Glavni sudionik:} Korisnik (seizmolog, administrator)
+				\item \textbf{Cilj:} Preuzeti sve potrese zajedno s popunjenim upitnicima
+				\item \textbf{Sudionici:} Baza podataka
+				\item \textbf{Preduvjet:} Korisnik prijavljen u sustav
+				\item \textbf{Opis osnovnog tijeka:}
+				
+				\item[] \begin{packed_enum}
+					\item Korisnik u izborniku na početnoj stranici odabire opciju za izvoz podataka
+					\item Korisnik odabire opciju "Preuzmi i upitnike"
+					\item Korisnik odabire opciju "Preuzmi potrese"
+					\item Preuzimanje podataka u .csv formatu
+				\end{packed_enum}
+				
+			\end{packed_item}
+
+			\noindent \underbar{\textbf{UC25 - Preuzimanje svih potresa bez upitnika}}
+			\begin{packed_item}
+				
+				\item \textbf{Glavni sudionik:} Korisnik (seizmolog, administrator)
+				\item \textbf{Cilj:} Preuzeti sve potrese bez popunjenih upitnika
+				\item \textbf{Sudionici:} Baza podataka
+				\item \textbf{Preduvjet:} Korisnik prijavljen u sustav
+				\item \textbf{Opis osnovnog tijeka:}
+				
+				\item[] \begin{packed_enum}
+					\item Korisnik u izborniku na početnoj stranici odabire opciju za izvoz podataka
+					\item Korisnik odabire opciju "Izuzmi upitnike"
+					\item Korisnik odabire opciju "Preuzmi potrese"
+					\item Preuzimanje podataka u .csv formatu
+				\end{packed_enum}
+				
 			\end{packed_item}
 					
 				\subsubsection{Dijagrami obrazaca uporabe}
