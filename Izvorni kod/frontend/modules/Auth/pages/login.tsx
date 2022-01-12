@@ -66,7 +66,7 @@ const LoginPage: NextPage = () => {
               }}
             >
               <InputField name="email" />
-              <InputField name="password" />
+              <InputField name="password" label="Lozinka"/>
               <b></b>
               <Button mt={4} colorScheme='teal' type='submit'>
                 Prijavi se
