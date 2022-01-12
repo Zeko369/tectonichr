@@ -129,14 +129,40 @@
 			\eject
 		
 		\section{Dijagram stanja}
+
+		Dijagram stanja prikazuje stanja objekta te prijelaze iz jednog stanja u drugo temeljene na događajima. Na slici 4.6 prikazan je dijagram stanja za seizmologa. Seizmolog je registrirani korisnik te ima više mogućnosti od građana koji nisu registrirani, ali manje od administratora. 
+        
+		Seizmologu se prvo, kao i ostalim korisnicima aplikacije, prikazuje Početna stranica. Na početnoj se stranici, kada joj netko pristupi, osvježe podatci na karti. Početna stranica seizmologu nudi pet opcija daljnjeg korištenja aplikacije te su one prikazane s pet stanja. 
+        U gornjem desnom kutu može odabrati mogućnost pregleda svog profila. Pri kliku na tu opciju, odmah mu se otvara Pregled korisničkih (osobnih) podataka. 
+        Kada klikne na "Uredi", seizmologu se otvara obrazac za promjenu podataka. Seizmolog može odustati od promjene te će ga klik na "Odustani" vratiti na pregled podataka. 
+        Ako u obrazac upiše nove podatke te pritisne "Spremi", podatci će se ažurirati i vratiti seizmologa na stranicu s prikazom podataka. Seizmolog se iz ovog stanja može vratiti na početnu stranicu.
+        
+		Iz stanja Početna stranica, seizmolog klikom na "Novi potres?" prelazi u stanje Ispunjavanje novog upitnika. U tom se stanju korisniku prikazuje obrazac s pitanjima o potresu kojeg korisnik želi prijaviti. 
+        Nakon što ispuni cijeli upitnih i pritisne "Spremi", aplikacija korisnika vraća u stanje Početna stranica. 
+        Ako nisu odgovorena sva pitanja, a pritisnuto je "Spremi", korisniku se opet prikazuje obrazac te ostaje u stanju Ispunjavanje novog upitnika. Ukoliko ipak odluči da ne želi ispuniti upitnik, utoliko će se pritiskom na "Odustani" ponovno naći u stanju Početna stranica. 
+        U ovim se stanjima mogu naći svi korisnici aplikacije, ali njihova ostala stanja nisu prikazana ovim dijagramom. 
+        
+		Na početnoj stranici klikom na opciju "Arhivirani potresi", seizmolog prelazi u stanje Arhivirani potresi. U tom stanju odmah ulazi u podstanje Pregled arhiviranih potresa te mu se prikazuju svi arhivirani potresi te mogućnost pretraživanja tih potresa. 
+        Seizmolog ima mogućnost odabira potresa te potom za njega preuzeti podatke (ispunjeni upitnici, lokacija, intezitet...). Preuzimanje podataka nalazi se u podstanju Odabran jedan arhivirani potres. 
+        
+		Iduće stanje u kojem se seizmolog može naći je Aktualni potresi. U stanje Aktualni potresi prelazi odabirom opcije "Aktuali potresi". 
+        Potom direktno prelazi u podstanje Pregled Aktualnih potresa gdje mu se prikazuju aktualni potresi koje je, također, moguće filtirati kao i arhivirane. Kao i u stanju Arhivirani potresi, seizmologu se i u stanju Aktualni potresi nudi mogućnost 
+        prelaska u podstanje Odabran jedan aktualni potres. U tom se podstanju provodi preuzimanje podataka o potresu. Iz stanja Aktualni potresi i Arhivirani potresi, seizmolog može prijeći u stanje Početna stranica.
+       
+		Osim u podstanjima Odabran jedan aktualni potres i Odabran jedan arhivirani potres, podaci se mogu preuzimati i u posebnom stanju Izvoz podataka. U to stanje seizmolog može doći klikom na "Izvoz podataka". 
+        Podstanje u kojem će se seizmolog naći ovisi o tome je li "toggle" postavljen na "Preuzmi i upitnike" ili na "Izuzmi upitnike". U podstanju "Preuzmi i upitnike" prikazat će mu se stranica sa svim potresima te će klikom na "Preuzmi" preuzeti potrese zajedno sa pitanjima iz upitnika.
+        Svi potresi se prikazuju i u podstanju "Preuzmi bez upitnika", no u tom će podstanju klikom na "Preuzmi" preuzeti samo podatke vezano uz potres, ali ne i pitanja. Iz oba podstanja klikom na "Preuzmi pitanja upitnika" prelazi se u podstanje "Preuzimanje pitanja upitnika".
+        U tom podstanju preuzimaju se isključivo pitanja koja su u upitniku i svi mogući odgovori na njih. Iz tog postanja direktno se vraćamo na početak te, ovismo o ome je li "toggle" postavljen na "Preuzmi i upitnike" ili na "Izuzmi upitnike", odlazimo u jedno od tih podstanja.
+        Iz stanja Izvoz podataka možemo prijeći u stanje Početna stranica.
+        Završetak rada događa se klikom na "Odjavi se". Tu mogućnost seizmolog ima u svim stanjima.
 			
 			
 			
 		\begin{figure}[H]
-			\includegraphics[width=\textwidth]{slike/dijagramstanja.png}
-			\caption{Dijagram aktivnosti}
-			\label{fig:uml_db} 
-		\end{figure}
+            \includegraphics[width=\textwidth, height=20cm]{slike/dijagramstanja.png}
+            \caption{Dijagram aktivnosti}
+            \label{fig:uml_db} 
+        \end{figure}
 			
 			\eject 
 		
