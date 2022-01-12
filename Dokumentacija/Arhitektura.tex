@@ -139,10 +139,21 @@
 			\eject 
 		
 		\section{Dijagram aktivnosti}
-			
-			\textbf{\textit{dio 2. revizije}}\\
-			
-			 \textit{Potrebno je priložiti dijagram aktivnosti s pripadajućim opisom. Dijagram aktivnosti treba prikazivati značajan dio sustava.}
+		
+		Dijagram aktivnosti služi za modeliranje procesa. On opisuje ponašanje različitih elemenata modela toka upravljanja ili toka podataka. Ne upotrebljava se za modeliranje ponašanja poticanog događajima. Prilikom modeliranja toka upravljanja svaki novi korak poduzima se nakon završenog
+		prethodnog. Na slici 4.7 prikazan je dijagram aktivnosti procesa pregleda aktualnih potresa, njihovog pretraživanja i preuzimanja podataka za njih. 
+		Na ovom dijagramu "Korisnik" može biti i seizmolog i administrator.
+		
+		Prvo se korisnik prijavljuje u sustav. Nakon uspješne prijave, na početnoj stranici odabire "Aktualni potresi". Korisnik vidi prikaz stranice aktualnih potresa. Korisnik može pretraživati potrese prema nekom parametru. Ako nema potresa koji zadovoljavaju korisnikov upit, sustav javlja korisniku da takvih potresa nema. Potresi s traženim svojstvima prikazat će se ako postoje potresi koji zadovoljavaju upit (npr. pretraga po nazivu, mjestu, jačini...). Ako korisnik ne želi filtrirati potrese, jednostavno neće upisati nikakav upit u tražilicu te će se i dalje prikazivati lista svih aktualnih potresa.
+		
+		Kada je pronašao željeni potres te ga označio, klikom na "Preuzmi" korisnik pokreće preuzimanje podataka za odabrani potres. Podatci se preuzimaju u .csv formatu. Korisnika se obavještava o uspješnom preuzimanju podataka.
+		
+		\begin{figure}[H]
+			\includegraphics[width=\textwidth]{slike/dijagram_aktivnosti.png}
+			\caption{Dijagram aktivnosti}
+			\label{fig:uml_db} 
+		\end{figure}
+		
 			
 			\eject
 		\section{Dijagram komponenti}
