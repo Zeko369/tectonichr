@@ -49,7 +49,7 @@ export const Navigation: React.FC = () => {
   const loggedIn = !!data?.me?.id;
 
   return (
-    <Container maxWidth="100%" p={0} bg="#3939a4" opacity="0.9">
+    <Container maxWidth="100%" p={0} bg="#3939a4e6">
       <Flex px="2" py="2">
         <Center>
           <Link href="/">
@@ -74,9 +74,15 @@ export const Navigation: React.FC = () => {
                 m={1}
                 bgColor="white"
               >
-
                 {data?.me ? (
-                  <Avatar name={data.me.email} bgColor="white" textColor="#3939a4" border="10px" borderRadius="50px" borderColor="#3939a4">
+                  <Avatar
+                    name={data.me.email}
+                    bgColor="white"
+                    textColor="#3939a4"
+                    border="10px"
+                    borderRadius="50px"
+                    borderColor="#3939a4"
+                  >
                     {!data.me.changedPassword && (
                       <AvatarBadge
                         boxSize="1.25em"
@@ -112,12 +118,12 @@ export const Navigation: React.FC = () => {
                     {[UserRole.Seismologists, UserRole.Admin].includes(
                       data.me.role
                     ) && (
-                        <>
-                          <Link href="/export">
-                            <MenuItem>Izvoz podataka</MenuItem>
-                          </Link>
-                        </>
-                      )}
+                      <>
+                        <Link href="/export">
+                          <MenuItem>Izvoz podataka</MenuItem>
+                        </Link>
+                      </>
+                    )}
 
                     <MenuDivider />
 
