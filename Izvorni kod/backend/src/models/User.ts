@@ -28,6 +28,10 @@ export class User extends BaseModel implements IUser {
   @Column({ unique: true, name: "password_hash" })
   passwordHash: string;
 
+  @Field(() => Boolean)
+  @Column({ type: "boolean", default: false })
+  changedPassword?: boolean;
+
   @Field(() => UserRole)
   @Column({ type: "enum", enum: UserRole, default: UserRole.SEISMOLOGISTS })
   role: UserRole;
