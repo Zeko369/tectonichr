@@ -1,0 +1,439 @@
+diff --git a/Izvorni kod/backend/src/controllers/Auth/resolver.ts b/Izvorni kod/backend/src/controllers/Auth/resolver.ts
+index 31ea2b2..999b55c 100644
+--- a/Izvorni kod/backend/src/controllers/Auth/resolver.ts	
++++ b/Izvorni kod/backend/src/controllers/Auth/resolver.ts	
+@@ -1,5 +1,6 @@
+ import {
+   Arg,
++  Authorized,
+   Ctx,
+   Field,
+   Mutation,
+@@ -50,4 +51,21 @@ export class AuthResolver {
+ 
+     return response;
+   }
++
++  @Mutation(() => User)
++  @Authorized()
++  async changePassword(
++    @Ctx() ctx: GQLCtx,
++    @Arg("password") password: string
++  ): Promise<User> {
++    if (!ctx.user) {
++      throw new Error("Not logged in");
++    }
++
++    ctx.user.changedPassword = true;
++    ctx.user.passwordHash = await hash(password, 10);
++    await ctx.user.save();
++
++    return ctx.user;
++  }
+ }
+diff --git a/Izvorni kod/backend/src/models/User.ts b/Izvorni kod/backend/src/models/User.ts
+index 3b30462..a5f42ea 100644
+--- a/Izvorni kod/backend/src/models/User.ts	
++++ b/Izvorni kod/backend/src/models/User.ts	
+@@ -28,6 +28,10 @@ export class User extends BaseModel implements IUser {
+   @Column({ unique: true, name: "password_hash" })
+   passwordHash: string;
+ 
++  @Field(() => Boolean)
++  @Column({ type: "boolean", default: false })
++  changedPassword?: boolean;
++
+   @Field(() => UserRole)
+   @Column({ type: "enum", enum: UserRole, default: UserRole.SEISMOLOGISTS })
+   role: UserRole;
+diff --git a/Izvorni kod/frontend/components/Navigation.tsx b/Izvorni kod/frontend/components/Navigation.tsx
+index 613f52c..08d3cc6 100644
+--- a/Izvorni kod/frontend/components/Navigation.tsx	
++++ b/Izvorni kod/frontend/components/Navigation.tsx	
+@@ -1,6 +1,7 @@
+ import React, { useEffect } from "react";
+ import {
+   Avatar,
++  AvatarBadge,
+   Box,
+   Center,
+   Container,
+@@ -72,11 +73,31 @@ export const Navigation: React.FC = () => {
+                 variant={!loggedIn ? "outline" : undefined}
+                 m={1}
+               >
+-                {data?.me ? <Avatar name={data.me.email} /> : null}
++                {data?.me ? (
++                  <Avatar name={data.me.email}>
++                    {!data.me.changedPassword && (
++                      <AvatarBadge
++                        boxSize="1.25em"
++                        borderColor="papayawhip"
++                        bg="tomato"
++                      />
++                    )}
++                  </Avatar>
++                ) : null}
+               </MenuButton>
+               <MenuList>
+                 {data?.me ? (
+                   <>
++                    <Link href="/auth/change-password">
++                      <MenuItem
++                        fontWeight={
++                          data.me.changedPassword ? undefined : "bold"
++                        }
++                      >
++                        Promijeni lozinku
++                      </MenuItem>
++                    </Link>
++
+                     {data.me.role === UserRole.Admin && (
+                       <>
+                         <Link href="/admin/users">
+diff --git a/Izvorni kod/frontend/generated/graphql.ts b/Izvorni kod/frontend/generated/graphql.ts
+index 646ce85..07f4dde 100644
+--- a/Izvorni kod/frontend/generated/graphql.ts	
++++ b/Izvorni kod/frontend/generated/graphql.ts	
+@@ -81,6 +81,7 @@ export type LoginInput = {
+ 
+ export type LoginResponse = {
+   __typename?: "LoginResponse";
++  changedPassword: Scalars["Boolean"];
+   createdAt: Scalars["Float"];
+   email: Scalars["String"];
+   id: Scalars["Int"];
+@@ -92,6 +93,7 @@ export type LoginResponse = {
+ export type Mutation = {
+   __typename?: "Mutation";
+   archiveEarthquake: Earthquake;
++  changePassword: User;
+   createUser: User;
+   deleteEarthquake: Scalars["Boolean"];
+   deleteSurvey: Scalars["Boolean"];
+@@ -107,6 +109,10 @@ export type MutationArchiveEarthquakeArgs = {
+   id: Scalars["Int"];
+ };
+ 
++export type MutationChangePasswordArgs = {
++  password: Scalars["String"];
++};
++
+ export type MutationCreateUserArgs = {
+   data: CreateUserInput;
+ };
+@@ -149,7 +155,6 @@ export type Query = {
+   __typename?: "Query";
+   cities: Array<City>;
+   earthquakes: Array<Earthquake>;
+-  exportEarthquake: Scalars["String"];
+   exportEarthquakes: Scalars["String"];
+   me?: Maybe<User>;
+   questions: Array<SurveyQuestion>;
+@@ -161,11 +166,6 @@ export type QueryCitiesArgs = {
+   filter: Scalars["String"];
+ };
+ 
+-export type QueryExportEarthquakeArgs = {
+-  full?: InputMaybe<Scalars["Boolean"]>;
+-  id: Scalars["Int"];
+-};
+-
+ export type QuerySurveysArgs = {
+   filter: FilterSurveys;
+ };
+@@ -228,6 +228,7 @@ export type UpdateUserInput = {
+ 
+ export type User = {
+   __typename?: "User";
++  changedPassword: Scalars["Boolean"];
+   createdAt: Scalars["Float"];
+   email: Scalars["String"];
+   id: Scalars["Int"];
+@@ -388,6 +389,15 @@ export type UpdateUserMutation = {
+   };
+ };
+ 
++export type ChangePasswordMutationVariables = Exact<{
++  password: Scalars["String"];
++}>;
++
++export type ChangePasswordMutation = {
++  __typename?: "Mutation";
++  changePassword: { __typename?: "User"; id: number; changedPassword: boolean };
++};
++
+ export type LoginMutationVariables = Exact<{
+   email: Scalars["String"];
+   password: Scalars["String"];
+@@ -408,7 +418,13 @@ export type MeQueryVariables = Exact<{ [key: string]: never }>;
+ export type MeQuery = {
+   __typename?: "Query";
+   me?:
+-    | { __typename?: "User"; id: number; email: string; role: UserRole }
++    | {
++        __typename?: "User";
++        id: number;
++        email: string;
++        role: UserRole;
++        changedPassword: boolean;
++      }
+     | null
+     | undefined;
+ };
+@@ -1049,6 +1065,57 @@ export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<
+   UpdateUserMutation,
+   UpdateUserMutationVariables
+ >;
++export const ChangePasswordDocument = gql`
++  mutation changePassword($password: String!) {
++    changePassword(password: $password) {
++      id
++      changedPassword
++    }
++  }
++`;
++export type ChangePasswordMutationFn = Apollo.MutationFunction<
++  ChangePasswordMutation,
++  ChangePasswordMutationVariables
++>;
++
++/**
++ * __useChangePasswordMutation__
++ *
++ * To run a mutation, you first call `useChangePasswordMutation` within a React component and pass it any options that fit your needs.
++ * When your component renders, `useChangePasswordMutation` returns a tuple that includes:
++ * - A mutate function that you can call at any time to execute the mutation
++ * - An object with fields that represent the current status of the mutation's execution
++ *
++ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
++ *
++ * @example
++ * const [changePasswordMutation, { data, loading, error }] = useChangePasswordMutation({
++ *   variables: {
++ *      password: // value for 'password'
++ *   },
++ * });
++ */
++export function useChangePasswordMutation(
++  baseOptions?: Apollo.MutationHookOptions<
++    ChangePasswordMutation,
++    ChangePasswordMutationVariables
++  >
++) {
++  const options = { ...defaultOptions, ...baseOptions };
++  return Apollo.useMutation<
++    ChangePasswordMutation,
++    ChangePasswordMutationVariables
++  >(ChangePasswordDocument, options);
++}
++export type ChangePasswordMutationHookResult = ReturnType<
++  typeof useChangePasswordMutation
++>;
++export type ChangePasswordMutationResult =
++  Apollo.MutationResult<ChangePasswordMutation>;
++export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<
++  ChangePasswordMutation,
++  ChangePasswordMutationVariables
++>;
+ export const LoginDocument = gql`
+   mutation login($email: String!, $password: String!) {
+     login(data: { email: $email, password: $password }) {
+@@ -1105,6 +1172,7 @@ export const MeDocument = gql`
+       id
+       email
+       role
++      changedPassword
+     }
+   }
+ `;
+diff --git a/Izvorni kod/frontend/graphql.schema.json b/Izvorni kod/frontend/graphql.schema.json
+index 8b430d7..c857455 100644
+--- a/Izvorni kod/frontend/graphql.schema.json	
++++ b/Izvorni kod/frontend/graphql.schema.json	
+@@ -655,6 +655,22 @@
+         "name": "LoginResponse",
+         "description": null,
+         "fields": [
++          {
++            "name": "changedPassword",
++            "description": null,
++            "args": [],
++            "type": {
++              "kind": "NON_NULL",
++              "name": null,
++              "ofType": {
++                "kind": "SCALAR",
++                "name": "Boolean",
++                "ofType": null
++              }
++            },
++            "isDeprecated": false,
++            "deprecationReason": null
++          },
+           {
+             "name": "createdAt",
+             "description": null,
+@@ -795,6 +811,39 @@
+             "isDeprecated": false,
+             "deprecationReason": null
+           },
++          {
++            "name": "changePassword",
++            "description": null,
++            "args": [
++              {
++                "name": "password",
++                "description": null,
++                "type": {
++                  "kind": "NON_NULL",
++                  "name": null,
++                  "ofType": {
++                    "kind": "SCALAR",
++                    "name": "String",
++                    "ofType": null
++                  }
++                },
++                "defaultValue": null,
++                "isDeprecated": false,
++                "deprecationReason": null
++              }
++            ],
++            "type": {
++              "kind": "NON_NULL",
++              "name": null,
++              "ofType": {
++                "kind": "OBJECT",
++                "name": "User",
++                "ofType": null
++              }
++            },
++            "isDeprecated": false,
++            "deprecationReason": null
++          },
+           {
+             "name": "createUser",
+             "description": null,
+@@ -1196,51 +1245,6 @@
+             "isDeprecated": false,
+             "deprecationReason": null
+           },
+-          {
+-            "name": "exportEarthquake",
+-            "description": null,
+-            "args": [
+-              {
+-                "name": "full",
+-                "description": null,
+-                "type": {
+-                  "kind": "SCALAR",
+-                  "name": "Boolean",
+-                  "ofType": null
+-                },
+-                "defaultValue": null,
+-                "isDeprecated": false,
+-                "deprecationReason": null
+-              },
+-              {
+-                "name": "id",
+-                "description": null,
+-                "type": {
+-                  "kind": "NON_NULL",
+-                  "name": null,
+-                  "ofType": {
+-                    "kind": "SCALAR",
+-                    "name": "Int",
+-                    "ofType": null
+-                  }
+-                },
+-                "defaultValue": null,
+-                "isDeprecated": false,
+-                "deprecationReason": null
+-              }
+-            ],
+-            "type": {
+-              "kind": "NON_NULL",
+-              "name": null,
+-              "ofType": {
+-                "kind": "SCALAR",
+-                "name": "String",
+-                "ofType": null
+-              }
+-            },
+-            "isDeprecated": false,
+-            "deprecationReason": null
+-          },
+           {
+             "name": "exportEarthquakes",
+             "description": null,
+@@ -1952,6 +1956,22 @@
+         "name": "User",
+         "description": null,
+         "fields": [
++          {
++            "name": "changedPassword",
++            "description": null,
++            "args": [],
++            "type": {
++              "kind": "NON_NULL",
++              "name": null,
++              "ofType": {
++                "kind": "SCALAR",
++                "name": "Boolean",
++                "ofType": null
++              }
++            },
++            "isDeprecated": false,
++            "deprecationReason": null
++          },
+           {
+             "name": "createdAt",
+             "description": null,
+diff --git a/Izvorni kod/frontend/modules/Auth/graphql/me.ts b/Izvorni kod/frontend/modules/Auth/graphql/me.ts
+index 17c55fa..cc5b12e 100644
+--- a/Izvorni kod/frontend/modules/Auth/graphql/me.ts	
++++ b/Izvorni kod/frontend/modules/Auth/graphql/me.ts	
+@@ -6,6 +6,7 @@ export const me = gql`
+       id
+       email
+       role
++      changedPassword
+     }
+   }
+ `;
+diff --git a/Izvorni kod/frontend/schema.graphql b/Izvorni kod/frontend/schema.graphql
+index 03e03e1..02645d5 100644
+--- a/Izvorni kod/frontend/schema.graphql	
++++ b/Izvorni kod/frontend/schema.graphql	
+@@ -55,6 +55,7 @@ input LoginInput {
+ }
+ 
+ type LoginResponse {
++  changedPassword: Boolean!
+   createdAt: Float!
+   email: String!
+   id: Int!
+@@ -65,6 +66,7 @@ type LoginResponse {
+ 
+ type Mutation {
+   archiveEarthquake(id: Int!): Earthquake!
++  changePassword(password: String!): User!
+   createUser(data: CreateUserInput!): User!
+   deleteEarthquake(id: Int!, removeSurveys: Boolean): Boolean!
+   deleteSurvey(id: Int!): Boolean!
+@@ -79,7 +81,6 @@ type Mutation {
+ type Query {
+   cities(filter: String!): [City!]!
+   earthquakes: [Earthquake!]!
+-  exportEarthquake(full: Boolean, id: Int!): String!
+   exportEarthquakes: String!
+   me: User
+   questions: [SurveyQuestion!]!
+@@ -140,6 +141,7 @@ input UpdateUserInput {
+ }
+ 
+ type User {
++  changedPassword: Boolean!
+   createdAt: Float!
+   email: String!
+   id: Int!

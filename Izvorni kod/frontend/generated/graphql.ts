@@ -81,6 +81,7 @@ export type LoginInput = {
 
 export type LoginResponse = {
   __typename?: "LoginResponse";
+  changedPassword: Scalars["Boolean"];
   createdAt: Scalars["Float"];
   email: Scalars["String"];
   id: Scalars["Int"];
@@ -92,6 +93,7 @@ export type LoginResponse = {
 export type Mutation = {
   __typename?: "Mutation";
   archiveEarthquake: Earthquake;
+  changePassword: User;
   createUser: User;
   deleteEarthquake: Scalars["Boolean"];
   deleteSurvey: Scalars["Boolean"];
@@ -105,6 +107,10 @@ export type Mutation = {
 
 export type MutationArchiveEarthquakeArgs = {
   id: Scalars["Int"];
+};
+
+export type MutationChangePasswordArgs = {
+  password: Scalars["String"];
 };
 
 export type MutationCreateUserArgs = {
@@ -227,6 +233,7 @@ export type UpdateUserInput = {
 
 export type User = {
   __typename?: "User";
+  changedPassword: Scalars["Boolean"];
   createdAt: Scalars["Float"];
   email: Scalars["String"];
   id: Scalars["Int"];
@@ -389,6 +396,15 @@ export type UpdateUserMutation = {
   };
 };
 
+export type ChangePasswordMutationVariables = Exact<{
+  password: Scalars["String"];
+}>;
+
+export type ChangePasswordMutation = {
+  __typename?: "Mutation";
+  changePassword: { __typename?: "User"; id: number; changedPassword: boolean };
+};
+
 export type LoginMutationVariables = Exact<{
   email: Scalars["String"];
   password: Scalars["String"];
@@ -409,7 +425,13 @@ export type MeQueryVariables = Exact<{ [key: string]: never }>;
 export type MeQuery = {
   __typename?: "Query";
   me?:
-    | { __typename?: "User"; id: number; email: string; role: UserRole }
+    | {
+        __typename?: "User";
+        id: number;
+        email: string;
+        role: UserRole;
+        changedPassword: boolean;
+      }
     | null
     | undefined;
 };
@@ -1068,6 +1090,57 @@ export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<
   UpdateUserMutation,
   UpdateUserMutationVariables
 >;
+export const ChangePasswordDocument = gql`
+  mutation changePassword($password: String!) {
+    changePassword(password: $password) {
+      id
+      changedPassword
+    }
+  }
+`;
+export type ChangePasswordMutationFn = Apollo.MutationFunction<
+  ChangePasswordMutation,
+  ChangePasswordMutationVariables
+>;
+
+/**
+ * __useChangePasswordMutation__
+ *
+ * To run a mutation, you first call `useChangePasswordMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useChangePasswordMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [changePasswordMutation, { data, loading, error }] = useChangePasswordMutation({
+ *   variables: {
+ *      password: // value for 'password'
+ *   },
+ * });
+ */
+export function useChangePasswordMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    ChangePasswordMutation,
+    ChangePasswordMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    ChangePasswordMutation,
+    ChangePasswordMutationVariables
+  >(ChangePasswordDocument, options);
+}
+export type ChangePasswordMutationHookResult = ReturnType<
+  typeof useChangePasswordMutation
+>;
+export type ChangePasswordMutationResult =
+  Apollo.MutationResult<ChangePasswordMutation>;
+export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<
+  ChangePasswordMutation,
+  ChangePasswordMutationVariables
+>;
 export const LoginDocument = gql`
   mutation login($email: String!, $password: String!) {
     login(data: { email: $email, password: $password }) {
@@ -1124,6 +1197,7 @@ export const MeDocument = gql`
       id
       email
       role
+      changedPassword
     }
   }
 `;

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import {
   Avatar,
+  AvatarBadge,
   Box,
   Center,
   Container,
@@ -73,11 +74,31 @@ export const Navigation: React.FC = () => {
                 m={1}
                 bgColor="white"
               >
-                {data?.me ? <Avatar name={data.me.email} bgColor="white" textColor="#3939a4" border="10px" borderRadius="50px" borderColor="#3939a4"/> : null}
+
+                {data?.me ? (
+                  <Avatar name={data.me.email} bgColor="white" textColor="#3939a4" border="10px" borderRadius="50px" borderColor="#3939a4">
+                    {!data.me.changedPassword && (
+                      <AvatarBadge
+                        boxSize="1.25em"
+                        borderColor="papayawhip"
+                        bg="tomato"
+                      />
+                    )}
+                  </Avatar>
+                ) : null}
               </MenuButton>
-              <MenuList> 
+              <MenuList>
                 {data?.me ? (
                   <>
+                    <Link href="/auth/change-password">
+                      <MenuItem
+                        fontWeight={
+                          data.me.changedPassword ? undefined : "bold"
+                        }
+                      >
+                        Promijeni lozinku
+                      </MenuItem>
+                    </Link>
                     {data.me.role === UserRole.Admin && (
                       <>
                         <Link href="/admin/users">
@@ -91,12 +112,12 @@ export const Navigation: React.FC = () => {
                     {[UserRole.Seismologists, UserRole.Admin].includes(
                       data.me.role
                     ) && (
-                      <>
-                        <Link href="/export">
-                          <MenuItem>Izvoz podataka</MenuItem>
-                        </Link>
-                      </>
-                    )}
+                        <>
+                          <Link href="/export">
+                            <MenuItem>Izvoz podataka</MenuItem>
+                          </Link>
+                        </>
+                      )}
 
                     <MenuDivider />
 
