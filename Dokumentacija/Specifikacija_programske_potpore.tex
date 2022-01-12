@@ -39,7 +39,22 @@
 					
 					\end{packed_enum}
 				\end{packed_enum}
-			
+
+				\item  \underbar{Seizmolog/znanstvenik (inicijator) može:}
+
+				\begin{packed_enum}
+
+					\item sve što i neregistrirani/neprijavljeni korisnik može
+					\item pristupiti aplikaciji nakon prijave (e-mail i lozinka)
+					\item pregledavati podatke o:
+					\begin{packed_enum}
+						\item arhiviranim potresima
+						\item aktualnim potresima
+					\end{packed_enum}
+					\item u tekstualnom formatu preuzeti podatke o potresima
+					\item izmijeniti svoje podatke
+				\end{packed_enum}
+
 				\item  \underbar{Administrator (inicijator) može:}
 				
 				\begin{packed_enum}
@@ -61,21 +76,6 @@
 					
 				\end{packed_enum}
 
-				\item  \underbar{Seizmolog/znanstvenik (inicijator) može:}
-
-				\begin{packed_enum}
-
-					\item sve što i neregistrirani/neprijavljeni korisnik može
-					\item pristupiti aplikaciji nakon prijave (e-mail i lozinka)
-					\item pregledavati podatke o:
-					\begin{packed_enum}
-						\item arhiviranim potresima
-						\item aktualnim potresima
-					\end{packed_enum}
-					\item u tekstualnom formatu preuzeti podatke o potresima
-					\item izmijeniti svoje podatke
-				\end{packed_enum}
-			
 				\item  \underbar{Baza podataka (sudionik):}
 				\begin{packed_enum}
 					\item pohranjuje sve podatke o potresima
@@ -136,9 +136,9 @@
 						
 						\item[] \begin{packed_enum}
 	
-							\item Administrator na svom profilu odabire opciju "Registriraj seizmologa"
+							\item Administrator na svom profilu odabire opciju "Novi korisnik"
 							\item Pokazuje se obrazac za registraciju
-							\item Administrator unosi korisničke podatke (ime, prezime, e-mail, lozinka)
+							\item Administrator unosi korisničke podatke (e-mail, lozinka)
 							\item Administrator potvrđuje unos
 							\item Baza podataka se ažurira
 						
@@ -224,24 +224,10 @@
 						
 						\item[] \begin{packed_enum}
 	
-							\item Administrator u izborniku na početnoj stranici odabire opciju za pregled profila
-							\item Administrator na profilu odabire opciju "Pregledaj seizmologe"
+							\item Administrator u izborniku na početnoj stranici odabire opciju za pregled registriranih korisnika
 							\item Sustav prikazuje popis registriranih korisnika (seizmologa)
 							
 						\end{packed_enum}
-						
-						\item  \textbf{Opis mogućih odstupanja:}
-						
-						\item[] \begin{packed_item}
-	
-							\item[2.a] Nema registriranih seizmologa
-							\item[] \begin{packed_enum}
-								
-								\item Prikazuje se poruka da još nema registriranih seizmologa
-								
-							\end{packed_enum}
-							
-						\end{packed_item}
 					\end{packed_item}
 
 					\noindent \underbar{\textbf{UC6 - Uklanjanje seizmologa}}
@@ -263,7 +249,6 @@
 							\item Odabir opcije "Ukloni" pored imena seizmologa
 							\item Prikazuje se potvrdni okvir
 							\item Administrator potvrđuje uklanjanje
-							\item Sustav obavještava administratora o uklanjanju seizmologa
 							\item Ažuriranje baze podataka
 							
 						\end{packed_enum}
@@ -287,8 +272,7 @@
 						
 						\item[] \begin{packed_enum}
 	
-							\item Administrator u izborniku na početnoj stranici odabire opciju za pregled profila
-							\item Administrator na profilu odabire opciju "Pregledaj nove upitnike"
+							\item Administrator u izborniku na početnoj stranici odabire opciju za pregled potresa
 							\item Sustav prikazuje popis pristiglih upitnika
 							
 						\end{packed_enum}
@@ -325,7 +309,7 @@
 	
 							\item Pregled pristiglih upitnika
 							\item Odabir jednog ili više upitnika
-							\item Odabir „Dodaj novi potres“ u izborniku
+							\item Odabir „Novi potres“ u izborniku
 							\item Otvara se obrazac za dodavanje novog potresa
 							\item Administrator unosi naziv potresa
 							\item Administrator odabire opciju "Potvrdi" čime potvrđuje unos novog potresa
@@ -354,6 +338,7 @@
 	
 							\item Pregled pristiglih upitnika
 							\item Odabir jednog ili više upitnika
+							\item Odabir "Aktualni potres"
 							\item Odabir nekog imenovanog potresa iz izbornika
 							\item Baza podataka se ažurira
 							\item Sustav obavještava administratora o uspješnosti dodavanja upitnika postojećem potresu
@@ -382,7 +367,6 @@
 							\item Administrator na profilu odabire opciju brisanja upitnika
 							\item Prikazuje se potvrdni okvir
 							\item Administrator potvrđuje uklanjanje
-							\item Sustav obavještava administratora o uklanjanju
 							\item Ažuriranje baze podataka
 						\end{packed_enum}
 							
@@ -405,7 +389,7 @@
 					\begin{packed_item}
 	
 						\item \textbf{Glavni sudionik:} Administrator
-						\item \textbf{Cilj:} Prebaciti aktualne potrese u kategoriju arhiviranih
+						\item \textbf{Cilj:} Pregledati aktualne potrese
 						\item \textbf{Sudionici:} Baza podataka
 
 						\item \textbf{Opis osnovnog tijeka:}
@@ -701,14 +685,13 @@
 				
 				\item[] \begin{packed_enum}
 
-					\item Administrator u izborniku na početnoj stranici odabire opciju za pregled profila
-					\item Administrator odabire potrese za brisanje
+					\item Administrator u izborniku na početnoj stranici odabire opciju za pregled potresa
+					\item Administrator odabire opciju "Obriši" za potres koji želi obrisati
 					\item Administrator na profilu odabire opciju brisanja potresa
 					\item Prikazuje se potvrdni okvir
 					\item Administrator označava da želi obrisati i pripadajuće upitnike
 					\item Administrator upisuje ime potresa kojeg želi obrisati
 					\item Administrator potvrđuje uklanjanje
-					\item Sustav obavještava administratora o uklanjanju potresa i upitnika
 					\item Ažuriranje baze podataka
 					
 				\end{packed_enum}
@@ -742,14 +725,13 @@
 				
 				\item[] \begin{packed_enum}
 
-					\item Administrator u izborniku na početnoj stranici odabire opciju za pregled profila
-					\item Administrator odabire potrese za brisanje
+					\item Administrator u izborniku na početnoj stranici odabire opciju za pregled potresa
+					\item Administrator odabire opciju "Obriši" za potres koji želi obrisati
 					\item Administrator na profilu odabire opciju brisanja potresa
 					\item Prikazuje se potvrdni okvir
 					\item Administrator označava da ne želi obrisati pripadajuće upitnike
 					\item Administrator upisuje ime potresa kojeg želi obrisati
 					\item Administrator potvrđuje uklanjanje
-					\item Sustav obavještava administratora o uklanjanju potresa
 					\item Administatoru se prikazuju upitnici unutar kojih su i upitnici koji su prije brisanja pripadali potresu
 					\item Ažuriranje baze podataka
 					
