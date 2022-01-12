@@ -1,5 +1,6 @@
 import {
   Arg,
+  Authorized,
   Ctx,
   Field,
   Mutation,
@@ -49,5 +50,22 @@ export class AuthResolver {
     });
 
     return response;
+  }
+
+  @Mutation(() => User)
+  @Authorized()
+  async changePassword(
+    @Ctx() ctx: GQLCtx,
+    @Arg("password") password: string
+  ): Promise<User> {
+    if (!ctx.user) {
+      throw new Error("Not logged in");
+    }
+
+    ctx.user.changedPassword = true;
+    ctx.user.passwordHash = await hash(password, 10);
+    await ctx.user.save();
+
+    return ctx.user;
   }
 }
