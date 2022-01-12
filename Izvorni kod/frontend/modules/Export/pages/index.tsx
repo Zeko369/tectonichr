@@ -2,7 +2,7 @@ import React from "react";
 import { NextPage } from "next";
 import { useApolloClient } from "@apollo/client";
 import { useUNSTABLE_Alert } from "chakra-confirm";
-import { Button, Container, HStack, useBoolean, Text } from "@chakra-ui/react";
+import { Button, Container, HStack, useBoolean, Text, Box } from "@chakra-ui/react";
 import { DataTable } from "chakra-data-table";
 import { DownloadIcon } from "@chakra-ui/icons";
 
@@ -64,39 +64,43 @@ const ExportDataPage: NextPage = () => {
   };
 
   return (
-    <Container maxW="80%">
-      {error && <Text>Error...</Text>}
+    <Box bg="#3939a4" minH="calc(100vh - 65px)" p="5%" opacity="0.9">
+      <Container maxW="80%" marginX="auto" border="4px" borderColor="#3939a4" borderRadius="20px" padding="4%" bgColor="white">
+        {error && <Text>Error...</Text>}
 
-      <DataTable
-        data={data?.earthquakes || []}
-        title="Earthquakes"
-        keys={["id", "name", "count", "date", "download"] as const}
-        right={
-          <HStack>
-            <Button onClick={onDownloadQuestions}>Download questions</Button>
-            <Button onClick={onDownloadEarthquakes}>Download all data</Button>
-            <Button onClick={toggle}>
-              {includeSurveys ? "Include" : "Exclude"} surveys
-            </Button>
-          </HStack>
-        }
-        mapper={{
-          id: true,
-          name: true,
-          count: (r) => r.surveys.length.toString(),
-          date: (r) => new Date(r.date).toLocaleString(),
-          download: (r) => (
-            <Button
-              colorScheme="blue"
-              leftIcon={<DownloadIcon />}
-              onClick={onDownloadEarthquake(r.id)}
-            >
-              Download
-            </Button>
-          ),
-        }}
-      />
-    </Container>
+        <DataTable
+          data={data?.earthquakes || []}
+          title="Potresi"
+          keys={["id", "name", "count", "date", "download"] as const}
+          labels={{id: "id", name: "Naziv", count: "Broj upitnika", date: "Datum i vrijeme", download: " "}}
+          right={
+            <HStack pb="2%">
+              <Button onClick={onDownloadQuestions} bgColor="#3939a4" textColor="white">Preuzmi pitanja upitnika</Button>
+              <Button onClick={onDownloadEarthquakes} bgColor="#3939a4" textColor="white">Preuzmi sve potrese</Button>
+              <Button onClick={toggle}>
+                {includeSurveys ? "Preuzmi i " : "Izuzmi"} upitnike
+              </Button>
+            </HStack>
+          }
+          mapper={{
+            id: true,
+            name: true,
+            count: (r) => r.surveys.length.toString(),
+            date: (r) => new Date(r.date).toLocaleString(),
+            download: (r) => (
+              <Button
+                colorScheme="teal"
+                leftIcon={<DownloadIcon />}
+                onClick={onDownloadEarthquake(r.id)}
+              >
+                Preuzmi
+              </Button>
+            ),
+          }}
+        />
+      </Container>
+    </Box>
+    
   );
 };
 
