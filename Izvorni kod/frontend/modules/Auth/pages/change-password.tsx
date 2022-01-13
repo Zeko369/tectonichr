@@ -2,7 +2,7 @@ import React from "react";
 import { z } from "zod";
 import { NextPage } from "next";
 import { Form, FORM_ERROR, InputField } from "chakra-form";
-import { Container, Heading, toast, useToast, VStack } from "@chakra-ui/react";
+import { Container, Heading, useToast, VStack } from "@chakra-ui/react";
 import { ApolloError } from "@apollo/client";
 import { useRouter } from "next/router";
 

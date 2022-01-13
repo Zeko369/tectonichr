@@ -12,6 +12,8 @@ import { setContext } from "@apollo/client/link/context";
 import { AppProps } from "next/app";
 import { css, Global } from "@emotion/react";
 
+import "mapbox-gl/dist/mapbox-gl.css";
+
 import { Navigation } from "../components/Navigation";
 
 export const serverUri =
