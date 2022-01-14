@@ -1,4 +1,4 @@
-﻿\chapter{Implementacija i korisničko sučelje}
+\chapter{Implementacija i korisničko sučelje}
 		
 		
 		\section{Korištene tehnologije i alati}
@@ -19,17 +19,14 @@
 		
 		Za frontend smo koristili React\footnote{https://reactjs.org/} i Chakra UI\footnote{https://chakra-ui.com/}. React je knjižnica koja služi za izgradnju korisničkog sučelja ili UI komponenti, a Chakra je jednostavna modularna bibloteka komponenata	u kojoj se nalaze blokovi potrebni za izgradnju React aplikacija.
 		
-		 PostgreSQL\footnote{https://www.postgresql.org/} baza podataka spremljena je na $Heroku^{14}$	koji je ujedno i server. PostgreSQL je besplatni i relacijski sustav upravljanja bazom podataka otvorenog koda dizajniran za upravljanje nizom radnih opterećenja, od pojedinačnih strojeva do skladišta podataka ili web-usluga s mnogim istovremenim korisnicima. Heroku je platforma u oblaku, točnije platforma kao usluga (engl. Platform as a Service, skraćeno PaaS), što znači da korisnici	na nju postavljaju ili na njoj izraduju aplikaciju koja će se na njoj i izvršavati.
+		 PostgreSQL\footnote{https://www.postgresql.org/} baza podataka spremljena je na serveru. PostgreSQL je besplatni i relacijski sustav upravljanja bazom podataka otvorenog koda dizajniran za upravljanje nizom radnih opterećenja, od pojedinačnih strojeva do skladišta podataka ili web-usluga s mnogim istovremenim korisnicima. Naš server nalazi se na Vultr VPS\footnote{https://vultr.com} serveru.
 		
 			\eject 
 		
 	
 		\section{Ispitivanje programskog rješenja}
 			
-			 \textit{Ispitivanje implementiranih funkcionalnosti provedeno je na dvije razine - kroz nezavisno ispitivanje individualnih komponenti, a zatim i kroz ispitivanje čitavog sustava s prikazom odabranih ispitnih slučajeva. Korišteni su strukturirani načini ispitivanja - unit testovi za ispitivanje komponenti te Selenium testovi za ispitivanje sustava. Ispitani su rubni uvjeti i temeljna funkcionalnost.}
-			
 			\subsection{Ispitivanje komponenti}
-			\textit{Provedeno je ispitivanje jedinica (engl. unit testing) nad razredima koji implementiraju temeljne funkcije. Tražene su pogreške u algoritmima, podacima i sintaksi. Testovi su prikazani u nastavku.}
 			
 			\noindent \underbar{\textbf{Testni Slučaj 1}}
 			\begin{lstlisting}
@@ -147,8 +144,6 @@
 			\end{lstlisting}
 			
 			\subsection{Ispitivanje sustava}
-			
-			 \textit{Ispitivanje cjelokupnog sustava provedeno je pomoću alata Selenium WebDriver. Ispitni slučajevi pokrivaju prijavu u sustav s ispravnim/neispravnim podacima, kao i uspješno/neuspješno dodavanje novog seizmologa.\\ }
 			 
 			 \noindent \underbar{\textbf{Testni Slučaj 1: Prijava s ispravnim podacima}}
 			 \begin{packed_item}
@@ -499,9 +494,16 @@
 		
 		\section{Dijagram razmještaja}
 			
-			\textbf{\textit{dio 2. revizije}}
+			Dijagram razmještaja opisuje topologiju sustava i odnos sklopovskih i programskih dijelova.
+			Specifikacijski dijagram razmještaja stavlja naglasak na implementaciju artefakata bez upućivanja na specifične slučajeve artefakata ili čvorova.
+			Slika 5.1. prikazuje specifikacijski dijagram razmještaja cijele aplikacije.
+			Na poslužiteljskom računalu, koje je izvedeno na Linux oparacijskom sustavu, se nalaze Node server i Postgres baza podataka. Nginx služi kao \textit{reverse proxy} (služi za proxy-anje HTTP zahtjeva) se nalazi ispred node servera koji salje static fileove za frontend (.js/.css/.html) te JSON podatke preko GraphQL Apija. Sustav se temelji na arhitekturi "klijent-poslužitelj", a komunikacija između njih odvija se pomoću HTTP protokola (koristenjem GraphQL jezika).
 			
-			 \textit{Potrebno je umetnuti \textbf{specifikacijski} dijagram razmještaja i opisati ga. Moguće je umjesto specifikacijskog dijagrama razmještaja umetnuti dijagram razmještaja instanci, pod uvjetom da taj dijagram bolje opisuje neki važniji dio sustava.}
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/dijagramrazmjestaja.png}
+				\caption{Dijagram razmještaja}
+				\label{fig:baza} 
+			\end{figure}
 			
 			\eject 
 		

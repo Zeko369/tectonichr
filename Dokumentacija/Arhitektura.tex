@@ -221,8 +221,19 @@
 			
 			\eject
 		\section{Dijagram komponenti}
-		
-			\textbf{\textit{dio 2. revizije}}\\
-		
-			 \textit{Potrebno je priložiti dijagram komponenti s pripadajućim opisom. Dijagram komponenti treba prikazivati strukturu cijele aplikacije.}
+Dijagram komponenti prikazan na slici 4.8 prikazuje komponente aplikacije i njihovu međusobnu povezanost, strukture i odnos s okolinom. Aplikacija ima dvije pristupne točke sučelja: za dohvat
+HTML, CSS i JS datoteke ili dohvat JSON datoteke. Preko prvog sučelja pristupa se frontend dijelu
+aplikacije. Sve TypeScript datoteke koriste React biblioteku iz koje se mogu dohvatit komponente za
+snalaŽenje na stranici, kao na primjer box, buttons, text itd. Drugo sučelje se koristi za pristup na
+backend, GraphQL komponentama. TypeORM razred se koristi za komunikaciju s bazom podataka i
+dohvatom SQL upita. Ti podaci se šalju onda u Services gdje se dalje vrše akcije s njima. React-view
+komponenta komunicira s TectonicHR aplikacijom preko poslanih sučelja, na kojima onda korisnik
+odreduje što želi vidjeti i raditi te ovisno o tome šalje zahtjeve aplikaciji.
+
+		\begin{figure}[H]
+	\includegraphics[width=\textwidth]{slike/dijagramkomponenti.png}
+	\caption{Dijagram komponenti}
+	\label{fig:uml_db} 
+\end{figure}
+
 		\eject
