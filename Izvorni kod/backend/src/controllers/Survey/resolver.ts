@@ -20,6 +20,8 @@ export class SurveyResolver {
     const survey = new Survey({
       lat: data.lat || 0,
       lng: data.lng || 0,
+      strength: data.strength,
+      city: data.city,
     });
 
     await survey.save();

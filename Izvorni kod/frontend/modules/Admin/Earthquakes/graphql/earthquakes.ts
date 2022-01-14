@@ -7,6 +7,7 @@ export const earthquakes = gql`
       name
       date
       archivedAt
+      strength
       surveys {
         id
       }

@@ -1,4 +1,4 @@
-import { Field, Float, InputType, ObjectType } from "type-graphql";
+import { Field, Float, InputType, Int } from "type-graphql";
 
 @InputType()
 export class FilterSurveys {
@@ -22,6 +22,12 @@ export class SurveyCreateInput {
 
   @Field(() => Float, { nullable: true })
   lng: number;
+
+  @Field(() => Int)
+  strength: number;
+
+  @Field(() => String)
+  city: string;
 
   @Field(() => [SurveyQuestionResponse])
   responses: SurveyQuestionResponse[];

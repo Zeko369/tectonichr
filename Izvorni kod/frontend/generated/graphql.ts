@@ -184,19 +184,23 @@ export type QuerySurveysArgs = {
 
 export type Survey = {
   __typename?: "Survey";
+  city: Scalars["String"];
   createdAt: Scalars["Float"];
   earthquake?: Maybe<Earthquake>;
   id: Scalars["Int"];
   lat: Scalars["Float"];
   lng: Scalars["Float"];
   responses: Array<SurveyResponse>;
+  strength: Scalars["Int"];
   updatedAt: Scalars["Float"];
 };
 
 export type SurveyCreateInput = {
+  city: Scalars["String"];
   lat?: InputMaybe<Scalars["Float"]>;
   lng?: InputMaybe<Scalars["Float"]>;
   responses: Array<SurveyQuestionResponse>;
+  strength: Scalars["Int"];
 };
 
 export type SurveyOption = {
@@ -299,6 +303,7 @@ export type EarthquakesQuery = {
     name: string;
     date: number;
     archivedAt?: number | null | undefined;
+    strength: number;
     surveys: Array<{ __typename?: "Survey"; id: number }>;
   }>;
 };
@@ -324,6 +329,8 @@ export type SurveysQuery = {
     id: number;
     lat: number;
     lng: number;
+    strength: number;
+    city: string;
     createdAt: number;
     responses: Array<{
       __typename?: "SurveyResponse";
@@ -665,6 +672,7 @@ export const EarthquakesDocument = gql`
       name
       date
       archivedAt
+      strength
       surveys {
         id
       }
@@ -779,6 +787,8 @@ export const SurveysDocument = gql`
       id
       lat
       lng
+      strength
+      city
       responses {
         question
         option

@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Button, Flex, Heading, HStack, useBoolean } from "@chakra-ui/react";
 import { DataTable } from "chakra-data-table";
 import { DownloadIcon } from "@chakra-ui/icons";
+import { Input } from "chakra-form";
 
 import { useEarthquakesQuery, useMeQuery } from "generated/graphql";
 import { useDownloadEarthquake } from "modules/Export/hooks/useDownloadEarthquake";
 import { useDownloadEarthquakes } from "modules/Export/hooks/useDownloadEarthquakes";
-import { Input } from "chakra-form";
 
 type EarthquakesProps = {
   archived: boolean;

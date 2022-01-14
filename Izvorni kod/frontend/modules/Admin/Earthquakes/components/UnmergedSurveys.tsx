@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import {
-  useDisclosure,
-  Spinner,
-  HStack,
   Button,
   Checkbox,
+  HStack,
+  Spinner,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { usePrompt, useConfirmDelete } from "chakra-confirm";
+import { useConfirmDelete, usePrompt } from "chakra-confirm";
 import { DataTable } from "chakra-data-table";
 
 import {
-  useSurveysQuery,
-  useMergeSurveysMutation,
   useDeleteSurveyMutation,
+  useMergeSurveysMutation,
+  useSurveysQuery,
 } from "generated/graphql";
 import { earthquakes } from "../graphql/earthquakes";
 import { surveys } from "../graphql/surveys";
@@ -101,13 +101,21 @@ export const UnmergedSurveys: React.FC = () => {
         right={
           selectedIds.length > 0 && (
             <HStack pb="5%">
-              <Button onClick={onMerge} bgColor="#3939a4" textColor="white">Novi potres</Button>
-              <Button onClick={onAddToEarthquake} bgColor="#3939a4" textColor="white">Aktualni potres</Button>
+              <Button onClick={onMerge} bgColor="#3939a4" textColor="white">
+                Novi potres
+              </Button>
+              <Button
+                onClick={onAddToEarthquake}
+                bgColor="#3939a4"
+                textColor="white"
+              >
+                Aktualni potres
+              </Button>
             </HStack>
           )
         }
-        keys={["select", "id", "date", "actions"] as const}
-        labels={{select: " ", date: "datum", actions: " "}}
+        keys={["select", "id", "city", "strength", "date", "actions"] as const}
+        labels={{ select: " ", date: "datum", actions: " " }}
         mapper={{
           select: (r) => (
             <Checkbox
@@ -122,6 +130,8 @@ export const UnmergedSurveys: React.FC = () => {
             />
           ),
           id: true,
+          city: true,
+          strength: true,
           date: (r) => new Date(r.createdAt).toLocaleString(),
           actions: (r) => (
             <HStack>

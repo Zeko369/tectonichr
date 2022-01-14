@@ -24,17 +24,61 @@ export class EarthquakeResolver {
     });
   }
 
+  private calcCenter(field: "lat" | "lng", surveys: Survey[]) {
+    return (
+      surveys.map((s) => s[field]).reduce((a, b) => a + b, 0) / surveys.length
+    );
+  }
+
+  private distance(
+    lat1: number,
+    lon1: number,
+    lat2: number,
+    lon2: number
+  ): number {
+    const p = Math.PI / 180;
+
+    return (
+      12742 *
+      Math.asin(
+        Math.sqrt(
+          0.5 -
+            Math.cos((lat2 - lat1) * p) / 2 +
+            (Math.cos(lat1 * p) *
+              Math.cos(lat2 * p) *
+              (1 - Math.cos((lon2 - lon1) * p))) /
+              2
+        )
+      )
+    );
+  }
+
   @Mutation(() => Earthquake)
   async mergeSurveys(
     @Arg("data") data: EarthquakeCreateInput
   ): Promise<Earthquake> {
     const surveys = await Survey.findByIds(data.surveyIds);
+
+    const { lat, lng } = {
+      lat: this.calcCenter("lat", surveys),
+      lng: this.calcCenter("lng", surveys),
+    };
+
+    const strongest = surveys.sort((a, b) => b.strength - a.strength)[0];
+    if (!strongest) {
+      throw new Error("No strongest survey found");
+    }
+
+    const r = this.distance(strongest.lat, strongest.lng, lat, lng);
+    const int =
+      strongest.strength + 3 * Math.log10(r / 10) + 3 * 0.0021715 * (r - 10);
+
     const earthquake = new Earthquake({
-      date: new Date(), // TODO: Pass data,
-      epicenterLat: 0,
-      epicenterLng: 0,
+      date: new Date(),
+      epicenterLat: this.calcCenter("lat", surveys),
+      epicenterLng: this.calcCenter("lng", surveys),
       name: data.name,
-      strength: 5,
+      strength: int,
     });
 
     earthquake.surveys = surveys;

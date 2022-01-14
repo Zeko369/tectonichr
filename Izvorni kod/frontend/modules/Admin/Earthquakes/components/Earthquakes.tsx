@@ -66,12 +66,30 @@ export const Earthquakes: React.FC = () => {
     <DataTable
       data={data?.earthquakes || []}
       title="Potresi"
-      keys={["id", "name", "count", "date", "archived", "actions"] as const}
-      labels={{name: "Ime", count: "Broj upitnika", date: "Datum", archived: "Arhivirano", actions: " "}}
+      keys={
+        [
+          "id",
+          "name",
+          "count",
+          "strength",
+          "date",
+          "archived",
+          "actions",
+        ] as const
+      }
+      labels={{
+        name: "Ime",
+        count: "Broj upitnika",
+        strength: "Jačina",
+        date: "Datum",
+        archived: "Arhivirano",
+        actions: " ",
+      }}
       mapper={{
         id: true,
         name: true,
         count: (r) => r.surveys.length.toString(),
+        strength: true,
         date: (r) => new Date(r.date).toLocaleString(),
         archived: (r) =>
           r.archivedAt && new Date(r.archivedAt).toLocaleString(),

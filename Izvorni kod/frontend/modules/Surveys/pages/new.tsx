@@ -1,25 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { NextPage } from "next";
-import { Form } from "chakra-form";
 import {
+  Box,
   Button,
-  FormLabel,
   Heading,
   SimpleGrid,
   Spinner,
   Tooltip,
   useToast,
   VStack,
-  Box,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import ConditionalWrap from "conditional-wrap";
+import { compact } from "lodash";
 
 import { useQuestionsQuery, useSubmitSurveyMutation } from "generated/graphql";
 import { surveys } from "modules/Admin/Earthquakes/graphql/surveys";
 import { RenderQuestion } from "../components/RenderQuestion";
-import { getCoordinates } from "../utils/geo";
 import { SearchCity } from "../components/SearchCity";
+import { calcIntensity } from "../utils/calcIntensity";
 
 const SubmitSurveyPage: NextPage = () => {
   const router = useRouter();
@@ -29,8 +28,11 @@ const SubmitSurveyPage: NextPage = () => {
   });
 
   const [state, setState] = useState<Record<string, string>>({});
-  const [position, setPosition] =
-    useState<{ latitude: number; longitude: number }>();
+  const [position, setPosition] = useState<{
+    latitude: number;
+    longitude: number;
+    city: string;
+  }>();
 
   const { data, loading, error } = useQuestionsQuery();
   useEffect(() => {
@@ -53,7 +55,7 @@ const SubmitSurveyPage: NextPage = () => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (isDisabled) {
+    if (isDisabled || !data.questions) {
       return toast({
         title: "Označite sva polja",
         status: "error",
@@ -69,11 +71,20 @@ const SubmitSurveyPage: NextPage = () => {
       });
     }
 
+    const intensities = compact(
+      data.questions.map(
+        (q, index) =>
+          q.options.find((o) => state[index + 1] === o.id)?.intensity
+      )
+    );
+
     await submit({
       variables: {
         data: {
           lat: position.latitude,
           lng: position.longitude,
+          city: position.city,
+          strength: calcIntensity(intensities),
           responses: Object.entries(state).map(([questionId, optionId]) => ({
             questionId,
             optionId,
@@ -124,6 +135,7 @@ const SubmitSurveyPage: NextPage = () => {
                           setPosition({
                             latitude: c.latitude,
                             longitude: c.longitude,
+                            city: c.name,
                           })
                         }
                       />

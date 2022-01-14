@@ -91,19 +91,23 @@ type Query {
 }
 
 type Survey {
+  city: String!
   createdAt: Float!
   earthquake: Earthquake
   id: Int!
   lat: Float!
   lng: Float!
   responses: [SurveyResponse!]!
+  strength: Int!
   updatedAt: Float!
 }
 
 input SurveyCreateInput {
+  city: String!
   lat: Float
   lng: Float
   responses: [SurveyQuestionResponse!]!
+  strength: Int!
 }
 
 type SurveyOption {
