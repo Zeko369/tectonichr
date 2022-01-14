@@ -1,7 +1,7 @@
 import React from "react";
 import { NextPage } from "next";
-import { Earthquakes } from "../components/Earthquakes";
 import { Box } from "@chakra-ui/react";
+import { Earthquakes } from "../components/Earthquakes";
 
 const ActualEarthquakesPage: NextPage = () => {
   return (

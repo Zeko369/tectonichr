@@ -19,12 +19,13 @@ import { surveys } from "modules/Admin/Earthquakes/graphql/surveys";
 import { RenderQuestion } from "../components/RenderQuestion";
 import { SearchCity } from "../components/SearchCity";
 import { calcIntensity } from "../utils/calcIntensity";
+import { lastSurveys } from "../../Home/graphql/lastSurveys";
 
 const SubmitSurveyPage: NextPage = () => {
   const router = useRouter();
   const toast = useToast({ position: "top-right", isClosable: true });
   const [submit, { loading: isLoading }] = useSubmitSurveyMutation({
-    refetchQueries: [{ query: surveys }],
+    refetchQueries: [{ query: surveys }, { query: lastSurveys }],
   });
 
   const [state, setState] = useState<Record<string, string>>({});
