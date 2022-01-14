@@ -17,7 +17,9 @@
     "db:rebuild": "yarn db:drop && yarn db:migrate && yarn db:seed"
   },
   "dependencies": {
+    "@fast-csv/format": "^4.3.5",
     "apollo-server-express": "^3.4.0",
+    "axios": "^0.24.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.17.1",

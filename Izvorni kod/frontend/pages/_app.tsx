@@ -1,5 +1,5 @@
 import React from "react";
-import { ChakraProvider } from "@chakra-ui/react";
+import { Box, ChakraProvider } from "@chakra-ui/react";
 import { ConfirmContextProvider } from "chakra-confirm";
 import {
   ApolloClient,
@@ -10,10 +10,13 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { AppProps } from "next/app";
+import { css, Global } from "@emotion/react";
+
+import "mapbox-gl/dist/mapbox-gl.css";
 
 import { Navigation } from "../components/Navigation";
 
-const serverUri =
+export const serverUri =
   process.env.NEXT_PUBLIC_APOLLO_SERVER || "http://localhost:5000/graphql";
 
 const httpLink = createHttpLink({ uri: serverUri });
@@ -37,6 +40,15 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <ApolloProvider client={client}>
       <title>TectonicHR</title>
+      <Global
+        styles={css`
+          html,
+          body,
+          #__next {
+            min-height: 100vh;
+          }
+        `}
+      />
 
       <ChakraProvider>
         <ConfirmContextProvider>
