@@ -50,7 +50,7 @@ const UsersPage: NextPage = () => {
   }
 
   return (
-    <Box bg="#3939a4" minH="calc(100vh - 65px)" p="5%" opacity="0.9">
+    <Box bg="#3939a4" minH="calc(100vh - 64px)" p="5%" opacity="0.9">
       <VStack maxW="80%" marginX="auto" border="4px" borderColor="#3939a4" borderRadius="20px" padding="2%" bgColor="white">
         <Heading>Registrirani korisnici</Heading>
         <DataTable

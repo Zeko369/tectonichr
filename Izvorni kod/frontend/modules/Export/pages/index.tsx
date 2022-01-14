@@ -46,7 +46,7 @@ const ExportDataPage: NextPage = () => {
   const onDownloadEarthquakes = useDownloadEarthquakes();
 
   return (
-    <Box bg="#3939a4" minH="calc(100vh - 65px)" p="5%" opacity="0.9">
+    <Box bg="#3939a4" minH="calc(100vh - 64px)" p="5%" opacity="0.9">
       <Container
         maxW="80%"
         marginX="auto"

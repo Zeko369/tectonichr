@@ -49,7 +49,7 @@ export const Navigation: React.FC = () => {
   const loggedIn = !!data?.me?.id;
 
   return (
-    <Container maxWidth="100%" p={0} bg="#3939a4e6">
+    <Container maxWidth="100%" p={0} bg="#3939a4e6" h = '64px'>
       <Flex px="2" py="2">
         <Center>
           <Link href="/">

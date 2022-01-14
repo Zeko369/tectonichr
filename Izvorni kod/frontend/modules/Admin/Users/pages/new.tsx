@@ -38,7 +38,7 @@ const NewUserPage: NextPage = () => {
   };
 
   return (
-    <Box bg="#3939a4" minH="calc(100vh - 65px)" p="5%" opacity="0.9" >
+    <Box bg="#3939a4" minH="calc(100vh - 64px)" p="5%" opacity="0.9" >
       <Container border="4px" borderColor="#3934a4" borderRadius="20px" padding="5%" bgColor="white" minW="60%">
         <VStack>
           <Heading>Kreiraj novog seizmologa</Heading>
