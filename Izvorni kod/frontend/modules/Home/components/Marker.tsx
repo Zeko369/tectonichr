@@ -3,8 +3,8 @@ import Image from "next/image";
 import { Box, Heading } from "@chakra-ui/react";
 import { Marker as MapboxMarker } from "react-mapbox-gl";
 
-export const Marker: React.FC<{ coordinates: any }> = (props) => {
-  const { coordinates, children } = props;
+export const Marker: React.FC<{ coordinates: any; top?: any }> = (props) => {
+  const { coordinates, top, children } = props;
 
   return (
     <MapboxMarker coordinates={coordinates} anchor="bottom">
@@ -15,7 +15,18 @@ export const Marker: React.FC<{ coordinates: any }> = (props) => {
           height="40px"
           width="22,8571428571px"
         />
-        <Heading pos="absolute" top="4px" left="4px" color="white" size="md">
+
+        <Heading
+          pos="absolute"
+          top={top || "-32px"}
+          left="0"
+          color="white"
+          size="sm"
+          p="1"
+          bg="black"
+          borderRadius="4px"
+          zIndex="-1"
+        >
           {children}
         </Heading>
       </Box>

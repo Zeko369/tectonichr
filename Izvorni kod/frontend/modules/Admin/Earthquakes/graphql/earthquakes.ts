@@ -8,6 +8,8 @@ export const earthquakes = gql`
       date
       archivedAt
       strength
+      epicenterLat
+      epicenterLng
       surveys {
         id
       }

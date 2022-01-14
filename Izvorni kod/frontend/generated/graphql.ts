@@ -304,6 +304,8 @@ export type EarthquakesQuery = {
     date: number;
     archivedAt?: number | null | undefined;
     strength: number;
+    epicenterLat: number;
+    epicenterLng: number;
     surveys: Array<{ __typename?: "Survey"; id: number }>;
   }>;
 };
@@ -673,6 +675,8 @@ export const EarthquakesDocument = gql`
       date
       archivedAt
       strength
+      epicenterLat
+      epicenterLng
       surveys {
         id
       }
