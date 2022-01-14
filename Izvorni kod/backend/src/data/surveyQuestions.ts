@@ -42,19 +42,19 @@ export class SurveyQuestion {
 export const surveyQuestions = [
   new SurveyQuestion("U zatvorenom prostoru potres su osjetili:", [
     new SurveyOption("nitko", "1"),
-    new SurveyOption("pojedinci", "2|3"),
+    new SurveyOption("pojedinci", "2"),
     new SurveyOption("mnogi", "3|4"),
     new SurveyOption("većina", "5"),
   ]),
   new SurveyQuestion("Na otvorenom potres su osjetili:", [
-    new SurveyOption("nitko", "1|2|3"),
+    new SurveyOption("nitko", "1"),
     new SurveyOption("pojedinci", "4"),
     new SurveyOption("mnogi", "4|5"),
     new SurveyOption("većina", ">=6"),
   ]),
 
   new SurveyQuestion("Mali predmeti (knjige, vaze, ...)", [
-    new SurveyOption("se nisu tresli", "1|2"),
+    new SurveyOption("se nisu tresli", "1"),
     new SurveyOption("su se tresli slabo", "3"),
     new SurveyOption("su se tresli umjereno", "4"),
     new SurveyOption("su se tresli jako", "4"),
@@ -72,7 +72,7 @@ export const surveyQuestions = [
   ]),
 
   new SurveyQuestion("Obješeni predmeti", [
-    new SurveyOption("se nisu njihali", "1|2"),
+    new SurveyOption("se nisu njihali", "1"),
     new SurveyOption("su se slabo njihali", "3"),
     new SurveyOption("su se umjereno njihali", "4"),
     new SurveyOption("su se jako njihali", "5"),
@@ -80,27 +80,27 @@ export const surveyQuestions = [
   ]),
 
   new SurveyQuestion("Usnule ljude potres", [
-    new SurveyOption("nije budio", "1|2|3"),
+    new SurveyOption("nije budio", "1"),
     new SurveyOption("budio je pojedince", "4"),
     new SurveyOption("budio je mnoge", "5"),
     new SurveyOption("budio je većinu", ">=6"),
   ]),
 
   new SurveyQuestion("Jesu li ljudi bježali van za vrijeme potresa?", [
-    new SurveyOption("ne", "1|2|3|4"),
+    new SurveyOption("ne", "1"),
     new SurveyOption("pojedinci", "5"),
     new SurveyOption("mnogi", "6"),
     new SurveyOption("većina", "7"),
   ]),
 
   new SurveyQuestion("Jesu li zvonila zvona?", [
-    new SurveyOption("nisu", "1|2|3|4"),
+    new SurveyOption("nisu", "1"),
     new SurveyOption("zvonila su mala zvona", "6"),
     new SurveyOption("zvonila su velika zvona", ">=7"),
   ]),
 
   new SurveyQuestion("Koliko se zgrada u Vašem mjestu posve srušilo?", [
-    new SurveyOption("niti jedna", "1|2|3|4|5|6|7"),
+    new SurveyOption("niti jedna", "1"),
     new SurveyOption("poneka", "8|9"),
     new SurveyOption("mnoge", "10"),
     new SurveyOption("većina", "11"),
@@ -109,6 +109,6 @@ export const surveyQuestions = [
 
   new SurveyQuestion("Je li pucala zemlja?", [
     new SurveyOption("je", ">=8"),
-    new SurveyOption("nije", "1|2|3|4|5|6|7"),
+    new SurveyOption("nije", "1"),
   ]),
 ];
