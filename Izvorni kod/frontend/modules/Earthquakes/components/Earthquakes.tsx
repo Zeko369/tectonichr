@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, HStack, Spinner, useBoolean } from "@chakra-ui/react";
+import { Button, Heading, HStack, Spinner, useBoolean } from "@chakra-ui/react";
 import { DataTable } from "chakra-data-table";
 import { DownloadIcon } from "@chakra-ui/icons";
 
@@ -38,7 +38,7 @@ export const Earthquakes: React.FC<EarthquakesProps> = (props) => {
   return (
     <DataTable
       data={data?.earthquakes || []}
-      title={title}
+      rawTitle={<Heading data-testid="title">{title}</Heading>}
       emptyText={empty}
       keys={keys}
       right={

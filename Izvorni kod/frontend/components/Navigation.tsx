@@ -49,9 +49,9 @@ export const Navigation: React.FC = () => {
   const loggedIn = !!data?.me?.id;
 
   return (
-    <Container maxWidth="100%" p={0} bg="#3939a4e6" h = '64px'>
-      <Flex px="2" py="2">
-        <Center>
+    <Container maxWidth="100%" p={0} bg="#3939a4e6" h="64px">
+      <Flex px="2">
+        <Center py="2">
           <Link href="/">
             <Heading size="lg" p="2" color="white">
               TECTONIC HR
@@ -69,7 +69,7 @@ export const Navigation: React.FC = () => {
               <MenuButton
                 as={!loggedIn ? IconButton : undefined}
                 aria-label="Izbornik za registraciju i prijavu"
-                icon={!loggedIn && <HamburgerIcon />}
+                icon={loggedIn ? null : <HamburgerIcon />}
                 variant={!loggedIn ? "outline" : undefined}
                 m={1}
                 bgColor="white"
