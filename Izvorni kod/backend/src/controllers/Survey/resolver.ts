@@ -8,10 +8,14 @@ import { SurveyResponse } from "../../models/SurveyResponse";
 @Resolver()
 export class SurveyResolver {
   @Query(() => [Survey])
-  async surveys(@Arg("filter") filter: FilterSurveys): Promise<Survey[]> {
+  async surveys(
+    @Arg("filter") filter: FilterSurveys,
+    @Arg("limit", () => Int, { nullable: true }) limit: number
+  ): Promise<Survey[]> {
     return Survey.find({
-      where: { earthquake: null },
+      where: filter.merged === null ? {} : { earthquake: null },
       relations: ["responses"],
+      take: limit ? limit : undefined,
     });
   }
 

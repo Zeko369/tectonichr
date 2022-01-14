@@ -86,7 +86,7 @@ type Query {
   exportQuestions: String!
   me: User
   questions: [SurveyQuestion!]!
-  surveys(filter: FilterSurveys!): [Survey!]!
+  surveys(filter: FilterSurveys!, limit: Int): [Survey!]!
   users: [User!]!
 }
 

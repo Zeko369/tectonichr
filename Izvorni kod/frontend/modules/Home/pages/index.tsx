@@ -4,12 +4,12 @@ import { LinkButton } from "chakra-next-link";
 import { Container, Flex, Heading, VStack } from "@chakra-ui/react";
 import { groupBy } from "lodash";
 
-import { useSurveysQuery } from "generated/graphql";
+import { useLastSurveysQuery } from "generated/graphql";
 import { Marker } from "../components/Marker";
 import { Map } from "../components/Map";
 
 const HomePage: NextPage = () => {
-  const surveys = useSurveysQuery();
+  const surveys = useLastSurveysQuery();
   const groupedBy = groupBy(
     surveys.data?.surveys || [],
     (a) => `${a.lng}|${a.lat}`

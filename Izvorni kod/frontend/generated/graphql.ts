@@ -180,6 +180,7 @@ export type QueryExportEarthquakeArgs = {
 
 export type QuerySurveysArgs = {
   filter: FilterSurveys;
+  limit?: InputMaybe<Scalars["Int"]>;
 };
 
 export type Survey = {
@@ -475,6 +476,19 @@ export type ExportQuestionsQueryVariables = Exact<{ [key: string]: never }>;
 export type ExportQuestionsQuery = {
   __typename?: "Query";
   exportQuestions: string;
+};
+
+export type LastSurveysQueryVariables = Exact<{ [key: string]: never }>;
+
+export type LastSurveysQuery = {
+  __typename?: "Query";
+  surveys: Array<{
+    __typename?: "Survey";
+    id: number;
+    lng: number;
+    lat: number;
+    strength: number;
+  }>;
 };
 
 export type CitiesQueryVariables = Exact<{
@@ -1421,6 +1435,64 @@ export type ExportQuestionsLazyQueryHookResult = ReturnType<
 export type ExportQuestionsQueryResult = Apollo.QueryResult<
   ExportQuestionsQuery,
   ExportQuestionsQueryVariables
+>;
+export const LastSurveysDocument = gql`
+  query lastSurveys {
+    surveys(filter: { merged: null }, limit: 10) {
+      id
+      lng
+      lat
+      strength
+    }
+  }
+`;
+
+/**
+ * __useLastSurveysQuery__
+ *
+ * To run a query within a React component, call `useLastSurveysQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLastSurveysQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLastSurveysQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useLastSurveysQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    LastSurveysQuery,
+    LastSurveysQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<LastSurveysQuery, LastSurveysQueryVariables>(
+    LastSurveysDocument,
+    options
+  );
+}
+export function useLastSurveysLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    LastSurveysQuery,
+    LastSurveysQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<LastSurveysQuery, LastSurveysQueryVariables>(
+    LastSurveysDocument,
+    options
+  );
+}
+export type LastSurveysQueryHookResult = ReturnType<typeof useLastSurveysQuery>;
+export type LastSurveysLazyQueryHookResult = ReturnType<
+  typeof useLastSurveysLazyQuery
+>;
+export type LastSurveysQueryResult = Apollo.QueryResult<
+  LastSurveysQuery,
+  LastSurveysQueryVariables
 >;
 export const CitiesDocument = gql`
   query cities($name: String!) {
