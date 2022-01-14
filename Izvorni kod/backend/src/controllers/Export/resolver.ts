@@ -9,7 +9,7 @@ import { surveyQuestions } from "../../data/surveyQuestions";
 
 @Resolver()
 export class ExportResolver {
-  private formatData(item: any) {
+  private static formatData(item: any) {
     if (typeof item.getTime === "function") {
       return (item as Date).toJSON();
     }
@@ -18,6 +18,7 @@ export class ExportResolver {
   }
 
   @Query(() => String)
+  @Authorized([UserRole.ADMIN, UserRole.SEISMOLOGISTS])
   async exportEarthquakes(@Ctx() ctx: GQLCtx): Promise<string> {
     if (!ctx.user) {
       throw new Error("You are not logged in");
@@ -44,7 +45,9 @@ export class ExportResolver {
     const data = [
       columns.map((c) => c.label),
       ...earthquakes.map((e) =>
-        columns.map((c) => this.formatData(c.mapper ? c.mapper(e) : e[c.key]))
+        columns.map((c) =>
+          ExportResolver.formatData(c.mapper ? c.mapper(e) : e[c.key])
+        )
       ),
     ];
 
@@ -52,6 +55,7 @@ export class ExportResolver {
   }
 
   @Query(() => String)
+  @Authorized([UserRole.ADMIN, UserRole.SEISMOLOGISTS])
   async exportEarthquake(
     @Ctx() ctx: GQLCtx,
     @Arg("id", () => Int) id: number,
@@ -102,8 +106,8 @@ export class ExportResolver {
     const data = [
       header,
       ...earthquake.surveys.map((s) => [
-        ...columns.map((c) => this.formatData(earthquake[c.key])),
-        ...surveyColumns.map((c) => this.formatData(s[c.key])),
+        ...columns.map((c) => ExportResolver.formatData(earthquake[c.key])),
+        ...surveyColumns.map((c) => ExportResolver.formatData(s[c.key])),
         ...(full
           ? surveyQuestions
               .map((q) => {
@@ -126,6 +130,7 @@ export class ExportResolver {
   }
 
   @Query(() => String)
+  @Authorized([UserRole.ADMIN, UserRole.SEISMOLOGISTS])
   async exportQuestions(): Promise<string> {
     const longestQuestion = surveyQuestions
       .map((sq) => sq.options.length)

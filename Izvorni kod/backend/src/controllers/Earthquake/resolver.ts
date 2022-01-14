@@ -1,9 +1,10 @@
-import { Arg, Int, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Authorized, Int, Mutation, Query, Resolver } from "type-graphql";
 import { ILike, IsNull, Not } from "typeorm";
 
 import { Earthquake } from "../../models/Earthquake";
 import { Survey } from "../../models/Survey";
 import { EarthquakeCreateInput, EarthquakeUpdateInput } from "./inputs";
+import { UserRole } from "../../models/User";
 
 @Resolver()
 export class EarthquakeResolver {
@@ -30,7 +31,7 @@ export class EarthquakeResolver {
     );
   }
 
-  private distance(
+  private static distance(
     lat1: number,
     lon1: number,
     lat2: number,
@@ -54,6 +55,7 @@ export class EarthquakeResolver {
   }
 
   @Mutation(() => Earthquake)
+  @Authorized(UserRole.ADMIN)
   async mergeSurveys(
     @Arg("data") data: EarthquakeCreateInput
   ): Promise<Earthquake> {
@@ -69,7 +71,12 @@ export class EarthquakeResolver {
       throw new Error("No strongest survey found");
     }
 
-    const r = this.distance(strongest.lat, strongest.lng, lat, lng);
+    const r = EarthquakeResolver.distance(
+      strongest.lat,
+      strongest.lng,
+      lat,
+      lng
+    );
     const int =
       strongest.strength + 3 * Math.log10(r / 10) + 3 * 0.0021715 * (r - 10);
 
@@ -87,6 +94,7 @@ export class EarthquakeResolver {
   }
 
   @Mutation(() => Earthquake)
+  @Authorized(UserRole.ADMIN)
   async updateEarthquake(
     @Arg("id", () => Int) id: number,
     @Arg("data") data: EarthquakeUpdateInput
@@ -112,6 +120,7 @@ export class EarthquakeResolver {
   }
 
   @Mutation(() => Earthquake)
+  @Authorized(UserRole.ADMIN)
   async archiveEarthquake(
     @Arg("id", () => Int) id: number
   ): Promise<Earthquake> {
@@ -126,6 +135,7 @@ export class EarthquakeResolver {
   }
 
   @Mutation(() => Boolean)
+  @Authorized(UserRole.ADMIN)
   async deleteEarthquake(
     @Arg("id", () => Int) id: number,
     @Arg("removeSurveys", () => Boolean, { nullable: true })
