@@ -39,7 +39,22 @@
 					
 					\end{packed_enum}
 				\end{packed_enum}
-			
+
+				\item  \underbar{Seizmolog/znanstvenik (inicijator) može:}
+
+				\begin{packed_enum}
+
+					\item sve što i neregistrirani/neprijavljeni korisnik može
+					\item pristupiti aplikaciji nakon prijave (e-mail i lozinka)
+					\item pregledavati podatke o:
+					\begin{packed_enum}
+						\item arhiviranim potresima
+						\item aktualnim potresima
+					\end{packed_enum}
+					\item u tekstualnom formatu preuzeti podatke o potresima
+					\item izmijeniti svoje podatke
+				\end{packed_enum}
+
 				\item  \underbar{Administrator (inicijator) može:}
 				
 				\begin{packed_enum}
@@ -61,21 +76,6 @@
 					
 				\end{packed_enum}
 
-				\item  \underbar{Seizmolog/znanstvenik (inicijator) može:}
-
-				\begin{packed_enum}
-
-					\item sve što i neregistrirani/neprijavljeni korisnik može
-					\item pristupiti aplikaciji nakon prijave (e-mail i lozinka)
-					\item pregledavati podatke o:
-					\begin{packed_enum}
-						\item arhiviranim potresima
-						\item aktualnim potresima
-					\end{packed_enum}
-					\item u tekstualnom formatu preuzeti podatke o potresima
-					\item izmijeniti svoje podatke
-				\end{packed_enum}
-			
 				\item  \underbar{Baza podataka (sudionik):}
 				\begin{packed_enum}
 					\item pohranjuje sve podatke o potresima
@@ -136,12 +136,11 @@
 						
 						\item[] \begin{packed_enum}
 	
-							\item Administrator na svom profilu odabire opciju "Registriraj seizmologa"
+							\item Administrator na svom profilu odabire opciju "Novi korisnik"
 							\item Pokazuje se obrazac za registraciju
-							\item Administrator unosi korisničke podatke (ime, prezime, e-mail, lozinka)
+							\item Administrator unosi korisničke podatke (e-mail, lozinka)
 							\item Administrator potvrđuje unos
 							\item Baza podataka se ažurira
-							\item Seizmolog dobiva e-mail obavijest o registraciji
 						
 						\end{packed_enum}
 						
@@ -214,7 +213,24 @@
 						\end{packed_item}
 					\end{packed_item}
 
-					\noindent \underbar{\textbf{UC5 - Uklanjanje seizmologa}}
+					\noindent \underbar{\textbf{UC5 - Pregled seizmologa}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik:} Administrator
+						\item \textbf{Cilj:} Pregled seizmologa koji su registrirani u sustavu
+						\item \textbf{Sudionici:} Baza podataka
+						\item \textbf{Preduvjet:} Administrator prijavljen u sustav
+						\item \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+	
+							\item Administrator u izborniku na početnoj stranici odabire opciju za pregled registriranih korisnika
+							\item Sustav prikazuje popis registriranih korisnika (seizmologa)
+							
+						\end{packed_enum}
+					\end{packed_item}
+
+					\noindent \underbar{\textbf{UC6 - Uklanjanje seizmologa}}
 					\begin{packed_item}
 	
 						\item \textbf{Glavni sudionik:} Administrator
@@ -233,8 +249,6 @@
 							\item Odabir opcije "Ukloni" pored imena seizmologa
 							\item Prikazuje se potvrdni okvir
 							\item Administrator potvrđuje uklanjanje
-							\item Sustav obavještava administratora o uklanjanju seizmologa
-							\item Sustav šalje e-mail obavijest seizmologu da je uklonjen iz sustava
 							\item Ažuriranje baze podataka
 							
 						\end{packed_enum}
@@ -244,37 +258,6 @@
 							\item[] \begin{packed_enum}
 								\item Sustav vraća administratora na pregled seizmologa
 							\end{packed_enum}	
-						\end{packed_item}
-					\end{packed_item}
-
-					\noindent \underbar{\textbf{UC6 - Pregled seizmologa}}
-					\begin{packed_item}
-	
-						\item \textbf{Glavni sudionik:} Administrator
-						\item \textbf{Cilj:} Pregled seizmologa koji su registrirani u sustavu
-						\item \textbf{Sudionici:} Baza podataka
-						\item \textbf{Preduvjet:} Administrator prijavljen u sustav
-						\item \textbf{Opis osnovnog tijeka:}
-						
-						\item[] \begin{packed_enum}
-	
-							\item Administrator u izborniku na početnoj stranici odabire opciju za pregled profila
-							\item Administrator na profilu odabire opciju "Pregledaj seizmologe"
-							\item Sustav prikazuje popis registriranih korisnika (seizmologa)
-							
-						\end{packed_enum}
-						
-						\item  \textbf{Opis mogućih odstupanja:}
-						
-						\item[] \begin{packed_item}
-	
-							\item[2.a] Nema registriranih seizmologa
-							\item[] \begin{packed_enum}
-								
-								\item Prikazuje se poruka da još nema registriranih seizmologa
-								
-							\end{packed_enum}
-							
 						\end{packed_item}
 					\end{packed_item}
 
@@ -289,8 +272,7 @@
 						
 						\item[] \begin{packed_enum}
 	
-							\item Administrator u izborniku na početnoj stranici odabire opciju za pregled profila
-							\item Administrator na profilu odabire opciju "Pregledaj nove upitnike"
+							\item Administrator u izborniku na početnoj stranici odabire opciju za pregled potresa
 							\item Sustav prikazuje popis pristiglih upitnika
 							
 						\end{packed_enum}
@@ -327,7 +309,7 @@
 	
 							\item Pregled pristiglih upitnika
 							\item Odabir jednog ili više upitnika
-							\item Odabir „Dodaj novi potres“ u izborniku
+							\item Odabir „Novi potres“ u izborniku
 							\item Otvara se obrazac za dodavanje novog potresa
 							\item Administrator unosi naziv potresa
 							\item Administrator odabire opciju "Potvrdi" čime potvrđuje unos novog potresa
@@ -356,6 +338,7 @@
 	
 							\item Pregled pristiglih upitnika
 							\item Odabir jednog ili više upitnika
+							\item Odabir "Aktualni potres"
 							\item Odabir nekog imenovanog potresa iz izbornika
 							\item Baza podataka se ažurira
 							\item Sustav obavještava administratora o uspješnosti dodavanja upitnika postojećem potresu
@@ -379,45 +362,34 @@
 						
 						\item[] \begin{packed_enum}
 	
-							\item Pregled pristiglih upitnika
-							\item Odabir jednog ili više upitnika
-							\item Odabir „Obriši“
-							\item Brišu se upitnici iz baze podataka
-							\item Sustav obavještava administratora o uspješnosti brisanja upitnika
-							
+							\item Administrator u izborniku na početnoj stranici odabire opciju za pregled profila
+							\item Administrator odabire upitnike za brisanje
+							\item Administrator na profilu odabire opciju brisanja upitnika
+							\item Prikazuje se potvrdni okvir
+							\item Administrator potvrđuje uklanjanje
+							\item Ažuriranje baze podataka
 						\end{packed_enum}
+							
+						\item \textbf{Opis mogućih odstupanja:}
+					
+							\item[] \begin{packed_item}
+		
+								\item[5.a] Administator odabire opciju "Odustani"
+								\item[] \begin{packed_enum}
+									
+									\item Sustav vraća administratora na pregled upitnika
+									
+								\end{packed_enum}
+							
+							\end{packed_item}
+
 					\end{packed_item}
 
-					\noindent \underbar{\textbf{UC11 - Arhiviranje aktualnih potresa}}
+					\noindent \underbar{\textbf{UC11 - Pregled aktualnih potresa}}
 					\begin{packed_item}
 	
 						\item \textbf{Glavni sudionik:} Administrator
-						\item \textbf{Cilj:} Prebaciti aktualne potrese u kategoriju arhiviranih
-						\item \textbf{Sudionici:} Baza podataka
-						\item \textbf{Preduvjet:} 
-						\begin{packed_item}
-							\item Administrator prijavljen u sustav
-							\item Postojanje aktualnih potresa
-						\end{packed_item}
-
-						\item \textbf{Opis osnovnog tijeka:}
-						
-						\item[] \begin{packed_enum}
-	
-							\item Pregled aktualnih potresa
-							\item Odabir jednog ili više aktualnih potresa
-							\item Odabir „Arhiviraj“
-							\item Baza podataka se ažurira
-							\item Sustav obavještava korisnika o uspješnosti arhiviranja potresa
-							
-						\end{packed_enum}
-					\end{packed_item}
-
-					\noindent \underbar{\textbf{UC12 - Pregled aktualnih potresa}}
-					\begin{packed_item}
-	
-						\item \textbf{Glavni sudionik:} Administrator
-						\item \textbf{Cilj:} Prebaciti aktualne potrese u kategoriju arhiviranih
+						\item \textbf{Cilj:} Pregledati aktualne potrese
 						\item \textbf{Sudionici:} Baza podataka
 
 						\item \textbf{Opis osnovnog tijeka:}
@@ -440,6 +412,31 @@
 							
 						\end{packed_item}
 						
+					\end{packed_item}
+
+					\noindent \underbar{\textbf{UC12 - Arhiviranje aktualnih potresa}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik:} Administrator
+						\item \textbf{Cilj:} Prebaciti aktualne potrese u kategoriju arhiviranih
+						\item \textbf{Sudionici:} Baza podataka
+						\item \textbf{Preduvjet:} 
+						\begin{packed_item}
+							\item Administrator prijavljen u sustav
+							\item Postojanje aktualnih potresa
+						\end{packed_item}
+
+						\item \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+	
+							\item Pregled aktualnih potresa
+							\item Odabir jednog ili više aktualnih potresa
+							\item Odabir „Arhiviraj“
+							\item Baza podataka se ažurira
+							\item Sustav obavještava korisnika o uspješnosti arhiviranja potresa
+							
+						\end{packed_enum}
 					\end{packed_item}
 
 					\noindent \underbar{\textbf{UC13 - Odjava iz sustava}}
@@ -471,9 +468,9 @@
 				
 				\item[] \begin{packed_enum}
 					\item Pregled i pretraživanje/filtriranje arhiviranih potresa
-					\item Odabir željenih potresa
+					\item Odabir željenog potresa
 					\item Odabir opcije „Preuzmi“
-					\item Preuzimanje podatak
+					\item Preuzimanje podataka
 				\end{packed_enum}
 			\end{packed_item}
 			
@@ -489,7 +486,7 @@
 				
 				\item[] \begin{packed_enum}
 					\item Pregled i pretraživanje/filtriranje arhiviranih potresa
-					\item Odabir željenih potresa
+					\item Odabir željenog potresa
 					\item Odabir opcije „Preuzmi“
 					\item Preuzimanje podataka
 				\end{packed_enum}
@@ -502,7 +499,6 @@
 				\item \textbf{Glavni sudionik:} Korisnik (neregistrirani građanih, seizmolog, administrator)
 				\item \textbf{Cilj:} Pregledati arhivirane potrese
 				\item \textbf{Sudionici:} Baza podataka
-				\item \textbf{Preduvjet:} -
 				
 				\item \textbf{Opis osnovnog tijeka:}
 				
@@ -532,7 +528,6 @@
 				\item \textbf{Glavni sudionik:} Korisnik (neregistrirani građanin, seizmolog, administrator)
 				\item \textbf{Cilj:} Pretražiti i filtrirati arhivirane potrese
 				\item \textbf{Sudionici:} Baza podataka
-				\item \textbf{Preduvjet:} -
 				
 				\item \textbf{Opis osnovnog tijeka:}
 				
@@ -564,7 +559,6 @@
 				\item \textbf{Glavni sudionik:} Korisnik (neregistrirani građanin, seizmolog, administrator)
 				\item \textbf{Cilj:} Pretražiti i filtrirati aktualne potrese
 				\item \textbf{Sudionici:} Baza podataka
-				\item \textbf{Preduvjet:} -
 				
 				\item \textbf{Opis osnovnog tijeka:}
 				
@@ -597,13 +591,14 @@
 				\item \textbf{Glavni sudionik:} Korisnik (neregistrirani građanin, seizmolog, administrator)
 				\item \textbf{Cilj:} Ispuniti upitnik kako bi se prijavio novi potres
 				\item \textbf{Sudionici:} Baza podataka
-				\item \textbf{Preduvjet:} -
 				
 				\item \textbf{Opis osnovnog tijeka:}
 				
 				\item[] \begin{packed_enum}
 					\item Na početnoj stranici odabir opcije „Novi potres?“
 					\item Otvorena se upitnik
+					\item Sustav pita korisnika za dozvolu korištenja korisnikove lokacije
+					\item Korisnik dopušta korištenje lokacije 
 					\item Korisnik ispunjava upitnik
 					\item Odabir opcije "Predaj"
 					\item Dodaje se novi potres u bazu podataka
@@ -613,14 +608,19 @@
 				\item  \textbf{Opis mogućih odstupanja:}
 				
 				\item[] \begin{packed_item}
+				    \item[4.a] Korisnik ne dozvoljava korištenje lokacije
+					\item[] \begin{packed_enum}
+						
+						\item Korisnik iz padajućeg izbornika bira jednu od ponuđenih lokacija						
+					\end{packed_enum} 
 					
-					\item[3.a] Korisnik nije odgovorio na obvezno pitanje
+					\item[5.a] Korisnik nije odgovorio na obvezno pitanje
 					\item[] \begin{packed_enum}
 						
 						\item Sustav obavještava korisnika o neuspjeloj predaji te ga vraća na stranicu s upitnikom						
 					\end{packed_enum}
 					
-					\item[4.a] Odabir opcije "Odustani"
+					\item[6.a] Odabir opcije "Odustani"
 					\item[] \begin{packed_enum}
 						
 						\item Podaci nisu sačuvani
@@ -675,18 +675,153 @@
 					
 				\end{packed_item}
 				
-			\end{packed_item}						
+			\end{packed_item}	
+			
+			\noindent \underbar{\textbf{UC21 - Brisanje potresa i pripadajućih upitnika}}
+			\begin{packed_item}
+
+				\item \textbf{Glavni sudionik:} Administrator
+				\item \textbf{Cilj:} Brisanje potresa
+				\item \textbf{Sudionici:} Baza podataka
+				\item \textbf{Preduvjet:}
+					\begin{packed_item}
+						\item Administrator prijavljen u sustav
+						\item Postojanje potresa
+					\end{packed_item}
+				\item \textbf{Opis osnovnog tijeka:}
+				
+				\item[] \begin{packed_enum}
+
+					\item Administrator u izborniku na početnoj stranici odabire opciju za pregled potresa
+					\item Administrator odabire opciju "Obriši" za potres koji želi obrisati
+					\item Administrator na profilu odabire opciju brisanja potresa
+					\item Prikazuje se potvrdni okvir
+					\item Administrator označava da želi obrisati i pripadajuće upitnike
+					\item Administrator upisuje ime potresa kojeg želi obrisati
+					\item Administrator potvrđuje uklanjanje
+					\item Ažuriranje baze podataka
+					
+				\end{packed_enum}
+				
+				\item  \textbf{Opis mogućih odstupanja:}
+				
+				\item[] \begin{packed_item}
+				 
+					\item[7.a] Administator odabire opciju "Odustani"
+					\item[] \begin{packed_enum}
+						
+						\item Sustav vraća administratora na pregled potresa
+						
+						\end{packed_enum}
+					
+				\end{packed_item}
+			\end{packed_item}
+
+			\noindent \underbar{\textbf{UC22 - Brisanje potresa bez brisanja upitnika}}
+			\begin{packed_item}
+
+				\item \textbf{Glavni sudionik:} Administrator
+				\item \textbf{Cilj:} Brisanje potresa
+				\item \textbf{Sudionici:} Baza podataka
+				\item \textbf{Preduvjet:}
+					\begin{packed_item}
+						\item Administrator prijavljen u sustav
+						\item Postojanje potresa
+					\end{packed_item}
+				\item \textbf{Opis osnovnog tijeka:}
+				
+				\item[] \begin{packed_enum}
+
+					\item Administrator u izborniku na početnoj stranici odabire opciju za pregled potresa
+					\item Administrator odabire opciju "Obriši" za potres koji želi obrisati
+					\item Administrator na profilu odabire opciju brisanja potresa
+					\item Prikazuje se potvrdni okvir
+					\item Administrator označava da ne želi obrisati pripadajuće upitnike
+					\item Administrator upisuje ime potresa kojeg želi obrisati
+					\item Administrator potvrđuje uklanjanje
+					\item Administatoru se prikazuju upitnici unutar kojih su i upitnici koji su prije brisanja pripadali potresu
+					\item Ažuriranje baze podataka
+					
+				\end{packed_enum}
+				
+				\item  \textbf{Opis mogućih odstupanja:}
+				
+				\item[] \begin{packed_item}
+				 
+					\item[7.a] Administator odabire opciju "Odustani"
+					\item[] \begin{packed_enum}
+						
+						\item Sustav vraća administratora na pregled potresa
+						
+						\end{packed_enum}
+					
+				\end{packed_item}
+
+			\end{packed_item}
+
+			\noindent \underbar{\textbf{UC23 - Preuzimanje pitanja iz upitnika}}
+			\begin{packed_item}
+				
+				\item \textbf{Glavni sudionik:} Korisnik (seizmolog, administrator)
+				\item \textbf{Cilj:} Preuzeti pitanja koja se javljaju u upitnicima zajedno sa svim mogućim odgovorima i intenzitetima
+				\item \textbf{Sudionici:} Baza podataka
+				\item \textbf{Preduvjet:} Korisnik prijavljen u sustav
+				\item \textbf{Opis osnovnog tijeka:}
+				
+				\item[] \begin{packed_enum}
+					\item Korisnik u izborniku na početnoj stranici odabire opciju za izvoz podataka
+					\item Korisnik odabire opciju "Preuzmi pitanja upitnika"
+					\item Preuzimanje podataka u .csv formatu
+				\end{packed_enum}
+				
+			\end{packed_item}
+
+			\noindent \underbar{\textbf{UC24 - Preuzimanje svih potresa s upitnicima}}
+			\begin{packed_item}
+				
+				\item \textbf{Glavni sudionik:} Korisnik (seizmolog, administrator)
+				\item \textbf{Cilj:} Preuzeti sve potrese zajedno s popunjenim upitnicima
+				\item \textbf{Sudionici:} Baza podataka
+				\item \textbf{Preduvjet:} Korisnik prijavljen u sustav
+				\item \textbf{Opis osnovnog tijeka:}
+				
+				\item[] \begin{packed_enum}
+					\item Korisnik u izborniku na početnoj stranici odabire opciju za izvoz podataka
+					\item Korisnik odabire opciju "Preuzmi i upitnike"
+					\item Korisnik odabire opciju "Preuzmi potrese"
+					\item Preuzimanje podataka u .csv formatu
+				\end{packed_enum}
+				
+			\end{packed_item}
+
+			\noindent \underbar{\textbf{UC25 - Preuzimanje svih potresa bez upitnika}}
+			\begin{packed_item}
+				
+				\item \textbf{Glavni sudionik:} Korisnik (seizmolog, administrator)
+				\item \textbf{Cilj:} Preuzeti sve potrese bez popunjenih upitnika
+				\item \textbf{Sudionici:} Baza podataka
+				\item \textbf{Preduvjet:} Korisnik prijavljen u sustav
+				\item \textbf{Opis osnovnog tijeka:}
+				
+				\item[] \begin{packed_enum}
+					\item Korisnik u izborniku na početnoj stranici odabire opciju za izvoz podataka
+					\item Korisnik odabire opciju "Izuzmi upitnike"
+					\item Korisnik odabire opciju "Preuzmi potrese"
+					\item Preuzimanje podataka u .csv formatu
+				\end{packed_enum}
+				
+			\end{packed_item}
 					
 				\subsubsection{Dijagrami obrazaca uporabe}
 					
 				\begin{figure}[H]
-					\includegraphics[width=\textwidth, height = 15cm]{slike/prvinovo.PNG} 
+					\includegraphics[width=\textwidth, height = 14cm]{slike/prvinovi.PNG} 
 					 \caption{Dijagram obrazaca uporabe, funkcionalnosti koje imaju svi korisnici}
 					  \label{fig:obrasci1} 
 				  \end{figure}
 				  
 				  \begin{figure}[H]
-					\includegraphics[width=\textwidth]{slike/druginovo.PNG} 
+					\includegraphics[width=\textwidth]{slike/druginovi.PNG} 
 					\caption{Dijagram obrazaca uporabe, funkcionalnosti koje imaju regestrirani korisnici}
 					\label{fig:obrasci2} 
 				   \end{figure}
@@ -697,15 +832,17 @@
 			\textbf{UC8: Registracija novog potresa}\\
 			{Administrator odabire opciju "Pristigli upitnici". Poslužitelj potom šalje zahtjev bazi podataka kako bi dohvatio sve pristigle upitnike. Prihvaća se zahtjev te se na klijentu prikazuju svi pristigli upitnici. Administrator označuje upitnike te ih na taj način grupira. Kada grupira sve upitnike koji se odnose na isti potres, odabire opciju "Dodaj novi potres". Potom imenuje taj potres i odabire opciju "potvrdi". U bazu podataka se upisuje novi potres. Sustav obavijesti administratora o uspješnom dodavanju novog potresa.}
 			\begin{figure}[H]
-				  \includegraphics[width=\textwidth, height=14cm]{slike/uc8.PNG}
+				  \includegraphics[width=\textwidth, height=20cm]{slike/uc8.PNG}
 				  \caption{sekvencijski dijagram za UC8}
 				  \label{fig:sekvuc4} 
 				 \end{figure}
+			 
+			 
 			\textbf{UC20: Ispunjavanje upitnika za aktualni potres}\\
 			{Korisnik odabire opciju "Aktualni potresi". Poslužitelj potom šalje zahtjev bazi podataka kako bi dohvatio sve aktualne potrese. Prihvaća se zahtjev te se na klijentu prikazuju svi aktualni potresi. Korisnik odabire potres za koji želi ispuniti upitnik. S klijenta se bazi podataka šalje zahtjev za dohvaćanjem podataka o potresu koji se automatski popunjavaju u upitniku. Korisniku se prikazuje upitnik s djelomično popunjenim odgovorima. Korisnik popunjava upitnik. Kada pritisne opciju "Predaj", upitnik se šalje na validaciju. Ako su odgovorena sva pitanja, odgovori se pohranjuju u bazu te se na temelju odgovora računa intezitet potresa pa se i to ažurira u bazi. 
 			Kada je upitnik uspješno predan, sustav o tome obavijesti korisnika. Ako nije sve odgovoreno, korisnik dobiva obavijest o neuspjeloj predaji te ga sustav vraća na stranicu s upitnikom. Ako je korisnik odabrao "Odustani" umjesto "Predaj" sustav ga vraća na stranicu "Aktualni potresi".}
 			\begin{figure}[H]
-				  \includegraphics[width=\textwidth, height=13cm]{slike/uc20.PNG}
+				  \includegraphics[width=\textwidth, height=14cm]{slike/uc20.PNG}
 				  \caption{sekvencijski dijagram za UC20}
 				  \label{fig:sekvuc8} 
 				 \end{figure}
@@ -721,4 +858,5 @@
 					\item Aplikacija mora jednostavno prikazivati informacije o potresima korisnicima.
 					\item Karta treba prikazivati sve gradove i mjesta u kojima su upitnici popunjeni.
 					\item Karta treba prikazivati podatke samo s jednog potresa, ne svih koji su se do sad dogodili.
+					\item Lozinka administratora i seizmologa mora imati minimalno 6 znakova.
 				\end{packed_item}

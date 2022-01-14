@@ -1,24 +1,164 @@
-# This file was generated based on ".graphqlconfig". Do not edit manually.
-
-schema {
-    query: Query
-    mutation: Mutation
-}
-
-type Mutation {
-    createUser(data: CreateUserInput!): User!
-}
-
-type Query {
-    users: [User!]!
-}
-
-type User {
-    email: String!
-    id: Int!
+type City {
+  country_code: String!
+  country_id: Int!
+  country_name: String!
+  id: Int!
+  latitude: Float!
+  longitude: Float!
+  name: String!
+  state_code: String!
+  state_id: Int!
+  state_name: String!
+  wikiDataId: String!
 }
 
 input CreateUserInput {
-    email: String!
-    password: String!
+  email: String!
+  password: String!
+}
+
+input DeleteUserInput {
+  id: Int!
+}
+
+type Earthquake {
+  archivedAt: Float
+  createdAt: Float!
+  date: Float!
+  epicenterLat: Float!
+  epicenterLng: Float!
+  id: Int!
+  name: String!
+  strength: Float!
+  surveys: [Survey!]!
+  updatedAt: Float!
+}
+
+input EarthquakeCreateInput {
+  name: String!
+  surveyIds: [Int!]!
+}
+
+input EarthquakeUpdateInput {
+  addSurveyIds: [Int!]
+  name: String
+  removeSurveyIds: [Int!]
+}
+
+input FilterSurveys {
+  merged: Boolean
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type LoginResponse {
+  changedPassword: Boolean!
+  createdAt: Float!
+  email: String!
+  id: Int!
+  role: UserRole!
+  token: String!
+  updatedAt: Float!
+}
+
+type Mutation {
+  archiveEarthquake(id: Int!): Earthquake!
+  changePassword(password: String!): User!
+  createUser(data: CreateUserInput!): User!
+  deleteEarthquake(id: Int!, removeSurveys: Boolean): Boolean!
+  deleteSurvey(id: Int!): Boolean!
+  deleteUser(data: DeleteUserInput!): Boolean!
+  login(data: LoginInput!): LoginResponse!
+  mergeSurveys(data: EarthquakeCreateInput!): Earthquake!
+  submitSurvey(data: SurveyCreateInput!): Survey!
+  updateEarthquake(data: EarthquakeUpdateInput!, id: Int!): Earthquake!
+  updateUser(data: UpdateUserInput!): User!
+}
+
+type Query {
+  cities(filter: String!): [City!]!
+  earthquakes(archived: Boolean, filter: String): [Earthquake!]!
+  exportEarthquake(full: Boolean, id: Int!): String!
+  exportEarthquakes: String!
+  exportQuestions: String!
+  me: User
+  questions: [SurveyQuestion!]!
+  surveys(filter: FilterSurveys!, limit: Int): [Survey!]!
+  users: [User!]!
+}
+
+type Survey {
+  city: String!
+  createdAt: Float!
+  earthquake: Earthquake
+  id: Int!
+  lat: Float!
+  lng: Float!
+  responses: [SurveyResponse!]!
+  strength: Int!
+  updatedAt: Float!
+}
+
+input SurveyCreateInput {
+  city: String!
+  lat: Float
+  lng: Float
+  responses: [SurveyQuestionResponse!]!
+  strength: Int!
+}
+
+type SurveyOption {
+  id: String!
+  intensity: String!
+  text: String!
+}
+
+type SurveyQuestion {
+  id: String!
+  options: [SurveyOption!]!
+  text: String!
+}
+
+input SurveyQuestionResponse {
+  optionId: String!
+  questionId: String!
+}
+
+type SurveyResponse {
+  createdAt: Float!
+  id: Int!
+  intensity: String!
+  option: String!
+  optionId: String!
+  optionLetter: String
+  question: String!
+  questionId: String!
+  survey: Survey!
+  updatedAt: Float!
+}
+
+input UpdateUserInput {
+  email: String
+  id: Int!
+  role: UserRole
+}
+
+type User {
+  changedPassword: Boolean!
+  createdAt: Float!
+  email: String!
+  id: Int!
+  role: UserRole!
+  updatedAt: Float!
+}
+
+"""
+Role of the user
+"""
+enum UserRole {
+  ADMIN
+  SEISMOLOGISTS
 }
