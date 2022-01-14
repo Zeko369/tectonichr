@@ -26,15 +26,125 @@
 	
 		\section{Ispitivanje programskog rješenja}
 			
-			\textbf{\textit{dio 2. revizije}}\\
-			
-			 \textit{U ovom poglavlju je potrebno opisati provedbu ispitivanja implementiranih funkcionalnosti na razini komponenti i na razini cijelog sustava s prikazom odabranih ispitnih slučajeva. Studenti trebaju ispitati temeljnu funkcionalnost i rubne uvjete.}
-	
+			 \textit{Ispitivanje implementiranih funkcionalnosti provedeno je na dvije razine - kroz nezavisno ispitivanje individualnih komponenti, a zatim i kroz ispitivanje čitavog sustava s prikazom odabranih ispitnih slučajeva. Korišteni su strukturirani načini ispitivanja - unit testovi za ispitivanje komponenti te Selenium testovi za ispitivanje sustava. Ispitani su rubni uvjeti i temeljna funkcionalnost.}
 			
 			\subsection{Ispitivanje komponenti}
-			\textit{Potrebno je provesti ispitivanje jedinica (engl. unit testing) nad razredima koji implementiraju temeljne funkcionalnosti. Razraditi \textbf{minimalno 6 ispitnih slučajeva} u kojima će se ispitati redovni slučajevi, rubni uvjeti te izazivanje pogreške (engl. exception throwing). Poželjno je stvoriti i ispitni slučaj koji koristi funkcionalnosti koje nisu implementirane. Potrebno je priložiti izvorni kôd svih ispitnih slučajeva te prikaz rezultata izvođenja ispita u razvojnom okruženju (prolaz/pad ispita). }
+			\textit{Provedeno je ispitivanje jedinica (engl. unit testing) nad razredima koji implementiraju temeljne funkcije. Tražene su pogreške u algoritmima, podacima i sintaksi. Testovi su prikazani u nastavku.}
 			
-			
+			\noindent \underbar{\textbf{Testni Slučaj 1}}
+			\begin{lstlisting}
+				const mocks = [
+					{
+					  request: { query: me },
+					  result: {
+						data: {
+						  me: null,
+						},
+					  },
+					},
+				  ];
+				  
+				  describe("Actual", () => {
+					it("renders a heading", () => {
+					  render(
+						<MockedProvider mocks={mocks} addTypename={false}>
+						  <ActualEarthquakesPage />
+						</MockedProvider>
+					  );
+				  
+					  const heading = screen.getByText("Loading...");
+					  expect(heading).toBeInTheDocument();
+					});
+				  });
+			\end{lstlisting}
+
+			\noindent \underbar{\textbf{Testni Slučaj 2}}
+			\begin{lstlisting}
+				const mocks = [
+					{
+					  request: { query: me },
+					  result: {
+						data: {
+						  me: null,
+						},
+					  },
+					},
+				  ];
+				  
+				  const earthquakesMock = {
+					request: { query: earthquakes, variables: { archived: true } },
+					result: {
+					  data: {
+						earthquakes: [],
+					  },
+					},
+				  };
+				  
+				  describe("Archived", () => {
+					it("renders a loading", () => {
+					  render(
+						<MockedProvider mocks={mocks} addTypename={false}>
+						  <ArchivedEarthquakesPage />
+						</MockedProvider>
+					  );
+				  
+					  const heading = screen.getByText("Loading...");
+					  expect(heading).toBeInTheDocument();
+					});
+				  });
+			\end{lstlisting}
+
+			\bigskip
+
+			\noindent \underbar{\textbf{Testni Slučaj 3}}
+			\begin{lstlisting}
+				const mocks = [
+					{
+					  request: { query: me },
+					  result: {
+						data: {
+						  me: null,
+						},
+					  },
+					},
+				  ];
+				  
+				  describe("Home", () => {
+					it("renders a heading", () => {
+					  render(
+						<MockedProvider mocks={mocks} addTypename={false}>
+						  <Navigation />
+						</MockedProvider>
+					  );
+				  
+					  const heading = screen.getByRole("heading", {
+						name: /TECTONIC HR/i,
+					  });
+				  
+					  expect(heading).toBeInTheDocument();
+					});
+				  });
+			\end{lstlisting}
+
+			\noindent \underbar{\textbf{Testni Slučajevi 4, 5, 6}}
+			\begin{lstlisting}
+				describe("Intensity generation", () => {
+					it("Expect to check simple", () => {
+					  const data = ["1", "5", "5", "5", "3"];
+					  expect(calcIntensity(data)).toBe(5);
+					});
+				  
+					it("Expect to more stuff simple", () => {
+					  const data = ["1", "<=3", ">=8", "7", "6", "<=4", "5", "5", "5", "3"];
+					  expect(calcIntensity(data)).toBe(8);
+					});
+				  
+					it("Expect to or simple", () => {
+					  const data = ["1", "2|3"];
+					  expect(calcIntensity(data)).toBe(3);
+					});
+				  });
+			\end{lstlisting}
 			
 			\subsection{Ispitivanje sustava}
 			
