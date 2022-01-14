@@ -3,10 +3,9 @@ import { z } from "zod";
 import { NextPage } from "next";
 import { Form, FORM_ERROR, InputField } from "chakra-form";
 import { useRouter } from "next/router";
-
-import { useLoginMutation, useMeQuery } from "generated/graphql";
 import { VStack, Container, Heading, Button, Box } from "@chakra-ui/react";
 import { ApolloError } from "@apollo/client";
+import { useLoginMutation, useMeQuery } from "generated/graphql";
 
 const schema = z.object({
   email: z.string(),
@@ -22,12 +21,18 @@ const LoginPage: NextPage = () => {
     if (data?.me?.id) {
       router.push("/");
     }
-  }, [meLoading, data]);
+  }, [meLoading, data, router]);
 
   return (
     <Box bg="#3939a4" minH="calc(100vh - 65px)" p="5%" opacity="0.9">
       <Container>
-        <Container border="4px" borderColor="#3934a4" borderRadius="20px" padding="10%" bgColor="white">
+        <Container
+          border="4px"
+          borderColor="#3934a4"
+          borderRadius="20px"
+          padding="10%"
+          bgColor="white"
+        >
           <VStack>
             <Heading>Prijava</Heading>
 
@@ -68,7 +73,7 @@ const LoginPage: NextPage = () => {
               <InputField name="email" />
               <InputField name="password" label="Lozinka"/>
               <b></b>
-              <Button mt={4} colorScheme='teal' type='submit'>
+              <Button mt={4} colorScheme="teal" type="submit">
                 Prijavi se
               </Button>
             </Form>

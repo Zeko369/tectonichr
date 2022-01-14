@@ -10,7 +10,7 @@ import {
   Tooltip,
   useToast,
   VStack,
-  Box
+  Box,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import ConditionalWrap from "conditional-wrap";
@@ -29,7 +29,6 @@ const SubmitSurveyPage: NextPage = () => {
   });
 
   const [state, setState] = useState<Record<string, string>>({});
-  const [posLoading, setPosLoading] = useState(false);
   const [position, setPosition] =
     useState<{ latitude: number; longitude: number }>();
 
@@ -41,19 +40,6 @@ const SubmitSurveyPage: NextPage = () => {
       );
     }
   }, [loading, error, data]);
-
-  useEffect(() => {
-    setPosLoading(true);
-    getCoordinates()
-      .then((coords) => {
-        console.log(coords);
-
-        if (coords) {
-          setPosition(coords);
-        }
-      })
-      .finally(() => setPosLoading(false));
-  }, []);
 
   if (loading) {
     return <Spinner />;
@@ -101,8 +87,23 @@ const SubmitSurveyPage: NextPage = () => {
   };
 
   return (
-    <Box bg="#3939a4" minH="calc(100vh - 65px)" p="5%" paddingTop="1%" opacity="0.9">
-      <VStack pt="5" maxW="80%" marginX="auto" border="4px" borderColor="#3934a4" borderRadius="20px" padding="5%" bgColor="white">
+    <Box
+      bg="#3939a4"
+      minH="calc(100vh - 65px)"
+      p="5%"
+      paddingTop="1%"
+      opacity="0.9"
+    >
+      <VStack
+        pt="5"
+        maxW="80%"
+        marginX="auto"
+        border="4px"
+        borderColor="#3934a4"
+        borderRadius="20px"
+        padding="5%"
+        bgColor="white"
+      >
         <form onSubmit={onSubmit}>
           <VStack py="2" spacing="4" marginBottom="30px">
             <Heading marginBottom="5%">Unesi novi potres</Heading>
@@ -110,14 +111,14 @@ const SubmitSurveyPage: NextPage = () => {
             <SimpleGrid columns={[1, 2]} gap="12">
               <VStack align="flex-start" marginBottom="30%">
                 <Heading size="md">Lokacija</Heading>
-                {posLoading ? (
-                  <Heading size="sm">Učitavanje lokacije...</Heading>
-                ) : position ? (
+                {position ? (
                   <Heading size="sm">Lokacija postavljena</Heading>
                 ) : (
                   <>
                     <Heading size="sm" p="2%">
-                      {"Nije moguće dohvatiti lokaciju. Odaberite neki od ponuđenih gradova."}
+                      {
+                        "Nije moguće dohvatiti lokaciju. Odaberite neki od ponuđenih gradova."
+                      }
                       <SearchCity
                         onChange={(c) =>
                           setPosition({
@@ -149,7 +150,7 @@ const SubmitSurveyPage: NextPage = () => {
                 </Tooltip>
               )}
             >
-              <Button isLoading={isLoading} type="submit" colorScheme="teal"> 
+              <Button isLoading={isLoading} type="submit" colorScheme="teal">
                 Predaj
               </Button>
             </ConditionalWrap>
@@ -157,7 +158,6 @@ const SubmitSurveyPage: NextPage = () => {
         </form>
       </VStack>
     </Box>
-    
   );
 };
 
