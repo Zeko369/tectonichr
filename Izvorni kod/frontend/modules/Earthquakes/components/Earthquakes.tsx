@@ -1,11 +1,12 @@
-import React from "react";
-import { Button, Heading, HStack, Spinner, useBoolean } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Button, Flex, Heading, HStack, useBoolean } from "@chakra-ui/react";
 import { DataTable } from "chakra-data-table";
 import { DownloadIcon } from "@chakra-ui/icons";
 
 import { useEarthquakesQuery, useMeQuery } from "generated/graphql";
 import { useDownloadEarthquake } from "modules/Export/hooks/useDownloadEarthquake";
 import { useDownloadEarthquakes } from "modules/Export/hooks/useDownloadEarthquakes";
+import { Input } from "chakra-form";
 
 type EarthquakesProps = {
   archived: boolean;
@@ -15,8 +16,10 @@ type EarthquakesProps = {
 
 export const Earthquakes: React.FC<EarthquakesProps> = (props) => {
   const { archived, title, empty } = props;
+
+  const [name, setName] = useState("");
   const { loading, error, data } = useEarthquakesQuery({
-    variables: { archived },
+    variables: { archived, filter: name || null },
   });
 
   const [includeSurveys, { toggle }] = useBoolean();
@@ -32,26 +35,36 @@ export const Earthquakes: React.FC<EarthquakesProps> = (props) => {
   const onDownloadEarthquake = useDownloadEarthquake(includeSurveys);
   const onDownloadEarthquakes = useDownloadEarthquakes();
 
-  if (loading) return <Spinner />;
   if (error) return <p>Error</p>;
 
   return (
     <DataTable
       data={data?.earthquakes || []}
-      rawTitle={<Heading data-testid="title">{title}</Heading>}
+      rawTitle={<Heading>{title}</Heading>}
+      isLoading={loading}
       emptyText={empty}
       keys={keys}
       right={
-        canSeeExport && (
-          <HStack pb="2%">
-            <Button onClick={onDownloadEarthquakes} colorScheme="facebook">
-              Preuzmi sve potrese
-            </Button>
-            <Button onClick={toggle} colorScheme="facebook">
-              {includeSurveys ? "Preuzmi i " : "Izuzmi"} upitnike
-            </Button>
-          </HStack>
-        )
+        <Flex>
+          <Input
+            mr="2"
+            noLabel
+            value={name}
+            placeholder="Search..."
+            onChange={(e) => setName(e.target.value)}
+          />
+
+          {canSeeExport && (
+            <HStack pb="2%">
+              <Button onClick={onDownloadEarthquakes} colorScheme="facebook">
+                Preuzmi sve potrese
+              </Button>
+              <Button onClick={toggle} colorScheme="facebook">
+                {includeSurveys ? "Preuzmi i " : "Izuzmi"} upitnike
+              </Button>
+            </HStack>
+          )}
+        </Flex>
       }
       mapper={{
         id: true,

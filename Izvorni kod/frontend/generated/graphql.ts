@@ -170,6 +170,7 @@ export type QueryCitiesArgs = {
 
 export type QueryEarthquakesArgs = {
   archived?: InputMaybe<Scalars["Boolean"]>;
+  filter?: InputMaybe<Scalars["String"]>;
 };
 
 export type QueryExportEarthquakeArgs = {
@@ -287,6 +288,7 @@ export type DeleteSurveyMutation = {
 
 export type EarthquakesQueryVariables = Exact<{
   archived?: Maybe<Scalars["Boolean"]>;
+  filter?: Maybe<Scalars["String"]>;
 }>;
 
 export type EarthquakesQuery = {
@@ -657,8 +659,8 @@ export type DeleteSurveyMutationOptions = Apollo.BaseMutationOptions<
   DeleteSurveyMutationVariables
 >;
 export const EarthquakesDocument = gql`
-  query EARTHQUAKES($archived: Boolean) {
-    earthquakes(archived: $archived) {
+  query EARTHQUAKES($archived: Boolean, $filter: String) {
+    earthquakes(archived: $archived, filter: $filter) {
       id
       name
       date
@@ -683,6 +685,7 @@ export const EarthquakesDocument = gql`
  * const { data, loading, error } = useEarthquakesQuery({
  *   variables: {
  *      archived: // value for 'archived'
+ *      filter: // value for 'filter'
  *   },
  * });
  */

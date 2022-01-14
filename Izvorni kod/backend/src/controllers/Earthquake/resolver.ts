@@ -1,5 +1,5 @@
 import { Arg, Int, Mutation, Query, Resolver } from "type-graphql";
-import { Not, IsNull } from "typeorm";
+import { ILike, IsNull, Not } from "typeorm";
 
 import { Earthquake } from "../../models/Earthquake";
 import { Survey } from "../../models/Survey";
@@ -9,19 +9,18 @@ import { EarthquakeCreateInput, EarthquakeUpdateInput } from "./inputs";
 export class EarthquakeResolver {
   @Query(() => [Earthquake])
   async earthquakes(
-    @Arg("archived", () => Boolean, { nullable: true })
-    archived?: boolean
+    @Arg("filter", () => String, { nullable: true }) filter?: string,
+    @Arg("archived", () => Boolean, { nullable: true }) archived?: boolean
   ): Promise<Earthquake[]> {
-    if (archived === undefined) {
-      return Earthquake.find({ relations: ["surveys"], order: { id: "DESC" } });
-    }
-
     return Earthquake.find({
       relations: ["surveys"],
-      where: {
-        archivedAt: archived ? Not(IsNull()) : IsNull(),
-      },
       order: { id: "DESC" },
+      where: {
+        ...(filter && { name: ILike(`%${filter}%`) }),
+        ...(archived === undefined && {
+          archivedAt: archived ? Not(IsNull()) : IsNull(),
+        }),
+      },
     });
   }
 

@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const earthquakes = gql`
-  query EARTHQUAKES($archived: Boolean) {
-    earthquakes(archived: $archived) {
+  query EARTHQUAKES($archived: Boolean, $filter: String) {
+    earthquakes(archived: $archived, filter: $filter) {
       id
       name
       date

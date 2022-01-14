@@ -80,7 +80,7 @@ type Mutation {
 
 type Query {
   cities(filter: String!): [City!]!
-  earthquakes(archived: Boolean): [Earthquake!]!
+  earthquakes(archived: Boolean, filter: String): [Earthquake!]!
   exportEarthquake(full: Boolean, id: Int!): String!
   exportEarthquakes: String!
   exportQuestions: String!
