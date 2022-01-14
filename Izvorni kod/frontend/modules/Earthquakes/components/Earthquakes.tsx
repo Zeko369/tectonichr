@@ -110,11 +110,10 @@ export const Earthquakes: React.FC<EarthquakesProps> = (props) => {
             export: "izvoz",
           }}
           right={
-            <Flex>
+            <Flex justify="flex-start">
               <Input
                 mr="2"
-                marginLeft="-3"
-                marginTop="5"
+                ml="-3"
                 noLabel
                 value={name}
                 placeholder="Pretraži..."
