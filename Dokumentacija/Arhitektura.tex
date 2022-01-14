@@ -33,7 +33,8 @@
 			\subsection{Opis tablica}
 			
 				Tablica u kojoj se spremaju pristupni podaci te uloge korisnika u sustavu. Spremamo vrijeme kreiranja i izmjene podataka o korisniku.
-				Svaki korisnik ima svoju e-mail adresu te hash svoje lozinke te ulogu - korisnik može biti ili administrator ili seizmolog/znanstvenik. 
+				Svaki korisnik ima svoju e-mail adresu te hash svoje lozinke te ulogu - korisnik može biti ili administrator ili seizmolog/znanstvenik.
+				U ovoj tablici također spremamo informaciju je li korisnik promijenio inicijalnu lozinku.
 				\begin{longtblr}[
 					label=none,
 					entry=none
@@ -49,10 +50,11 @@
 					email & VARCHAR &  email adresa korisnika \\ \hline 
 					password\_hash & VARCHAR &  lozinka korisnika spremljena kao hash \\ \hline 
 					role & Enum:UserRole &  uloga korisnika (admin i seizmolog) \\ \hline 
+					changedPassword & BOOLEAN & je li korisnik promijenio inicijalnu lozinku
 				\end{longtblr}
 
 				Tablica u kojoj se spremaju prošli potresi, svaki potres može imati 0:n upitnika koje su građani ispunili. Spremamo vrijeme kreiranja i izmjene potresa. 
-				Podaci koje spremamo o potresu su naziv potresa, intenzitet, lokacija kao geografska širina i dužina te vrijeme kada se potres dogodio.
+				Podaci koje spremamo o potresu su naziv potresa, intenzitet, lokacija kao geografska širina i dužina te vrijeme kada se potres dogodio i kada je potres bio arhiviran.
 				\begin{longtblr}[
 					label=none,
 					entry=none
@@ -70,10 +72,12 @@
 					epicenter\_lat & REAL &  geografska širina epicentra \\ \hline 
 					epicenter\_lng & REAL &  geografska dužina epicentra \\ \hline 
 					date	& TIMESTAMP &  vremenski žig kada se potres dogodio 	\\ \hline 
+					archived\_at	& TIMESTAMP &  vremenski žig kada je potres arhiviran 	\\ \hline 
 				\end{longtblr}
 
 				Tablica u kojoj se nalaze ispunjeni upitnici. Spremamo vrijeme kreiranja i izmjene upitnika. 
 				U bazi lokaciju korisnika spremamo kao geografsku širinu i dužinu odnosno dva broja, lat i long.
+				Također spremamo jačinu potresa koju je osoba osjetila te grad u kojem je upitnik ispunjen.
 				\begin{longtblr}[
 					label=none,
 					entry=none
@@ -88,6 +92,8 @@
 					updated\_at	& TIMESTAMP &  vremenski žig kada je upitnik izmijenjen 	\\ \hline 
 					lat & REAL &  geografska širina upitnika \\ \hline 
 					lng & REAL &  geografska dužina upitnika \\ \hline 
+					strength & INT & jačina koju je osoba koja je ispunila upitnik osjetila \\ \hline
+					city & VARCHAR & grad u kojem je upitnik ispunjen \\ \hline
 					\SetCell{LightBlue}earthquakeId	& INT &  id potresa za koji je ovaj upitnik ispunjen 	\\ \hline 
 				\end{longtblr}
 
@@ -124,11 +130,26 @@
 			
 		\section{Dijagram razreda}
 			
+			Svi modeli iz baze podataka izvedeni su iz BaseModel razreda. Taj razred kao atribute ima oznaku (id) te vrijeme kreiranja i zadnje izmjene. 
+			Razred BaseModel koristimo zato što svi modeli sadržavaju te iste atribute. 
+			Razred User sadrži podatke o korisniku, e-mail, lozinka te je li korisnik administrator ili seizmolog/znanstvenik.
+			Razred Earthquake također sadrži atribute za vrijeme kada se potres dogodio, kada je arhivirat, koordinate epicentra, naziv i intenzitet te listu upitnika koje su korisnici ispunili za taj potres.
+			Razred Survey opisuje upitnik atributima za ime grada u kojem je upitnik ispunjen (izračunato iz koordinati), potres za koji je upitnik ispunjen, koordinate na kojima je upitnik ispunjen (za računanje epicentra potresa), listu odgovora na pitanja te intenzitet potresa izračunat iz odgovora.
+			SurveyResponse predstavlja odgovor na jedno pitanje u upitniku. Sadrži referencu na upitnik kojem pripada te oznake pitanja i odgovora. 
+			Popis pitanja i odgovora je spremljen u surveyQuestions datoteci.
 			\begin{figure}[H]
 				\includegraphics[width=\textwidth]{slike/classdiagram_only_db.png} 
 				\caption{Dijagram razreda za modeliranje baze podataka}
 				\label{fig:uml_db} 
 			\end{figure}
+
+			Dohvaćanje podataka te pisanje novih / modificiranje postojećih smo podijelili po svakom modelu u pojedine graphql resolvere. 
+			Za svaki resolver smo posebno napisali razrede koje validiranju inpute te ih koristili u samom resolveru. 
+			Svi resolveri osim Cities i SuveryQuestions ovise o bazi te komuniciraju s njom preko svojih modela (Surveys preko Survey modela, itd), 
+			dok Cities/SurveyQuestions direktno čitanju pitanja iz fileova. Svi resolveri su importani u resolvers.ts file iz kojeg se jedan array 
+			resolvera exporta te dodaje u inicijalizaciju servera koja se odbija u main.ts fileu. U njemu prije pokretanja servera inicijaliziramo 
+			konekciju s bazom podataka. Svaki request koji naš HTTP server prihvati prvo prolazi kroz user Middleware gdje se iz headera izvuče JWT 
+			token po kojem se dohvati korisnik te se po tome može znati im li korisnik prava pristupati nekim dijelovima aplikacije ili ne.
 
 			\begin{figure}[H]
 				\includegraphics[width=\textwidth]{slike/classdiagram_no_db.png} 
@@ -142,14 +163,8 @@
 				\label{fig:uml} 
 			\end{figure}
 
-			\textbf{\textit{dio 2. revizije}}\\			
-			
-			\textit{Prilikom druge predaje projekta dijagram razreda i opisi moraju odgovarati stvarnom stanju implementacije}
-			
-			
-			
-			
 			\eject
+
 		
 		\section{Dijagram stanja}
 
