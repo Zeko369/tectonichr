@@ -506,13 +506,26 @@
 			\eject 
 		
 		\section{Upute za puštanje u pogon}
-		
-			\textbf{\textit{dio 2. revizije}}\\
-		
-			 \textit{U ovom poglavlju potrebno je dati upute za puštanje u pogon (engl. deployment) ostvarene aplikacije. Na primjer, za web aplikacije, opisati postupak kojim se od izvornog kôda dolazi do potpuno postavljene baze podataka i poslužitelja koji odgovara na upite korisnika. Za mobilnu aplikaciju, postupak kojim se aplikacija izgradi, te postavi na neku od trgovina. Za stolnu (engl. desktop) aplikaciju, postupak kojim se aplikacija instalira na računalo. Ukoliko mobilne i stolne aplikacije komuniciraju s poslužiteljem i/ili bazom podataka, opisati i postupak njihovog postavljanja. Pri izradi uputa preporučuje se \textbf{naglasiti korake instalacije uporabom natuknica} te koristiti što je više moguće \textbf{slike ekrana} (engl. screenshots) kako bi upute bile jasne i jednostavne za slijediti.}
+			\subsection{Lokalno pokretanje}
+				Da bi se cijela aplikacija pokrenula trebate imati pristup nekoj postgres bazi 
+				podataka (može biti lokalno ili udaljeno/docker). Da biste instalirali pakete 
+				preporučuje se yarn ali može i s npm-om, pokrenite yarn ili npm install u folderima 
+				frontend i backend. Nakon toga ako želite pokrenuti backend, u backend folderu 
+				trebate kopirati .env.example u .env i popuniti ga s podatcima za pristup vašoj 
+				bazi podataka. Nakon toga trebate pokrenuti yarn db:rebuild sto će pokrenuti sve 
+				migracije te ubaciti osnovne podatke u bazu. 
+				Nakon toga prelazimo na frontend, njega možete pokrenuti i bez backenda 
+				(spajajući se na produkcijski backend). Nakon sto ste pokrenuli yarn trebate kopirati 
+				.env.example u .env i dodati token od vašeg MapBox računa. Za spajanje na udaljeni 
+				backend možete zamijeniti localhost u NEXT\_PUBLIC\_APOLLO\_SERVER s udaljenim linkom. 
+				To je sve što vam treba od postavljanja.
+				Za pokretanje backenda lokalno koristite yarn dev, dok za frontend 
+				koristite yarn dev i ako želite automatski generirati graphql queryje yarn gen:watch, 
+				no njih možete i manualno pokretati s yarn gen svaki puta kada napravite promjenu
 			
-			
-			 \textit{Dovršenu aplikaciju potrebno je pokrenuti na javno dostupnom poslužitelju. Studentima se preporuča korištenje neke od sljedećih besplatnih usluga: \href{https://aws.amazon.com/}{Amazon AWS}, \href{https://azure.microsoft.com/en-us/}{Microsoft Azure} ili \href{https://www.heroku.com/}{Heroku}. Mobilne aplikacije trebaju biti objavljene na F-Droid, Google Play ili Amazon App trgovini.}
-			
+			\subsection{Puštanje u pogon na udaljenom serveru}
+			Mi smo za ovo koristili linux VPS server tvrtke Vultr na kojemu je bio instaliran Ubuntu. Za samo pokretanje koristili smo node alat pm2. Na serveru smo klonirali repository, pokrenuli yarn u oba foldera te nakon toga pokrenuli yarn frontend:build unutar backenda, to izgenerira produkcijsku verziju frontenda. Nakon toga smo sa pm2 startOrRestart ecosystem.config.js u rootu projekta pokrenuli serveri cijele aplikacije
+
+			Dodatno smo setupirali i nginx da bi dobili reverse proxy za domenu, te bazu podataka na istom serveru (ali to ovisi od servera do servera, pa nećemo ici u detalje)
 			
 			\eject 
