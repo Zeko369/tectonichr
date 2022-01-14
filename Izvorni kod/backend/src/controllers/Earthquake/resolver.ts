@@ -18,7 +18,7 @@ export class EarthquakeResolver {
       order: { id: "DESC" },
       where: {
         ...(filter && { name: ILike(`%${filter}%`) }),
-        ...(archived === undefined && {
+        ...(archived !== undefined && {
           archivedAt: archived ? Not(IsNull()) : IsNull(),
         }),
       },
