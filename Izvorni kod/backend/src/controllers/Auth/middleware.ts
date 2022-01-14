@@ -18,9 +18,14 @@ export const userMiddleware = async (
     return next(new JsonWebTokenError("Invalid auth header"));
   }
 
-  const data = verify(raw[1]!, process.env["JWT_SECRET"]!) as { id: string };
-  if (!data.id) {
-    return next(new JsonWebTokenError("Missing contents"));
+  let data = undefined;
+  try {
+    data = verify(raw[1]!, process.env["JWT_SECRET"]!) as { id: string };
+    if (!data.id) {
+      return next(new JsonWebTokenError("Missing contents"));
+    }
+  } catch {
+    return next(new JsonWebTokenError("expired"));
   }
 
   const user = await User.findOne(data.id);

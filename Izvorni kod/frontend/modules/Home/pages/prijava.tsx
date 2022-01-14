@@ -3,13 +3,11 @@ import { NextPage } from "next";
 import { z } from "zod";
 import { Form, InputField } from "chakra-form";
 import { useRouter } from "next/router";
+import { VStack, Container } from "@chakra-ui/react";
+
 import { useCreateUserMutation } from "../../../generated/graphql";
-import { Container } from "@chakra-ui/layout";
-import { VStack, Input, InputGroup } from "@chakra-ui/react";
 
 const schema = z.object({
-  ime: z.string(),
-  prezime: z.string(),
   email: z.string(),
   password: z.string(),
 });

@@ -3,7 +3,7 @@ import { NextPage } from "next";
 import { z } from "zod";
 import { Form, FORM_ERROR, InputField } from "chakra-form";
 import { useRouter } from "next/router";
-import { VStack, Container, Heading } from "@chakra-ui/react";
+import { VStack, Container, Heading, Box, Button } from "@chakra-ui/react";
 import { ApolloError } from "@apollo/client";
 
 import { useCreateUserMutation } from "generated/graphql";
@@ -11,7 +11,7 @@ import { getUsers } from "../graphql/getUsers";
 
 const schema = z.object({
   email: z.string(),
-  password: z.string(),
+  password: z.string().min(6),
 });
 
 const NewUserPage: NextPage = () => {
@@ -38,21 +38,28 @@ const NewUserPage: NextPage = () => {
   };
 
   return (
-    <Container>
-      <VStack>
-        <Heading>Kreiraj novog seizmologa</Heading>
+    <Box bg="#3939a4" minH="calc(100vh - 64px)" p="5%" opacity="0.9" >
+      <Container border="4px" borderColor="#3934a4" borderRadius="20px" padding="5%" bgColor="white" minW="60%">
+        <VStack>
+          <Heading>Kreiraj novog seizmologa</Heading>
 
-        <Form
-          schema={schema}
-          onSubmit={onSubmit}
-          submitText="Kreiraj"
-          submitButtonProps={{ isLoading: loading }}
-        >
-          <InputField name="email" />
-          <InputField name="password" />
-        </Form>
-      </VStack>
-    </Container>
+          <Form
+            schema={schema}
+            onSubmit={onSubmit}
+            //submitText="Kreiraj"
+            submitButtonProps={{ isLoading: loading }}
+          >
+            <InputField name="email" />
+            <InputField name="password" label="Lozinka"/>
+            <b></b>
+            <Button mt={4} colorScheme='teal' type='submit'>
+                Kreiraj
+            </Button>
+          </Form>
+        </VStack>
+      </Container>
+    </Box>
+    
   );
 };
 

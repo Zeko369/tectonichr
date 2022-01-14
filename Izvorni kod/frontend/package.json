@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "gen": "graphql-codegen --config codegen.yml -r dotenv/config"
+    "gen": "graphql-codegen --config codegen.yml -r dotenv/config",
+    "gen:watch": "yarn gen --watch",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "@apollo/client": "^3.4.17",
@@ -15,17 +18,20 @@
     "@chakra-ui/react": "^1.6.10",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
-    "chakra-confirm": "^1.2.2",
-    "chakra-data-table": "^1.2.2",
+    "@graphql-codegen/schema-ast": "^2.4.1",
+    "chakra-confirm": "^1.2.11",
+    "chakra-data-table": "^1.2.3",
     "chakra-form": "^0.3.3",
     "chakra-next-link": "^1.0.10",
     "conditional-wrap": "^1.0.2",
     "framer-motion": "^4",
     "graphql": "^15.6.1",
+    "mapbox-gl": "^2.6.1",
     "next": "^12.0.4",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hook-form": "^7.17.5",
+    "react-mapbox-gl": "^5.1.1",
     "react-select": "^5.1.0",
     "zod": "^3.11.4"
   },
@@ -38,9 +44,13 @@
     "@graphql-codegen/typescript-operations": "2.2.0",
     "@graphql-codegen/typescript-react-apollo": "^3.2.1",
     "@graphql-codegen/urql-introspection": "2.1.0",
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
+    "@types/mapbox-gl": "^2.6.0",
     "@types/react": "^17.0.33",
     "eslint": "~7",
     "eslint-config-next": "11.1.2",
+    "jest": "^27.4.7",
     "prettier": "^2.4.1",
     "typescript": "^4.4.4"
   }

@@ -6,6 +6,14 @@ export const surveys = gql`
       id
       lat
       lng
+      strength
+      city
+      responses {
+        question
+        option
+        optionLetter
+        intensity
+      }
       createdAt
     }
   }

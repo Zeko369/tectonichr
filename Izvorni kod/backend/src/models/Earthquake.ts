@@ -32,8 +32,12 @@ export class Earthquake extends BaseModel implements IEarthquake {
   epicenterLng: number;
 
   @Field(() => Float)
-  @Column()
+  @Column({ type: "timestamp" })
   date: Date;
+
+  @Field(() => Float, { nullable: true })
+  @Column({ type: "timestamp", name: "archived_at", nullable: true })
+  archivedAt: Date | null;
 
   @Field(() => [Survey])
   @OneToMany(() => Survey, (survey) => survey.earthquake)
