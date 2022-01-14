@@ -62,12 +62,17 @@ export const Earthquakes: React.FC<EarthquakesProps> = (props) => {
   if (error) return <p>Error</p>;
 
   return (
-    <Grid gridTemplateColumns="repeat(5, 1fr)" h="full" bg="#3939a4" opacity="0.9">
+    <Grid
+      gridTemplateColumns="repeat(5, 1fr)"
+      h="full"
+      bg="#3939a4"
+      opacity="0.9"
+    >
       <GridItem gridColumnStart="1" gridColumnEnd="3" h="full">
         <Map>
           {(data?.earthquakes || []).map((earthquake) => (
             <Marker
-              top ="-48px"
+              top="-48px"
               key={earthquake.id.toString()}
               color={getMarkerColor(earthquake.strength)}
               coordinates={[earthquake.epicenterLng, earthquake.epicenterLat]}
@@ -79,10 +84,19 @@ export const Earthquakes: React.FC<EarthquakesProps> = (props) => {
         </Map>
       </GridItem>
 
-      <GridItem gridColumnStart="3" gridColumnEnd="7" border="4px" borderColor="#3934a4" borderRadius="20px" padding="5%" bgColor="white" minW = "100%">
+      <GridItem
+        gridColumnStart="3"
+        gridColumnEnd="7"
+        border="4px"
+        borderColor="#3934a4"
+        borderRadius="20px"
+        padding="5%"
+        bgColor="white"
+        minW="100%"
+      >
         <DataTable
           data={data?.earthquakes || []}
-          rawTitle={<Heading color = "black" >{title}</Heading>}
+          rawTitle={<Heading color="black">{title}</Heading>}
           isLoading={loading}
           emptyText={empty}
           keys={keys}
@@ -93,9 +107,8 @@ export const Earthquakes: React.FC<EarthquakesProps> = (props) => {
             epicenterLng: "longituda",
             epicenterLat: "latituda",
             date: "datum",
-            export: "izvoz"
-        }}
-          
+            export: "izvoz",
+          }}
           right={
             <Flex>
               <Input
@@ -108,19 +121,17 @@ export const Earthquakes: React.FC<EarthquakesProps> = (props) => {
                 bgColor="white"
                 onChange={(e) => setName(e.target.value)}
               />
-              
 
               {canSeeExport && (
                 <HStack pb="2%">
                   <Button
                     onClick={onDownloadEarthquakes}
                     background="teal"
-    
-                    color = "white"
+                    color="white"
                   >
                     Preuzmi sve potrese
                   </Button>
-                  <Button onClick={toggle} background="teal" color = "white">
+                  <Button onClick={toggle} background="teal" color="white">
                     {includeSurveys ? "Preuzmi i " : "Izuzmi"} upitnike
                   </Button>
                 </HStack>

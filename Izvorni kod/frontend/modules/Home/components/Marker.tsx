@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Box, Heading } from "@chakra-ui/react";
 import { Marker as MapboxMarker } from "react-mapbox-gl";
 
-type MarkerProps = { coordinates: any; top?: any; color: any };
+type MarkerProps = { coordinates: any; top?: any; color?: any };
 
 export const Marker: React.FC<MarkerProps> = (props) => {
   const { coordinates, top, color, children } = props;
