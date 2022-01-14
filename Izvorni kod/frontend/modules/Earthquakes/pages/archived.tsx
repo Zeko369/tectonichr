@@ -5,8 +5,8 @@ import { Earthquakes } from "../components/Earthquakes";
 
 const ArchivedEarthquakesPage: NextPage = () => {
   return (
-    <Box h="calc(100vh - 64px)">
-      <Earthquakes
+    <Box h="calc(100vh - 64px)" >
+      <Earthquakes 
         title="Arhivirani potresi"
         empty="Nema arhiviranih potresa"
         archived={true}

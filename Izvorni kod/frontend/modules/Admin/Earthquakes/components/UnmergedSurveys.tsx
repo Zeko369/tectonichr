@@ -115,7 +115,7 @@ export const UnmergedSurveys: React.FC = () => {
           )
         }
         keys={["select", "id", "city", "strength", "date", "actions"] as const}
-        labels={{ select: " ", date: "datum", actions: " " }}
+        labels={{ select: " ", city:"grad", strength:"intenzitet", date: "datum", actions: " " }}
         mapper={{
           select: (r) => (
             <Checkbox

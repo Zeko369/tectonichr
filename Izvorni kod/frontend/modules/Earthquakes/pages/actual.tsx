@@ -5,7 +5,7 @@ import { Earthquakes } from "../components/Earthquakes";
 
 const ActualEarthquakesPage: NextPage = () => {
   return (
-    <Box h="calc(100vh - 64px)">
+    <Box h="calc(100vh - 64px)" >
       <Earthquakes
         title="Aktualni potresi"
         empty="Nema aktualnih potresa"
