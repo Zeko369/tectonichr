@@ -31,6 +31,7 @@ export const PreviewSurveyModal: React.FC<PreviewModalProps> = (props) => {
             <DataTable
               data={previewSurvey.responses}
               keys={["question", "ans", "intensity"] as const}
+              labels={{question: "Pitanje", ans: "Odgovor", intensity: "Intenzitet"}}
               mapper={{
                 question: true,
                 ans: (r) => `${r.optionLetter}) ${r.option}`,

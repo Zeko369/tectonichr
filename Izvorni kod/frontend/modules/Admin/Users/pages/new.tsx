@@ -50,7 +50,7 @@ const NewUserPage: NextPage = () => {
             submitButtonProps={{ isLoading: loading }}
           >
             <InputField name="email" />
-            <InputField name="password" />
+            <InputField name="password" label="Lozinka"/>
             <b></b>
             <Button mt={4} colorScheme='teal' type='submit'>
                 Kreiraj
