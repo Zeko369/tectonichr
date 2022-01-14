@@ -815,7 +815,7 @@
 				\subsubsection{Dijagrami obrazaca uporabe}
 					
 				\begin{figure}[H]
-					\includegraphics[width=\textwidth, height = 15cm]{slike/prvinovi.PNG} 
+					\includegraphics[width=\textwidth, height = 14cm]{slike/prvinovi.PNG} 
 					 \caption{Dijagram obrazaca uporabe, funkcionalnosti koje imaju svi korisnici}
 					  \label{fig:obrasci1} 
 				  \end{figure}
@@ -832,15 +832,17 @@
 			\textbf{UC8: Registracija novog potresa}\\
 			{Administrator odabire opciju "Pristigli upitnici". Poslužitelj potom šalje zahtjev bazi podataka kako bi dohvatio sve pristigle upitnike. Prihvaća se zahtjev te se na klijentu prikazuju svi pristigli upitnici. Administrator označuje upitnike te ih na taj način grupira. Kada grupira sve upitnike koji se odnose na isti potres, odabire opciju "Dodaj novi potres". Potom imenuje taj potres i odabire opciju "potvrdi". U bazu podataka se upisuje novi potres. Sustav obavijesti administratora o uspješnom dodavanju novog potresa.}
 			\begin{figure}[H]
-				  \includegraphics[width=\textwidth, height=14cm]{slike/uc8.PNG}
+				  \includegraphics[width=\textwidth, height=20cm]{slike/uc8.PNG}
 				  \caption{sekvencijski dijagram za UC8}
 				  \label{fig:sekvuc4} 
 				 \end{figure}
+			 
+			 
 			\textbf{UC20: Ispunjavanje upitnika za aktualni potres}\\
 			{Korisnik odabire opciju "Aktualni potresi". Poslužitelj potom šalje zahtjev bazi podataka kako bi dohvatio sve aktualne potrese. Prihvaća se zahtjev te se na klijentu prikazuju svi aktualni potresi. Korisnik odabire potres za koji želi ispuniti upitnik. S klijenta se bazi podataka šalje zahtjev za dohvaćanjem podataka o potresu koji se automatski popunjavaju u upitniku. Korisniku se prikazuje upitnik s djelomično popunjenim odgovorima. Korisnik popunjava upitnik. Kada pritisne opciju "Predaj", upitnik se šalje na validaciju. Ako su odgovorena sva pitanja, odgovori se pohranjuju u bazu te se na temelju odgovora računa intezitet potresa pa se i to ažurira u bazi. 
 			Kada je upitnik uspješno predan, sustav o tome obavijesti korisnika. Ako nije sve odgovoreno, korisnik dobiva obavijest o neuspjeloj predaji te ga sustav vraća na stranicu s upitnikom. Ako je korisnik odabrao "Odustani" umjesto "Predaj" sustav ga vraća na stranicu "Aktualni potresi".}
 			\begin{figure}[H]
-				  \includegraphics[width=\textwidth, height=13cm]{slike/uc20.PNG}
+				  \includegraphics[width=\textwidth, height=14cm]{slike/uc20.PNG}
 				  \caption{sekvencijski dijagram za UC20}
 				  \label{fig:sekvuc8} 
 				 \end{figure}
