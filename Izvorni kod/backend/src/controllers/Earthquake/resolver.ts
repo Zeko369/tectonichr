@@ -77,8 +77,12 @@ export class EarthquakeResolver {
       lat,
       lng
     );
-    const int =
-      strongest.strength + 3 * Math.log10(r / 10) + 3 * 0.0021715 * (r - 10);
+    let int = strongest.strength;
+    const offset = 3 * Math.log10(r / 10) + 3 * 0.0021715 * (r - 10);
+
+    if (offset !== Infinity && offset !== -Infinity) {
+      int += offset;
+    }
 
     const earthquake = new Earthquake({
       date: new Date(),

@@ -25,6 +25,12 @@ type EarthquakesProps = {
   empty: string;
 };
 
+const getMarkerColor = (strength: number) => {
+  if (strength < 4) return "green";
+  if (strength < 7) return "orange";
+  return "red";
+};
+
 export const Earthquakes: React.FC<EarthquakesProps> = (props) => {
   const { archived, title, empty } = props;
 
@@ -63,6 +69,7 @@ export const Earthquakes: React.FC<EarthquakesProps> = (props) => {
             <Marker
               top="-48px"
               key={earthquake.id.toString()}
+              color={getMarkerColor(earthquake.strength)}
               coordinates={[earthquake.epicenterLng, earthquake.epicenterLat]}
             >
               <Text whiteSpace="nowrap">{earthquake.name}</Text>
