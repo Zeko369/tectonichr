@@ -26,7 +26,7 @@ const HomePage: NextPage = () => {
       <Flex alignContent="center" h="full">
         <VStack width="50%" pb="16" alignItems="center">
           <Heading size="md" color="white">
-            Karta zadnje prijavljenih upitnika
+            Karta potresa
           </Heading>
 
           <Map>
